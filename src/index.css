@@ -8,9 +8,9 @@
     padding: 0;
     margin: 0;
     box-sizing: border-box;
-    font-family: "Inter", system-ui, sans-serif;
+    font-family: "Roboto Condensed", sans-serif !important;
     font-optical-sizing: auto;
-    letter-spacing: 0.5px;
+    letter-spacing: -0.125px;
 }
 
 .scroll-on-hover {
@@ -28,4 +28,12 @@
 
 .scroll-on-hover:hover::-webkit-scrollbar-thumb {
     background-color: rgba(100, 100, 100, 0.4);
+}
+
+.ant-popover-inner {
+    border-radius: 0px !important;
+}
+
+.shadow-primary {
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px !important;
 }
