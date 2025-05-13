@@ -1,27 +1,28 @@
-import { useState } from 'react'
-import './App.css'
+/** @format */
+
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { MainLayout, TitleResolver } from "./layouts";
+import { ProtectedRoute } from "./components";
+import { Login, SignUp } from "./pages";
 
 function App() {
-  const [count, setCount] = useState(0)
-
-  return (
-    <>
-      <div>
-      </div>
-      <h1 className="text-red-500">Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    return (
+        <BrowserRouter>
+            <Routes>
+                <Route path="/*" element={<TitleResolver />}>
+                    <Route element={<MainLayout />}>
+                        <Route path="login" element={<Login />} />
+                        <Route path="sign-up" element={<SignUp />} />
+                    </Route>
+                    <Route element={<ProtectedRoute />}>
+                        <Route element={<MainLayout />}>
+                        </Route>
+                    </Route>
+                    <Route path="*" element={<div className="text-[orange]">Page not found</div>} />
+                </Route>
+            </Routes>
+        </BrowserRouter>
+    );
 }
 
-export default App
+export { App };
