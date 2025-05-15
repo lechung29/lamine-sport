@@ -15,11 +15,11 @@
 }
 
 .scroll-on-hover {
-    overflow-y: scroll;
+    overflow-y: auto;
 }
 
 .scroll-on-hover::-webkit-scrollbar {
-    width: 6px;
+    width: 4px;
 }
 
 .scroll-on-hover::-webkit-scrollbar-thumb {

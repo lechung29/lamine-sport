@@ -8,7 +8,7 @@ export const TitleResolver = (props: PropsWithChildren) => {
 
     const location = useLocation();
 
-    const prefix = "NetSpace";
+    const prefix = "Lamine Sport";
 
     useEffect(() => {
         let title = "";
