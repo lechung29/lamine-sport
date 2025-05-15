@@ -21,7 +21,7 @@ const Header: React.FC = () => {
                     <img src={LOGO_URL} alt="app-logo" className="!h-16 cursor-pointer object-cover" />
                 </div>
                 <div className="relative group max-[950px]:hidden flex flex-1 h-10 overflow-visible">
-                    <input type="text" placeholder="Tìm sản phẩm..." className="flex-1 !px-3 text-sm !text-black outline-none border-none !bg-white" />
+                    <input type="text" placeholder="Tìm sản phẩm..." className="flex-1 !px-3 text-sm !text-[#333] outline-none border-none !bg-white" />
                     <div className="relative w-10 overflow-hidden">
                         <div
                             className="absolute inset-0 bg-gray-200 group-hover:bg-[#77e322] transition-all duration-300 
@@ -51,7 +51,7 @@ const Header: React.FC = () => {
                             <span className="text-sm leading-4 !font-medium">7 cửa hàng</span>
                         </div>
                     </Link>
-                    <Popover placement="bottomRight" content={<AccountMenu />} trigger="hover">
+                    <Popover placement="bottomRight" content={<AccountMenu />} getPopupContainer={() => document.body} overlayStyle={{ zIndex: 9999}} trigger="hover">
                         <div className="flex items-center justify-center gap-1.5 cursor-pointer">
                             <LuUser className="text-3xl text-white" />
                             <div className="flex flex-col items-start">
@@ -62,7 +62,7 @@ const Header: React.FC = () => {
                             </div>
                         </div>
                     </Popover>
-                    <Popover placement="bottomRight" content={<CartMenu />} trigger="hover">
+                    <Popover placement="bottomRight" content={<CartMenu />} getPopupContainer={() => document.body} overlayStyle={{ zIndex: 9999}} trigger="hover">
                         <div className="flex items-center justify-center gap-1.5 cursor-pointer">
                             <Badge count={4} color="#77e322" style={{ color: "black", boxShadow: "none" }}>
                                 <MdOutlineShoppingCart className="text-3xl text-white" />
@@ -73,7 +73,7 @@ const Header: React.FC = () => {
                 </div>
             </div>
             <div className="relative group max-[950px]:flex hidden h-10 !mt-2 !mb-1 overflow-visible">
-                <input type="text" placeholder="Tìm sản phẩm..." className="flex-1 !px-3 text-sm !text-black outline-none border-none !bg-white" />
+                <input type="text" placeholder="Tìm sản phẩm..." className="flex-1 !px-3 text-sm !text-[#333] outline-none border-none !bg-white" />
                 <div className="relative w-10 overflow-hidden">
                     <div
                         className="absolute inset-0 bg-gray-200 group-hover:bg-[#77e322] transition-all duration-300 
