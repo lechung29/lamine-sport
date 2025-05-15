@@ -10,7 +10,8 @@
     box-sizing: border-box;
     font-family: "Roboto Condensed", sans-serif !important;
     font-optical-sizing: auto;
-    letter-spacing: -0.125px;
+    letter-spacing: -0.125px !important;
+    -webkit-font-smoothing: antialiased;
 }
 
 .scroll-on-hover {
@@ -32,6 +33,11 @@
 
 .ant-popover-inner {
     border-radius: 0px !important;
+    padding: 0 !important;
+}
+
+.ant-popover-arrow {
+    top: 1px !important;
 }
 
 .shadow-primary {
