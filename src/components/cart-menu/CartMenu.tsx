@@ -4,6 +4,7 @@ import React from "react";
 import { LuMinus, LuPlus } from "react-icons/lu";
 import { IoIosCloseCircleOutline } from "react-icons/io";
 
+
 const CartMenu: React.FC = () => {
     return (
         <div className="!bg-white w-84 h-auto">
