@@ -8,7 +8,7 @@ const Login: React.FunctionComponent = () => {
     return (
         <div className="w-full flex items-center justify-center">
             <div className="!my-10 !px-5 !py-4 shadow-primary w-full max-w-[420px]">
-                <div className="w-full !mb-4 text-xl text-center uppercase">Đăng nhập</div>
+                <div className="w-full !mb-4 text-xl text-center uppercase !text-[#333]">Đăng nhập</div>
                 <input
                     className="w-full h-10 !px-5 !mb-4 text-sm !text-[#333] placeholder:!text-[#333] placeholder:!text-[13px] outline-none !border-1 !border-[#e1e1e1] !bg-white"
                     type="text"
@@ -53,7 +53,7 @@ const Login: React.FunctionComponent = () => {
                         </motion.div>
                     )}
                 </AnimatePresence>
-                <div className="w-full !mb-4 text-center text-[#333]">hoặc đăng nhập qua</div>
+                <div className="w-full !mb-4 text-center text-[#333]">Hoặc đăng nhập bằng</div>
                 <div className="w-full flex items-center justify-center gap-1">
                     <button className="cursor-pointer">
                         <img className="w-30 h-9" src="https://bizweb.dktcdn.net/assets/admin/images/login/fb-btn.svg" alt="facebook-login" />
