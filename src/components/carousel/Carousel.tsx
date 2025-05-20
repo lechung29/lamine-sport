@@ -70,7 +70,7 @@ const Carousel: React.FC = () => {
             >
                 {images.map((img, index) => (
                     <SwiperSlide key={index}>
-                        <div className="relative w-full aspect-[16/7] max-[480px]:aspect-[1/1] bg-cover bg-center" style={{ backgroundImage: `url(${img})` }}>
+                        <div className="relative w-full aspect-[16/6] max-[480px]:aspect-[1/1] bg-cover bg-center" style={{ backgroundImage: `url(${img})` }}>
                             <div className="absolute inset-0 bg-black/50 min-[480px]:!hidden z-10 pointer-events-none" />
                             {activeIndex === index && (
                                 <motion.div
@@ -80,7 +80,7 @@ const Carousel: React.FC = () => {
                                     initial="hidden"
                                     animate="visible"
                                 >
-                                    <motion.div className="!text-[clamp(10px,1.8vw,1.2rem)] max-[480px]:!text-[clamp(1rem,4.5vw,1.5rem)] uppercase !font-bold" variants={itemVariants}>
+                                    <motion.div className="!text-[clamp(12px,2vw,1.2rem)] max-[480px]:!text-[clamp(1rem,4.5vw,1.5rem)] uppercase !font-bold" variants={itemVariants}>
                                         Hot deal
                                     </motion.div>
                                     <motion.div
@@ -90,11 +90,11 @@ const Carousel: React.FC = () => {
                                     >
                                         Càng mua càng giảm
                                     </motion.div>
-                                    <motion.div className="!text-[clamp(10px,1.8vw,1.2rem)] max-[480px]:!text-[clamp(14px,3.5vw,1.2rem)]" variants={itemVariants}>
+                                    <motion.div className="!text-[clamp(10px,1.8vw,1.2rem)] max-[480px]:!text-[clamp(14px,3.5vw,1.2rem)] font-medium" variants={itemVariants}>
                                         Thời gian: 1/10 - 15/10
                                     </motion.div>
                                     <motion.div
-                                        className="!mt-7 inline-flex items-center justify-center gap-1 !text-white !bg-[#002932] !px-[clamp(12px,1vw,16px)] max-[480px]:!px-[clamp(16px,3vw,24px)] !py-[clamp(4px,1vw,8px)] max-[480px]:!py-[clamp(6px,3vw,12px)] transition-colors duration-300 hover:!bg-[#77e322] hover:!text-[black] [clip-path:polygon(3%_0%,100%_0%,97%_100%,0%_100%)] cursor-pointer"
+                                        className="!mt-7 inline-flex items-center justify-center gap-1 !text-white !bg-[#002932] !px-[clamp(12px,1vw,16px)] max-[480px]:!px-[clamp(16px,3vw,24px)] !py-[clamp(4px,1vw,8px)] max-[480px]:!py-[clamp(6px,3vw,12px)] transition-colors duration-300 hover:!bg-[#77e322] hover:!text-[black] [clip-path:polygon(5%_0%,100%_0%,95%_100%,0%_100%)] cursor-pointer"
                                         variants={itemVariants}
                                     >
                                         <span className="font-semibold !text-[clamp(8px,1.3vw,1.3rem)] max-[480px]:!text-[clamp(12px,1.3vw,1.3rem)]">Xem chi tiết</span>
