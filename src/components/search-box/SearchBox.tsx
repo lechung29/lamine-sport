@@ -29,8 +29,6 @@ const SearchBox: React.FC<ISearchBoxProps> = (props) => {
 
     React.useEffect(() => {
         const handleClickOutsideContent = (event: MouseEvent) => {
-            console.log(event);
-            console.log(contentRef.current?.contains(event.target as Node));
             if (!isFocusedInput && contentRef.current && !contentRef.current.contains(event.target as Node)) {
                 setIsFocusedContent(false);
             }

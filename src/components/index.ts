@@ -8,3 +8,4 @@ export * from "./cart-menu";
 export * from "./breadcrumb";
 export * from "./footer";
 export * from "./search-box"
+export * from "./carousel"
