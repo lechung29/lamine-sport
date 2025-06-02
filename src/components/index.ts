@@ -10,3 +10,4 @@ export * from "./footer";
 export * from "./search-box";
 export * from "./carousel";
 export * from "./sport-type-item";
+export * from "./sport-type-carousel";

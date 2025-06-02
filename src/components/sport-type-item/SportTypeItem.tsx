@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 const SportTypeItem: React.FC = () => {
     return (
-        <div className="bg-transparent flex-1 max-w-40 group overflow-hidden cursor-pointer">
+        <div className="bg-transparent grow-1 max-w-32 group overflow-hidden cursor-pointer">
             <div className="bg-[#ebeced] !p-5 !mb-1 clip-custom-shape">
                 <div className="relative">
                     <img
@@ -23,8 +23,6 @@ const SportTypeItem: React.FC = () => {
                 >
                     Xem chi tiết
                 </Link>
-
-                {/* Dòng "9 sản phẩm" (hiện ban đầu, ẩn khi hover) */}
                 <div className="!w-max absolute left-1/2 -translate-x-1/2 text-sm text-gray-600 opacity-100 translate-y-0 group-hover:opacity-0 group-hover:translate-y-4 transition-all duration-300">
                     9 sản phẩm
                 </div>

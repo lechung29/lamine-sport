@@ -1,0 +1,17 @@
+/** @format */
+
+.g-sport-list-section {
+    width: 100%;
+    .swiper-wrapper {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+
+        .swiper-slide {
+            width: auto;
+            flex-shrink: 0;
+            min-width: 120px;
+            margin-right: 0 !important;
+        }
+    }
+}
