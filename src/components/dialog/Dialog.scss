@@ -1,0 +1,16 @@
+/** @format */
+
+@keyframes dialogSlideUp {
+    0% {
+        opacity: 0;
+        transform: translateY(300px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.dialog-slide-up {
+    animation: dialogSlideUp 0.3s ease-out;
+}

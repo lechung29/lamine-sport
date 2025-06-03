@@ -92,7 +92,7 @@ const FlashSaleList: React.FC = () => {
                     onSwiper={(swiper) => {
                         swiperRef.current = swiper;
                     }}
-                    className="g-sport-list-section flex-1"
+                    className="g-sport-list-section flex-1 cursor-grabbing"
                 >
                     {Array.from({ length: 12 }).map((_item, index) => (
                         <SwiperSlide key={index}>

@@ -14,3 +14,6 @@ export * from "./sport-type-carousel";
 export * from "./flash-sale-list";
 export * from "./countdown-timer";
 export * from "./product-item";
+export * from "./dialog";
+export * from "./tooltip-label";
+export * from "./add-product-dialog";
