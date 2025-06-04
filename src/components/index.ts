@@ -19,3 +19,5 @@ export * from "./tooltip-label";
 export * from "./add-product-dialog";
 export * from "./best-seller-list";
 export * from "./sport-type-filter-item";
+export * from "./sport-for-men-list";
+export * from "./sport-for-women-list";
