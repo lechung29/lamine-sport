@@ -1,6 +1,6 @@
 /** @format */
 
-import { BestSellerList, Carousel, FlashSaleList, SportTypeCarousel } from "@/components";
+import { BestSellerList, Carousel, FlashSaleList, SportForMenList, SportForWomenList, SportTypeCarousel } from "@/components";
 import React from "react";
 
 const Home: React.FC = () => {
@@ -17,6 +17,12 @@ const Home: React.FC = () => {
             </div>
             <div className="w-full !px-[45px] !py-7.5">
                 <BestSellerList />
+            </div>
+            <div className="w-full !py-7.5">
+                <SportForMenList />
+            </div>
+            <div className="w-full !py-7.5">
+                <SportForWomenList />
             </div>
         </div>
     );

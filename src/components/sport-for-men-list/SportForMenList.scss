@@ -1,0 +1,17 @@
+/** @format */
+
+.g-sport-for-men-section {
+    width: 100%;
+    .swiper-wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 4px;
+
+        .swiper-slide {
+            // flex: 1 !important;
+            // min-width: 120px !important;
+            margin-right: 8px !important;
+        }
+    }
+}
