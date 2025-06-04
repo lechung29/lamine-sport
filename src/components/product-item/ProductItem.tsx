@@ -46,8 +46,8 @@ const ProductItem: React.FC = () => {
 
     return (
         <>
-            <div className="!bg-white h-[440px] w-50 overflow-hidden group">
-                <div className="w-full h-full flex flex-col justify-start">
+            <div className="!bg-white min-h-[440px] min-w-50 flex-1 !border !border-[#00000020] overflow-hidden group hover:!shadow-lg">
+                <div className="w-full h-full !pb-2 flex flex-col justify-start">
                     <span className="!bg-[#ff3a0b] absolute top-1 left-1 inline-block text-sm !py-0.5 !pl-1 !pr-3 !text-white text-shadow-2xs !z-10 [clip-path:polygon(0%_0%,100%_0%,90%_100%,0%_100%)]">
                         Giảm 19%
                     </span>

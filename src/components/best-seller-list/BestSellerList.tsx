@@ -12,6 +12,8 @@ import type { Swiper as SwiperInstance } from "swiper";
 import { SportTypeFilterItem } from "../sport-type-filter-item";
 import "./BestSellerList.scss";
 import { classNames } from "@/utils";
+import { ProductItem } from "../product-item";
+import { GoArrowRight } from "react-icons/go";
 
 const BestSellerList: React.FC = () => {
     const [isStart, setIsStart] = React.useState<boolean>(true);
@@ -77,6 +79,17 @@ const BestSellerList: React.FC = () => {
                     </div>
                 </div>
                 <div className="h-1 w-22 absolute bottom-0 left-0 bg-[#a2ff00] [clip-path:polygon(0%_0%,100%_0%,95%_100%,0%_100%)]" />
+            </div>
+            <div className="grid gap-4 grid-cols-[repeat(auto-fill,minmax(200px,1fr))]">
+                {Array.from({ length: 10 }).map((_item) => (
+                    <ProductItem />
+                ))}
+            </div>
+            <div className="w-full !mt-4 flex items-center justify-center">
+                <div className="w-[150px] !mt-4 flex items-center justify-center gap-1 !text-white !bg-[#002932] !px-2 !py-2 transition-colors duration-300 hover:!bg-[#77e322] hover:!text-[black] [clip-path:polygon(5%_0%,100%_0%,95%_100%,0%_100%)] cursor-pointer">
+                    <span className="font-semibold text-[16px]">Xem tất cả</span>
+                    <GoArrowRight />
+                </div>
             </div>
         </div>
     );

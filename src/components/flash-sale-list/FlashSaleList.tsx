@@ -15,6 +15,7 @@ import { GoArrowRight } from "react-icons/go";
 import { useImmerState } from "@/hooks";
 import type { Swiper as SwiperInstance } from "swiper";
 import { ProductItem } from "../product-item";
+import "./FlashSaleList.scss";
 
 interface IFlashSaleListState {
     isStart: boolean;
@@ -92,7 +93,7 @@ const FlashSaleList: React.FC = () => {
                     onSwiper={(swiper) => {
                         swiperRef.current = swiper;
                     }}
-                    className="g-sport-list-section flex-1 cursor-grabbing"
+                    className="g-flash-sale-section flex-1 cursor-grabbing"
                 >
                     {Array.from({ length: 12 }).map((_item, index) => (
                         <SwiperSlide key={index}>
