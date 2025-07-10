@@ -21,3 +21,5 @@ export * from "./best-seller-list";
 export * from "./sport-type-filter-item";
 export * from "./sport-for-men-list";
 export * from "./sport-for-women-list";
+export * from "./customer-feedback-list";
+export * from "./feedback-item";
