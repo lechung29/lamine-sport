@@ -23,3 +23,4 @@ export * from "./sport-for-men-list";
 export * from "./sport-for-women-list";
 export * from "./customer-feedback-list";
 export * from "./feedback-item";
+export * from "./menu-panel";
