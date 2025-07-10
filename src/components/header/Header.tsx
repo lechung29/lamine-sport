@@ -11,13 +11,15 @@ import { Badge, Popover } from "antd";
 import { AccountMenu } from "../account-menu";
 import { CartMenu } from "../cart-menu";
 import { SearchBox } from "../search-box";
+import { MenuPanel } from "../menu-panel";
 
 const Header: React.FC = () => {
+    const [isOpenMenu, setIsOpenMenu] = React.useState<boolean>(false);
     return (
         <div className="w-full h-full !px-[45px]">
             <div className="w-full h-full flex items-center justify-between gap-6">
                 <div className="h-full flex flex-row items-center gap-6">
-                    <MenuIcon />
+                    <MenuIcon onClick={() => setIsOpenMenu(true)} />
                     <img src={LOGO_URL} alt="app-logo" className="!h-16 cursor-pointer object-cover" />
                 </div>
                 <SearchBox device="computer" />
@@ -58,6 +60,7 @@ const Header: React.FC = () => {
                 </div>
             </div>
             <SearchBox device="tablet" />
+            {isOpenMenu && <MenuPanel isOpen={isOpenMenu} onClose={() => setIsOpenMenu(false)} />}
         </div>
     );
 };
