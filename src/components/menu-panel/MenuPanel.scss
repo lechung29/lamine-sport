@@ -78,6 +78,30 @@
     }
 }
 
+.instruction-collapse-item {
+    border: none;
+    background-color: white;
+    border-radius: 0;
+
+    & > .ant-collapse-item {
+        border-bottom: none !important;
+
+        .ant-collapse-header {
+            padding-top: 6px;
+            padding-bottom: 6px;
+            padding-left: 8px;
+        }
+
+        & > .ant-collapse-content {
+            border-top: none !important;
+
+            & > .ant-collapse-content-box {
+                padding: 0 0 0 20px !important;
+            }
+        }
+    }
+}
+
 .menu-child-collapse-item {
     border: none;
     margin-bottom: 4px;
