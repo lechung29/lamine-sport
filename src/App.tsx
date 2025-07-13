@@ -3,8 +3,7 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { MainLayout, TitleResolver } from "./layouts";
 import { ProtectedRoute } from "./components";
-import { Login, SignUp } from "./pages";
-import { Home } from "./pages/home";
+import { Login, SignUp, Home, Product } from "./pages";
 
 function App() {
     return (
@@ -14,6 +13,7 @@ function App() {
                     <Route element={<MainLayout />}>
                         <Route path="login" element={<Login />} />
                         <Route path="sign-up" element={<SignUp />} />
+                        <Route path="product" element={<Product />} />
                         <Route index element={<Home />} />
                     </Route>
                     <Route element={<ProtectedRoute />}>

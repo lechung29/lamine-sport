@@ -1,0 +1,31 @@
+/** @format */
+ol {
+    align-items: center;
+}
+
+li {
+    .ant-breadcrumb-link {
+        color: #333 !important;
+
+        &:hover {
+            background-color: transparent !important;
+            color: #77e322 !important;
+        }
+    }
+
+    &:last-child {
+        .ant-breadcrumb-link {
+            font-size: 16px !important;
+            font-weight: 700;
+
+            &:hover {
+                background-color: transparent !important;
+                color: #333 !important;
+            }
+        }
+    }
+}
+
+.ant-breadcrumb-separator {
+    margin: 0 10px !important;
+}

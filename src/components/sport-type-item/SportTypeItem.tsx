@@ -18,7 +18,10 @@ const SportTypeItem: React.FC = () => {
             <div className="w-full !mb-1 text-center font-bold !text-[#333] text-[17.5px]">Chạy bộ</div>
             <div className="w-full relative h-6 mt-1">  
                 <Link
-                    to="/"
+                    to={{
+                        pathname: "/product",
+                        search: "?category=running",
+                    }}
                     className="!w-max absolute left-1/2 -translate-x-1/2 text-sm font-semibold !text-[#77e322] !underline opacity-0 -translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300"
                 >
                     Xem chi tiết
