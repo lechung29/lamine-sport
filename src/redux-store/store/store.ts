@@ -8,6 +8,7 @@ import storage from "redux-persist/lib/storage";
 import { useDispatch, useSelector } from "react-redux";
 import UserSlice from "../reducers/users/userSlice";
 import ThemeSlice from "../reducers/themes/themeSlice";
+import BreadcrumbSlice from "../reducers/breadcrumb/breadCrumbSlice";
 
 const persistConfig: any = {
     key: "root",
@@ -19,6 +20,7 @@ const persistConfig: any = {
 const rootReducer = combineReducers({
     user: UserSlice,
     theme: ThemeSlice,
+    breadcrumb: BreadcrumbSlice
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
