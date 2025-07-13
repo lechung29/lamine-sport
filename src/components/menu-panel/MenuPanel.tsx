@@ -1,15 +1,14 @@
 /** @format */
 
 import { Collapse, CollapseProps, Drawer } from "antd";
-import React from "react";
+import React, { Fragment } from "react";
 import "./MenuPanel.scss";
-import { accessoriesListFake, menListFake, parentCategoryListProps, sportListFake, womenListFake } from "./utils";
+import { accessoriesListFake, instructionsAndPolicyList, menListFake, parentCategoryListProps, sportListFake, womenListFake } from "./utils";
 import { useImmerState } from "@/hooks";
-import { cloneDeep } from "lodash";
 import { Link } from "react-router-dom";
 import { LuPhoneCall, LuStore } from "react-icons/lu";
 import { IoHeartOutline } from "react-icons/io5";
-import { useMobile } from "@/utils";
+import { classNames, useMobile } from "@/utils";
 
 interface MenuPanelProps {
     isOpen: boolean;
@@ -32,75 +31,147 @@ const initialState: IMenuPanelState = {
     sportsCategoryList: sportListFake,
     menCategoryList: menListFake,
     womenCategoryList: womenListFake,
-    accessoriesCategoryList: accessoriesListFake
+    accessoriesCategoryList: accessoriesListFake,
 };
 
-const MenuPanel: React.FC<MenuPanelProps> = (props) => {
-    const { isOpen, onClose } = props;
-    const [state, _setState] = useImmerState<IMenuPanelState>(initialState);
-    const isMobile = useMobile();
+interface IPanelBottomLinkProps {
+    icon: React.ReactNode;
+    title: string;
+    subtitle: string;
+    to: string;
+}
 
+const panelBottomLink: IPanelBottomLinkProps[] = [
+    {
+        icon: <LuPhoneCall className="text-xl" />,
+        title: "Hotline hỗ trợ:",
+        subtitle: "1900 1900",
+        to: "tel:19001900",
+    },
+    {
+        icon: <LuStore className="text-xl" />,
+        title: "Hệ thống cửa hàng",
+        subtitle: "7 cửa hàng",
+        to: "/store",
+    },
+    {
+        icon: <IoHeartOutline className="text-xl" />,
+        title: "Danh sách yêu thích",
+        subtitle: "0 sản phẩm",
+        to: "/store",
+    },
+];
+
+
+const MenuPanel: React.FC<MenuPanelProps> = ({ isOpen, onClose }) => {
+    const [state] = useImmerState<IMenuPanelState>(initialState);
+    const isMobile = useMobile();
     const panelWidth = isMobile ? 320 : 400;
 
-    const getChildrenCategoryItems = (parentKey: string): CollapseProps["items"] => {
-        let typeList: IChildrenCategoryItem[] = []
-        switch (parentKey) {
-            case "sportsCategoryList":
-                typeList = cloneDeep(state.sportsCategoryList);
-                break;
-            case "menList":
-                typeList = cloneDeep(state.menCategoryList);
-                break;
-            case "womenList":
-                typeList = cloneDeep(state.womenCategoryList);
-                break;
-            case "accessoriesList":
-                typeList = cloneDeep(state.accessoriesCategoryList);
-                break;
-            default:
-                break;
-        }
-        return typeList.map((item) => ({
+    const renderChildrenCategoryItems = (items: IChildrenCategoryItem[]): CollapseProps["items"] =>
+        items.map((item) => ({
             key: item.categoryName,
             label: <span className="text-[16px] uppercase hover:text-[#77e322]">{item.categoryName}</span>,
-            children: <ul>
-                {item.children?.map((child) => (
-                    <li key={child} className="text-[16px] !py-1 !pl-4 hover:cursor-pointer hover:text-[#77e322]">
-                        {child}
-                    </li>
-                ))}
-            </ul>
+            children: (
+                <ul>
+                    {item.children?.map((child) => (
+                        <li key={child} className="text-[16px] !py-1 !pl-4 hover:cursor-pointer hover:text-[#77e322]">
+                            {child}
+                        </li>
+                    ))}
+                </ul>
+            ),
         }));
-    }
+
+    const getChildrenListByKey = (key: string) => {
+        switch (key) {
+            case "sportsCategoryList":
+                return state.sportsCategoryList;
+            case "menList":
+                return state.menCategoryList;
+            case "womenList":
+                return state.womenCategoryList;
+            case "accessoriesList":
+                return state.accessoriesCategoryList;
+            default:
+                return [];
+        }
+    };
+
+    const renderCollapseLabel = (label: string, iconProps: any) => (
+        <div className="w-full flex items-center justify-start gap-2">
+            <img
+                width={iconProps?.width}
+                height={iconProps?.height}
+                src={iconProps?.src}
+                alt={iconProps?.alt}
+                style={{
+                    transform: iconProps?.rotate ? `rotate(${iconProps.rotate}deg)` : "none",
+                }}
+            />
+            <span className="text-[16px] uppercase font-bold hover:text-[#77e322]">{label}</span>
+        </div>
+    );
 
     const parentCategoryItems: CollapseProps["items"] = parentCategoryListProps.map((item) => ({
         key: item.key,
-        label: (
-            <div className="w-full flex items-center justify-start gap-2">
-                <img 
-                    width={item.iconProps.width} 
-                    height={item.iconProps.height} 
-                    src={item.iconProps.src} 
-                    alt={item.iconProps.alt} 
-                    style={{
-                        transform: item.iconProps.rotate ? `rotate(${item.iconProps.rotate}deg)` : "none"
-                    }}
-                />
-                <span className="text-[16px] uppercase font-bold hover:text-[#77e322]">{item.label}</span>
-            </div>
-        ),
+        label: renderCollapseLabel(item.label, item.iconProps),
         children: <Collapse 
             className="menu-child-collapse-item" 
             expandIconPosition="end" 
-            items={getChildrenCategoryItems(item.key)} 
+            items={renderChildrenCategoryItems(getChildrenListByKey(item.key))} 
         />,
     }));
+
+    const onRenderInstructionsAndPolicyItemList = () => {
+        const collapseList: CollapseProps["items"] = instructionsAndPolicyList.map((item) => ({
+            key: item.key,
+            label: <span className="text-lg hover:text-[#77e322]">{item.label}</span>,
+            children: (
+                <ul>
+                    {item.children?.map((child) => (
+                        <li key={child.key} className="text-[16px] !py-1 !pl-4 hover:cursor-pointer hover:text-[#77e322]">
+                            {child.label}
+                        </li>
+                    ))}
+                </ul>
+            ),
+        }))
+        return <Fragment>
+            {
+                collapseList.map((item) => (
+                    <Collapse 
+                        key={item.key} 
+                        className="instruction-collapse-item" 
+                        expandIconPosition="end" 
+                        items={[item]} 
+                    />
+                ))
+            }
+        </Fragment>
+    }
+
+    const renderContactLink = (linkItem: IPanelBottomLinkProps, key?: string) => (
+        <Link 
+            key={key}
+            className={classNames("flex items-center justify-center gap-1.5 text-[#333] hover:!text-[#333]", {
+                "flex-col !py-[10px]": isMobile,
+            })} 
+            to={linkItem.to}
+        >
+            {linkItem.icon}
+            <div className="flex flex-col items-center">
+                <span className="text-[11px]">{linkItem.title}</span>
+                <span className="text-xs leading-4 !font-semibold">{linkItem.subtitle}</span>
+            </div>
+        </Link>
+    );
 
     return (
         <Drawer 
             title="Danh mục" 
-            placement="left"
-            className="menu-panel-drawer"
+            placement="left" 
+            className="menu-panel-drawer" 
             closable={true} 
             onClose={onClose} 
             open={isOpen} 
@@ -108,36 +179,37 @@ const MenuPanel: React.FC<MenuPanelProps> = (props) => {
         >
             <div className="w-full h-full flex-col flex items-center justify-between relative">
                 <div className="w-full h-auto !mb-16 !p-1 menu-panel-content">
-                    {parentCategoryItems.map((item) => (
-                        <Collapse 
-                            className="menu-parent-collapse-item" 
-                            expandIconPosition="end" 
-                            items={[item]} 
-                        />
-                    ))}
+                    <div className="w-full h-auto !mb-3">
+                        {parentCategoryItems.map((item) => (
+                            <Collapse 
+                                key={item.key} 
+                                className="menu-parent-collapse-item" 
+                                expandIconPosition="end" 
+                                items={[item]} 
+                            />
+                        ))}
+                    </div>
+                    <div className="w-full h-auto">
+                        <Link 
+                            className="text-lg leading-10 !py-1 !pl-2 hover:cursor-pointer hover:!text-[#77e322]"
+                            to="/about"
+                        >
+                            Về Lamine Sports
+                        </Link>
+                        {onRenderInstructionsAndPolicyItemList()}
+                        <Link 
+                            className="text-lg leading-10 !py-1 !pl-2 hover:cursor-pointer hover:!text-[#77e322]"
+                            to="/contact"
+                        >
+                            Liên hệ với chúng tôi
+                        </Link>
+                    </div>
                 </div>
+
                 <div className="w-full min-h-16 flex items-center justify-between absolute bottom-0 left-0 right-0 bg-[#e1e1e1] !px-[10px]">
-                    <Link className={`flex items-center justify-center gap-1.5  text-[#333] hover:!text-[#333] ${isMobile && "flex-col !py-[10px]"}`} to="tel:19001900">
-                        <LuPhoneCall className="text-xl" />
-                        <div className="flex flex-col items-start">
-                            <span className="text-[11px]">Hotline hỗ trợ:</span>
-                            <span className="text-[16px] leading-5 !font-semibold">1900 1900</span>
-                        </div>
-                    </Link>
-                    <Link className={`flex items-center justify-center gap-1.5  text-[#333] hover:!text-[#333] ${isMobile && "flex-col !py-[10px]"}`} to="/store">
-                        <LuStore className="text-xl" />
-                        <div className="flex flex-col items-center">
-                            <span className="text-[11px]">Hệ thống cửa hàng</span>
-                            <span className="text-xs leading-4 !font-semibold">7 cửa hàng</span>
-                        </div>
-                    </Link>
-                    <Link className={`flex items-center justify-center gap-1.5  text-[#333] hover:!text-[#333] ${isMobile && "flex-col !py-[10px]"}`} to="/store">
-                        <IoHeartOutline className="text-xl" />
-                        <div className="flex flex-col items-start">
-                            <span className="text-[11px]">Danh sách yêu thích</span>
-                            <span className="text-xs leading-4 !font-semibold">0 sản phẩm</span>
-                        </div>
-                    </Link>
+                    {panelBottomLink.map((link, index) => (
+                        renderContactLink(link, index.toString())
+                    ))}
                 </div>
             </div>
         </Drawer>

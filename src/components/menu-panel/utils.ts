@@ -10,8 +10,9 @@ export interface IIconProps {
 
 export interface ICollapseLabelProps {
     key: string;
-    iconProps: IIconProps;
+    iconProps?: IIconProps;
     label: string;
+    to?: string;
     children?: ICollapseLabelProps[];
 }
 export const parentCategoryListProps: ICollapseLabelProps[] = [
@@ -55,6 +56,46 @@ export const parentCategoryListProps: ICollapseLabelProps[] = [
             height: 30,
             rotate: 90,
         },
+    },
+];
+
+export const instructionsAndPolicyList: ICollapseLabelProps[] = [
+    {
+        key: "buyingInstructionsParent",
+        label: "Hướng dẫn mua hàng",
+        children: [
+            {
+                key: "howToOrder",
+                label: "Cách đặt hàng",
+            },
+            {
+                key: "paymentMethods",
+                label: "Phương thức thanh toán",
+            },
+            {
+                key: "shippingMethods",
+                label: "Phương thức vận chuyển",
+            },
+        ],
+    },
+    {
+        key: "buyingPolicyParent",
+        label: "Chính sách mua hàng",
+        children: [
+            {
+                key: "buyingPolicy",
+                label: "Chính sách mua hàng",
+            },
+            {
+                key: "returnPolicy",
+                label: "Chính sách đổi trả",
+            },
+            {
+                key: "shippingPolicy",
+                label: "Chính sách vận chuyển",
+            },
+
+        ],
     },
 ];
 
@@ -120,4 +161,4 @@ export const accessoriesListFake = [
         categoryName: "Đồ dùng tập luyện",
         children: ["Thảm tập yoga", "Dây kháng lực", "Tạ tay"],
     },
-]
+];
