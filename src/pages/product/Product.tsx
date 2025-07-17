@@ -30,7 +30,7 @@ const Product: React.FC = () => {
     return (
         <section className="w-full">
             <Breadcrumbs />
-            <div className="w-full h-auto !px-11">
+            <div className="w-full h-auto !px-[45px]">
                 <div 
                     className="w-full h-auto !mb-5" 
                     style={{ 
@@ -41,7 +41,7 @@ const Product: React.FC = () => {
                     }} 
                 />
                 <div className="w-full flex">
-                    <div className="w-1/4 !mr-4">
+                    <div className="w-4/17 !mr-4">
                         <ProductFilter />
                     </div>
                     <div className="flex-1 !ml-4">
