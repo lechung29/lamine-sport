@@ -25,3 +25,4 @@ export * from "./customer-feedback-list";
 export * from "./feedback-item";
 export * from "./menu-panel";
 export * from "./product-filter";
+export * from "./pagination";

@@ -1,12 +1,11 @@
 /** @format */
 
-import { Breadcrumbs, ProductFilter, ProductItem, ProductSort } from "@/components";
+import { Breadcrumbs, Pagination, ProductFilter, ProductItem, ProductSort } from "@/components";
 import { addBreadcrumb, breadcrumbState, useAppDispatch, useAppSelector } from "@/redux-store";
 import React, { useEffect } from "react";
 import { useLocation, useSearchParams } from "react-router-dom";
 import { getAllProductBannerImages } from "./utils";
 import { capitalizeFirstLetter } from "@/utils";
-import { Pagination, PaginationProps } from "antd";
 
 const Product: React.FC = () => {
     const dispatch = useAppDispatch();
@@ -27,10 +26,6 @@ const Product: React.FC = () => {
             );
         }
     }, []);
-
-    const onChangePage: PaginationProps['onChange'] = (page) => {
-        setCurrentPage(page);
-    };
 
     return (
         <section className="w-full">
@@ -54,16 +49,15 @@ const Product: React.FC = () => {
                             <ProductSort />
                         </div>
                         <div className="w-full !mb-8 flex flex-wrap gap-4">
-                            {Array.from({length: 16}).map(() => (
+                            {Array.from({length: 12}).map(() => (
                                 <ProductItem />
                             ))}
                         </div>
-                        <div className="flex items-center justify-center">
+                        <div className="flex items-center justify-center" onMouseDown={(e) => e.preventDefault()}>
                             <Pagination 
-                                current={currentPage} 
-                                onChange={onChangePage} 
-                                showSizeChanger={false}
-                                total={97} 
+                                currentPage={currentPage}
+                                totalItems={100}
+                                onChangePage={(newPage) => setCurrentPage(newPage)}
                             />
                         </div>
                     </div>
