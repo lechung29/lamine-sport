@@ -10,7 +10,7 @@ const MainLayout: React.FunctionComponent = () => {
                 <Header />
             </header>
             {/* <div className="w-full !h-11 !px-11 !bg-[#f8f8f8] flex items-center"><Breadcrumbs /></div> */}
-            <div className="flex-1">
+            <div className="flex-1 !mb-8">
                 <Outlet />
             </div>
             <footer className="w-full h-auto !py-5 !pb-10 !px-[45px] !border-t-4 !border-[#a2ff00]">
