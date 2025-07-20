@@ -99,7 +99,7 @@ const ProductPhotoView: React.FunctionComponent<IProductItemPhotoProps> = (props
                     }}
                 >
                     {props.photoList.map((photo, idx) => (
-                        <SwiperSlide key={idx}>
+                        <SwiperSlide className="!mr-[15.8px]" key={idx}>
                             <img
                                 src={photo}
                                 alt={`thumbnail-${idx}`}

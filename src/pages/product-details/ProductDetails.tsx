@@ -1,6 +1,6 @@
 /** @format */
 
-import { Breadcrumbs, productColor, ProductPhotoView } from "@/components";
+import { Breadcrumbs, ProductBasicInfo, productColor, ProductPhotoView } from "@/components";
 import React from "react";
 import 'react-photo-view/dist/react-photo-view.css';
 
@@ -10,15 +10,15 @@ const ProductDetails: React.FunctionComponent = () => {
             <Breadcrumbs />
             <div className="w-full h-auto !px-[45px]">
                 <div className="flex flex-wrap">
-                    <div className="w-full !px-2 md:w-1/2 lg:w-1/3">
+                    <div className="w-full !px-2 md:w-1/2 lg:w-3/8">
                         <ProductPhotoView photoList={productColor.concat(productColor).map(item => item.imgUrl!)} />
                     </div>
 
-                    <div className="w-full !px-2 md:w-1/2 lg:w-1/3">
-                        <div className="bg-green-100 p-4 h-full">Thông tin sản phẩm</div>
+                    <div className="w-full !px-2 md:w-1/2 lg:w-3/8">
+                        <ProductBasicInfo />
                     </div>
 
-                    <div className="w-full !px-2 lg:w-1/3">
+                    <div className="w-full !px-2 lg:w-1/4">
                         <div className="bg-red-100 p-4 h-full">Hỗ trợ & Khuyến mãi</div>
                     </div>
                 </div>
