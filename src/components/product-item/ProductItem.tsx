@@ -13,7 +13,7 @@ export interface IProductItemProps {
     imgUrl?: string;
 }
 
-const productColor: IProductItemProps[] = [
+export const productColor: IProductItemProps[] = [
     {
         colorText: "Xanh",
         colorValue: "#024779",
