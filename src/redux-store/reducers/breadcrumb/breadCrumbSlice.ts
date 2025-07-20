@@ -26,10 +26,12 @@ const breadcrumbSlice = createSlice({
     initialState,
     reducers: {
         addBreadcrumb: (state, action) => {
-            const newItem: IBreadcrumbItem = action.payload;
-            if (state.breadcrumbList.length === 0 || state.breadcrumbList[state.breadcrumbList.length - 1].title !== newItem.title) {
-                state.breadcrumbList.push(newItem);
-            }
+            const newItems: IBreadcrumbItem[] = action.payload;
+            newItems.forEach((item) => {
+                if (state.breadcrumbList.length === 0 || state.breadcrumbList[state.breadcrumbList.length - 1].title !== item.title) {
+                    state.breadcrumbList.push(item);
+                }
+            });
         },
         removeBreadcrumb: (state) => {
             if (state.breadcrumbList.length > 1) {

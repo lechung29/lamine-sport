@@ -1,12 +1,11 @@
 /** @format */
 
-import { Breadcrumbs, ProductFilter, ProductItem, ProductSort } from "@/components";
+import { Breadcrumbs, Pagination, ProductFilter, ProductItem, ProductSort } from "@/components";
 import { addBreadcrumb, breadcrumbState, useAppDispatch, useAppSelector } from "@/redux-store";
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { useLocation, useSearchParams } from "react-router-dom";
 import { getAllProductBannerImages } from "./utils";
 import { capitalizeFirstLetter } from "@/utils";
-import { Pagination, PaginationProps } from "antd";
 
 const Product: React.FC = () => {
     const dispatch = useAppDispatch();
@@ -14,23 +13,22 @@ const Product: React.FC = () => {
     const { breadcrumbList } = useAppSelector(breadcrumbState);
     const category = searchParams.get("category");
     const location = useLocation();
-    const [currentPage, setCurrentPage] = React.useState<number>(1)
+    // const navigate = useNavigate();
+    const [currentPage, setCurrentPage] = React.useState<number>(1);
+    const ref = useRef<HTMLDivElement>(null)
 
     useEffect(() => {
         if (category) {
             const customizedTitle = capitalizeFirstLetter(category);
             dispatch(
-                addBreadcrumb({
+                addBreadcrumb([{
                     title: customizedTitle,
                     href: location.pathname + `?category=${customizedTitle}`,
-                })
+                }])
             );
         }
+        // navigate("/product", { replace: true });
     }, []);
-
-    const onChangePage: PaginationProps['onChange'] = (page) => {
-        setCurrentPage(page);
-    };
 
     return (
         <section className="w-full">
@@ -44,6 +42,7 @@ const Product: React.FC = () => {
                         backgroundPosition: "center",
                         aspectRatio: "auto 1900/300",
                     }}
+                    ref={ref}
                 />
                 <div className="w-full flex">
                     <div className="w-4/17 !mr-4">
@@ -54,16 +53,21 @@ const Product: React.FC = () => {
                             <ProductSort />
                         </div>
                         <div className="w-full !mb-8 flex flex-wrap gap-4">
-                            {Array.from({length: 16}).map(() => (
+                            {Array.from({length: 12}).map(() => (
                                 <ProductItem />
                             ))}
                         </div>
-                        <div className="flex items-center justify-center">
+                        <div className="flex items-center justify-center" onMouseDown={(e) => e.preventDefault()}>
                             <Pagination 
-                                current={currentPage} 
-                                onChange={onChangePage} 
-                                showSizeChanger={false}
-                                total={97} 
+                                currentPage={currentPage}
+                                totalItems={100}
+                                onChangePage={(newPage) => {
+                                    setCurrentPage(newPage);
+                                    ref.current?.scrollIntoView({
+                                        behavior: "smooth",
+                                        block: "start",
+                                    });
+                                }}
                             />
                         </div>
                     </div>
