@@ -8,7 +8,7 @@ import { Tooltip } from "antd";
 import { classNames } from "@/utils";
 import { LuMinus, LuPlus } from "react-icons/lu";
 
-interface IAddProductDialogProps {
+export interface IAddProductDialogProps {
     isOpen: boolean;
     productItem?: any;
     onClose: () => void;
