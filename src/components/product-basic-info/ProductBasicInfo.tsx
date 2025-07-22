@@ -9,9 +9,11 @@ import { InstructionSizeDialog } from "../instruction-size-dialog";
 import { LuMinus, LuPlus } from "react-icons/lu";
 
 export const productSize = ["S", "M", "L"];
+export const productColorList = ["Xanh dương", "Xám", "Trắng", "Đen"]
 
 const ProductBasicInfo: React.FunctionComponent = () => {
     const [currentSize, setCurrentSize] = React.useState<string>("S");
+    const [currentColor, setCurrentColor] = React.useState<string>("Xanh dương")
     const [isOpenInstructionSize, setIsOpenInstructionSize] = React.useState<boolean>(false);
     return (
         <React.Fragment>
@@ -39,14 +41,35 @@ const ProductBasicInfo: React.FunctionComponent = () => {
                             thích kiểu dáng dài che phần thắt lưng, cổ áo cao mềm mại và cổ tay áo phủ tay tăng độ ấm.
                         </p>
                     </div>
-                    <div className="relative flex items-center !mb-5 bg-[#f5f5f5] !px-2.5 !py-2 !pr-15 ">
+                    <div className="relative flex items-center !mb-6 bg-[#f5f5f5] !px-2.5 !py-2 !pr-15 ">
                         <p className="!text-[#c30000] !mr-2 !font-bold text-3xl">160.000₫</p>
                         <p className="!text-[18px] line-through">200.000đ</p>
                         <div className="absolute top-0 bottom-0 right-0 w-14 inline-flex items-center justify-center !bg-[#c30000] text-white font-semibold [clip-path:polygon(20%_0%,100%_0%,100%_100%,0%_100%)]">- 20%</div>
                     </div>
                     <div className="!mb-2">
                         <p className="text-[16px]">
-                            Size: <span className="font-bold">{currentSize}</span>
+                            Màu sắc: <span className="font-bold">{currentColor}</span>
+                        </p>
+                    </div>
+                    <div className="!mb-6 inline-flex gap-2.5">
+                        {productColorList.map((item, idx) => (
+                            <div
+                                key={idx}
+                                className={classNames("w-8.5 h-8.5 !rounded-full !border !border-[#9d9d9d] inline-flex items-center justify-center cursor-pointer", {
+                                    "shadow-primary !border-2 !border-white": item === currentColor,
+                                    "!bg-[#024779]": item === "Xanh dương",
+                                    "!bg-[#615a5a]": item == "Xám",
+                                    "!bg-white": item === "Trắng",
+                                    "!bg-black": item === "Đen"
+                                })}
+                                role="button"
+                                onClick={() => setCurrentColor(item)}
+                            />
+                        ))}
+                    </div>
+                    <div className="!mb-2">
+                        <p className="text-[16px]">
+                            Kích thước: <span className="font-bold">{currentSize}</span>
                         </p>
                     </div>
                     <div className="!mb-4 inline-flex gap-2">
