@@ -1,0 +1,35 @@
+/** @format */
+
+.product-description-tab-wrap {
+    border: 1px solid #eee;
+
+    .ant-tabs-nav-wrap {
+        background-color: #eee;
+        .ant-tabs-nav-list {
+            .ant-tabs-tab {
+                padding: 10px 15px;
+
+                .ant-tabs-tab-btn {
+                    display: inline-flex;
+
+                    .tab-nab-label {
+                        text-transform: uppercase;
+                        font-size: 18px;
+                        font-weight: 600;
+                        color: #757575;
+                    }
+                }
+            }
+
+            .ant-tabs-tab-active {
+                .tab-nab-label {
+                    color: #002d3a!important;
+                }
+            }
+        }
+
+        .ant-tabs-ink-bar {
+            background-color: #002d3a;
+        }
+    }
+}

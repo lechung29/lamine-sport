@@ -37,7 +37,7 @@ const RelatedProductList: React.FunctionComponent = () => {
         }
     };
     return (
-        <div className="w-full !mb-5">
+        <div className="w-full !mb-10">
             <div className="relative w-full !mb-5 flex items-center justify-between">
                 <div className="inline-block font-bold text-primary text-3xl oswald-font uppercase leading-12 !pb-2 !pr-4">Sản phẩm liên quan</div>
                 <div className="h-1 w-22 absolute bottom-0 left-0 bg-[#a2ff00] [clip-path:polygon(0%_0%,100%_0%,95%_100%,0%_100%)]" />
