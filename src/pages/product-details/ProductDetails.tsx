@@ -1,6 +1,6 @@
 /** @format */
 
-import { Breadcrumbs, ProductBasicInfo, productColor, ProductPhotoView, ProductFeatures, RelatedProductList } from "@/components";
+import { Breadcrumbs, ProductBasicInfo, productColor, ProductPhotoView, ProductFeatures, RelatedProductList, ProductDescriptionTab } from "@/components";
 import React from "react";
 import "react-photo-view/dist/react-photo-view.css";
 
@@ -32,6 +32,7 @@ const ProductDetails: React.FunctionComponent = () => {
                     </div>
                 </div>
                 <RelatedProductList />
+                <ProductDescriptionTab />
             </div>
         </section>
     );
