@@ -62,7 +62,7 @@ const CalendarView: React.FunctionComponent = () => {
                 },
             }}
         >
-            <div className="w-full !border !border-[#ddd] !px-4 !py-2">{date ? formatDate(date as Date) : "Chọn ngày"}</div>
+            <div className="w-full bg-white !border !border-[#ddd] !px-4 !py-2 cursor-text">{date ? formatDate(date as Date) : "Chọn ngày"}</div>
         </Popover>
     );
 };

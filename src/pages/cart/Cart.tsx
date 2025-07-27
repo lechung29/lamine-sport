@@ -35,7 +35,7 @@ const Cart: React.FunctionComponent = () => {
                     <div className="w-full lg:!pl-2 lg:w-1/3">
                         <div className="w-full !border !border-[#ebebeb]">
                             <div className="!p-3 text-center uppercase font-bold bg-[#eee]">Thông tin đơn hàng</div>
-                            <div className="!px-3">
+                            <div className="!px-3 bg-[#f8f8f8]">
                                 <div className="flex items-center justify-between !py-3 !border-b !border-b-[#ddd]">
                                     <span className="font-semibold">Tổng tiền</span>
                                     <span className="font-semibold text-[#c30000] text-xl">175.000đ</span>
