@@ -48,8 +48,6 @@ const TooltipLabel: React.FC<ITooltipLabel> = (props) => {
             return "!w-auto";
         } else if (width === "full") {
             return "!w-full";
-        } else {
-            return `!w-[${width}px]`;
         }
     }, [width]);
 

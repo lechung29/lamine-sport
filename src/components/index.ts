@@ -32,3 +32,4 @@ export * from "./instruction-size-dialog";
 export * from "./product-features";
 export * from "./related-product";
 export * from "./product-description-tab";
+export * from "./cart-item";
