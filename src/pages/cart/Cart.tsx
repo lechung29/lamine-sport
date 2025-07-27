@@ -1,6 +1,6 @@
 /** @format */
 
-import { Breadcrumbs } from "@/components";
+import { Breadcrumbs, CartItem } from "@/components";
 import React from "react";
 
 const Cart: React.FunctionComponent = () => {
@@ -17,12 +17,15 @@ const Cart: React.FunctionComponent = () => {
                             </p>
                             <div className="absolute left-0 h-full bg-amber-400 !rounded-md" style={{ width: "45%" }} />
                         </div>
-                        <div className="w-full min-w-[650px] overflow-x-auto !border !border-[#eee]">
-                            <div className="w-full flex items-center justify-center !px-2 !py-2.5 bg-[#eee]">
-                                <div className="uppercase font-semibold flex-1">Thông tin sản phẩm</div>
-                                <div className="uppercase font-semibold w-30">Đơn giá</div>
-                                <div className="uppercase font-semibold w-30">Số lượng</div>
-                                <div className="uppercase font-semibold w-30">Thành tiền</div>
+                        <div className="w-full scroll-horizontal">
+                            <div className="w-full min-w-[700px] !border !border-[#eee]">
+                                <div className="w-full flex items-center justify-center !px-2 !py-2.5 bg-[#eee]">
+                                    <div className="uppercase font-semibold flex-1">Thông tin sản phẩm</div>
+                                    <div className="uppercase font-semibold w-30">Đơn giá</div>
+                                    <div className="uppercase font-semibold w-30">Số lượng</div>
+                                    <div className="uppercase font-semibold w-30">Thành tiền</div>
+                                </div>
+                                {Array.from({ length: 3 }).map(() => <CartItem />)}
                             </div>
                         </div>
                     </div>

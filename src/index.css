@@ -40,6 +40,19 @@ svg {
     background-color: rgba(100, 100, 100, 0.4);
 }
 
+.scroll-horizontal {
+    overflow-x: auto;
+}
+
+.scroll-horizontal::-webkit-scrollbar {
+    height: 4px;
+}
+
+.scroll-horizontal::-webkit-scrollbar-thumb {
+    background-color: rgba(100, 100, 100, 0.4);
+    border-radius: 3px;
+}
+
 .ant-popover-inner {
     border-radius: 0px !important;
     padding: 0 !important;
