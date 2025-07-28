@@ -1,7 +1,34 @@
 /** @format */
 
-import { Breadcrumbs, CartItem, Calendar } from "@/components";
+import { Breadcrumbs, CartItem, Calendar, TimeRangeSelect } from "@/components";
 import React from "react";
+
+const paymentMethods = [
+    {
+        name: "Momo",
+        imgSrc: "https://bizweb.dktcdn.net/100/490/431/themes/927074/assets/payment_1.png?1745145147644",
+    },
+    {
+        name: "ZaloPay",
+        imgSrc: "https://bizweb.dktcdn.net/100/490/431/themes/927074/assets/payment_2.png?1745145147644",
+    },
+    {
+        name: "VNPay",
+        imgSrc: "https://bizweb.dktcdn.net/100/490/431/themes/927074/assets/payment_3.png?1745145147644",
+    },
+    {
+        name: "Moca",
+        imgSrc: "https://bizweb.dktcdn.net/100/490/431/themes/927074/assets/payment_4.png?1745145147644",
+    },
+    {
+        name: "Visa",
+        imgSrc: "http://bizweb.dktcdn.net/100/490/431/themes/927074/assets/payment_5.png?1745145147644",
+    },
+    {
+        name: "ATM",
+        imgSrc: "https://bizweb.dktcdn.net/100/490/431/themes/927074/assets/payment_6.png?1745145147644",
+    },
+];
 
 const Cart: React.FunctionComponent = () => {
     return (
@@ -52,12 +79,37 @@ const Cart: React.FunctionComponent = () => {
                                 </div>
                                 <div className="!py-3 !border-b !border-b-[#ddd]">
                                     <div className="font-semibold !mb-3">Thời gian giao hàng</div>
-                                    <div className="flex items-center justify-between">
+                                    <div className="flex items-center justify-between gap-2">
                                         <div className="flex-1/2">
                                             <Calendar />
                                         </div>
+                                        <div className="flex-1/2">
+                                            <TimeRangeSelect />
+                                        </div>
                                     </div>
                                 </div>
+                                <div className="!py-3">
+                                    <div
+                                        className="!mt-1 h-11 flex items-center justify-center font-semibold uppercase bg-[#002d3a] text-white cursor-pointer hover:text-[#333] hover:bg-[#a2ff00] transition-colors duration-400"
+                                        role="button"
+                                    >
+                                        Thanh toán
+                                    </div>
+                                    <div
+                                        className="!mt-3 h-11 flex items-center justify-center font-semibold text-lg bg-[#646464] text-white cursor-pointer hover:bg-[#8b8b8b] transition-colors duration-400"
+                                        role="button"
+                                    >
+                                        Tiếp tục mua hàng
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="w-full !mt-5">
+                            <div className="font-semibold text-center text-xl text-[#333]">Hỗ trợ thanh toán với</div>
+                            <div className="!mt-1 flex items-center justify-center gap-2 flex-wrap">
+                                {paymentMethods.map((item) => (
+                                    <img key={item.name} src={item.imgSrc} alt={item.name} className="!h-9 filter hover:!brightness-125 transition duration-300" />
+                                ))}
                             </div>
                         </div>
                     </div>

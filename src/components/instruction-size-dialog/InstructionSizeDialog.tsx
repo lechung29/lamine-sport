@@ -12,12 +12,13 @@ interface IInstructionSizeDialogProps {
 }
 
 interface IInstructionProductOptionProps {
+    options: IBasicDropdownOption[];
     menuWidth?: number;
     selectedOption?: IBasicDropdownOption;
     onChange: (newOption: IBasicDropdownOption) => void;
 }
 
-interface IBasicDropdownOption {
+export interface IBasicDropdownOption {
     key: string;
     text: string;
 }
@@ -45,11 +46,11 @@ const productTypeOptions: IBasicDropdownOption[] = [
     },
 ];
 
-const InstructionProductOption: React.FunctionComponent<IInstructionProductOptionProps> = (props) => {
-    const { menuWidth, selectedOption, onChange } = props;
+export const InstructionProductOption: React.FunctionComponent<IInstructionProductOptionProps> = (props) => {
+    const { menuWidth, selectedOption, options, onChange } = props;
     return (
         <div className="!p-0.5 !bg-white h-auto" style={{ width: menuWidth || "100%" }}>
-            {productTypeOptions.map((productType) => (
+            {options.map((productType) => (
                 <div
                     key={productType.key}
                     className={classNames("w-full !my-0.5 !p-2 !py-1.5 cursor-pointer text-[#333] hover:bg-[#1c2635] hover:text-white transition-all duration-300", {
@@ -110,6 +111,7 @@ const InstructionSizeDialog: React.FunctionComponent<IInstructionSizeDialogProps
                     placement="bottomRight"
                     content={
                         <InstructionProductOption
+                            options={productTypeOptions}
                             selectedOption={productType}
                             menuWidth={triggerWidth}
                             onChange={(newOption) => {
