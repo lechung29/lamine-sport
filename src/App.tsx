@@ -3,7 +3,7 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { MainLayout, TitleResolver } from "./layouts";
 import { ProtectedRoute } from "./components";
-import { Login, SignUp, Home, Product, ProductDetails, Cart, Payment } from "./pages";
+import { Login, SignUp, Home, Product, ProductDetails, Cart, Payment, UserManagement } from "./pages";
 function App() {
     return (
         <BrowserRouter>
@@ -15,6 +15,9 @@ function App() {
                         <Route path="product" element={<Product />} />
                         <Route path="product/:id" element={<ProductDetails />} />
                         <Route path="cart" element={<Cart />} />
+                        <Route path="user-management/*" element={<UserManagement />}>
+                            <Route index element={<>Hi</>} />
+                        </Route>
                         <Route index element={<Home />} />
                     </Route>
                     <Route path="payment" element={<Payment />}/>
