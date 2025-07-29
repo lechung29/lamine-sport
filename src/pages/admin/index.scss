@@ -1,0 +1,32 @@
+/** @format */
+
+// Custom styles for Ant Design Select to match Input focus/hover aesthetics
+
+.ant-select {
+    // Selector for the actual input part of the Select component
+    .ant-select-selector {
+        // Select component hover state
+        &:not(.ant-select-disabled):hover {
+            border-color: #3b82f6 !important; // Tailwind's blue-500
+        }
+    }
+
+    // Select component focus state
+    &.ant-select-focused {
+        .ant-select-selector {
+            outline: none !important; // Remove default outline
+            border-color: transparent !important; // Make border transparent
+            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.5) !important; // Tailwind's blue-500 with 50% opacity for the ring
+        }
+    }
+
+    // Ensure error status overrides general hover/focus
+    // Sử dụng & để tham chiếu đến .ant-select khi nó có class .ant-select-status-error
+    &.ant-select-status-error {
+        &:not(.ant-select-disabled):hover .ant-select-selector,
+        &.ant-select-focused .ant-select-selector {
+            border-color: transparent !important; // Error state uses ring
+            box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.5) !important; // Tailwind's red-500 with 50% opacity
+        }
+    }
+}

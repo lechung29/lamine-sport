@@ -1,9 +1,9 @@
 /** @format */
 
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { MainLayout, TitleResolver } from "./layouts";
+import { AdminLayout, MainLayout, TitleResolver } from "./layouts";
 import { ProtectedRoute } from "./components";
-import { Login, SignUp, Home, Product, ProductDetails, Cart, Payment, UserManagement, UserInformation } from "./pages";
+import { Login, SignUp, Home, Product, AdminAddProduct, Cart, Payment, UserManagement, UserInformation, ProductDetails, AdminAllProducts } from "./pages";
 function App() {
     return (
         <BrowserRouter>
@@ -21,6 +21,11 @@ function App() {
                         <Route index element={<Home />} />
                     </Route>
                     <Route path="payment" element={<Payment />}/>
+                    <Route path="admin/*" element={<AdminLayout />}>
+                        <Route index element={<>Hi</>} />
+                        <Route path="products" element={<AdminAllProducts />} />
+                        <Route path="products/add-product" element={<AdminAddProduct />} />
+                    </Route>
                     <Route element={<ProtectedRoute />}>
                         <Route element={<MainLayout />}>
                         </Route>
