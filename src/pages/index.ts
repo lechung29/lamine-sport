@@ -5,3 +5,4 @@ export * from "./home";
 export * from "./product";
 export * from "./product-details";
 export * from "./cart";
+export * from "./payment";

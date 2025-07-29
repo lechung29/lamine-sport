@@ -17,7 +17,20 @@ interface ITooltipLabel extends React.HTMLAttributes<HTMLDivElement> {
 const TooltipLabel: React.FC<ITooltipLabel> = (props) => {
     const { text, lineDisplayed = 1, className, placement = "top", tooltipDescription, alwaysShow, style, width = "full", ...rest } = props;
     const [isOverflowText, setIsOverflowText] = React.useState(false);
+    const [windowWidth, setWindowWidth] = React.useState(window.innerWidth);
     const titleRef = React.useRef<HTMLDivElement>(null);
+
+
+    React.useEffect(() => {
+        const handleResize = () => {
+            setWindowWidth(window.innerWidth);
+        };
+
+        window.addEventListener("resize", handleResize);
+        return () => {
+            window.removeEventListener("resize", handleResize);
+        };
+    }, []);
 
     React.useEffect(() => {
         const el = titleRef.current;
@@ -28,21 +41,13 @@ const TooltipLabel: React.FC<ITooltipLabel> = (props) => {
             }, 0);
             return () => clearTimeout(timeout);
         }
-    }, [text, lineDisplayed]);
+    }, [text, lineDisplayed, windowWidth]);
 
-    const labelStyle: React.CSSProperties =
-        lineDisplayed > 1
-            ? {
-                  display: "-webkit-box",
-                  WebkitLineClamp: lineDisplayed,
-                  WebkitBoxOrient: "vertical",
-              }
-            : {
-                  display: "inline-block",
-                  textOverflow: "ellipsis",
-                  whiteSpace: "nowrap",
-              };
-
+    const labelStyle: React.CSSProperties = {
+        display: "-webkit-box",
+        WebkitLineClamp: lineDisplayed,
+        WebkitBoxOrient: "vertical",
+    };
     const tooltipWidth = React.useMemo(() => {
         if (width === "auto") {
             return "!w-auto";

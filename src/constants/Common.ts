@@ -2,8 +2,8 @@
 
 const TOKEN = "TOKEN";
 const REFRESH_TOKEN = "REFRESH_TOKEN";
-const LOGO_URL = "/src/assets/lamine-sport-logo-1.png";
-const SUB_LOGO_URL = "/src/assets/lamine-sport-logo.png";
+const LOGO_URL = "/src/assets/lamine-logo-primary.png";
+const SUB_LOGO_URL = "/src/assets/lamine-logo-secondary.png";
 const FLASH_SALE_BG = "https://bizweb.dktcdn.net/100/490/431/themes/927074/assets/section_sale_bg.jpg?1744883926073";
 const FEEDBACK_BG = "https://bizweb.dktcdn.net/100/490/431/themes/927074/assets/section_feedback_bg.jpg?1744883926073";
 const FEEDBACK_ITEM_BG = "https://bizweb.dktcdn.net/100/490/431/themes/927074/assets/quote-4.svg?1744883926073"

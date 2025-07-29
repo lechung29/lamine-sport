@@ -66,7 +66,7 @@ const Footer: React.FC = () => {
             {/* Two first column group*/}
             <div className="flex flex-col sm:flex-row gap-6 w-full xl:flex-[2]">
                 <div className="flex-1 min-w-[230px] flex flex-col items-start justify-start !p-2">
-                    <img src={SUB_LOGO_URL} alt="app-logo" className="!h-24 cursor-pointer object-cover" />
+                    <img src={SUB_LOGO_URL} alt="app-logo" className="!h-16 cursor-pointer object-cover" />
                     <div className="!mb-4 text-[#333]">{FOOTER_SHOP_DES}</div>
                     <div className="flex items-center justify-start gap-2">
                         {socialButtonItem.map((item) => (
