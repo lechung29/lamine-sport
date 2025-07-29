@@ -1,0 +1,25 @@
+/** @format */
+
+.ant-radio-wrapper {
+    .ant-radio-label {
+        font-size: 15px;
+        color: #333;
+    }
+
+    .ant-radio-checked {
+        .ant-radio-inner {
+            background-color: #337ab7 !important;
+            border: 1px solid #337ab7 !important;
+        }
+    }
+}
+
+.ant-btn-variant-solid {
+    background-color: #357ebd!important;
+}
+
+.ant-input-outlined.ant-input-status-error:not(.ant-input-disabled),
+.ant-input-outlined.ant-input-status-error:not(.ant-input-disabled):hover {
+    border-color: #c10000;
+    border-width: 1.5px;
+}
