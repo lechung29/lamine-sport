@@ -3,7 +3,7 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { AdminLayout, MainLayout, TitleResolver } from "./layouts";
 import { ProtectedRoute } from "./components";
-import { Login, SignUp, Home, Product, AdminAddProduct, Cart, Payment, UserManagement, UserInformation, ProductDetails, AdminAllProducts } from "./pages";
+import { Login, SignUp, Home, Product, AdminAddProduct, Cart, Payment, UserManagement, UserInformation, ProductDetails, AdminAllProducts, AdminAllOrders, AdminOrdersDetail } from "./pages";
 function App() {
     return (
         <BrowserRouter>
@@ -25,6 +25,8 @@ function App() {
                         <Route index element={<>Hi</>} />
                         <Route path="products" element={<AdminAllProducts />} />
                         <Route path="products/add-product" element={<AdminAddProduct />} />
+                        <Route path="orders" element={<AdminAllOrders />} />
+                        <Route path="orders/:id" element={<AdminOrdersDetail />} />
                     </Route>
                     <Route element={<ProtectedRoute />}>
                         <Route element={<MainLayout />}>
