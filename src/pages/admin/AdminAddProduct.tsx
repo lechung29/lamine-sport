@@ -64,6 +64,7 @@ interface ProductFormData {
     selectedSizes: string[]; // Added selectedSizes field
     regularPrice: string;
     salePrice: string;
+    visibility: string;
 }
 
 interface ProductFormRef {
@@ -79,10 +80,11 @@ const ProductForm = forwardRef<ProductFormRef>((props, ref) => {
     const [productCategory, setProductCategory] = useState<string | undefined>("shoes");
     const [sportsGroup, setSportsGroup] = useState<string | undefined>("running");
     const [sport, setSport] = useState<string | undefined>("marathon");
-    const [gender, setGender] = useState<string | undefined>(undefined); // State for gender
-    const [selectedSizes, setSelectedSizes] = useState<string[]>([]); // State for selected sizes
+    const [gender, setGender] = useState<string | undefined>("unisex"); // State for gender, initialized to 'unisex' as per image
+    const [selectedSizes, setSelectedSizes] = useState<string[]>(["40", "38", "37", "36", "42"]); // State for selected sizes, initialized as per image
     const [regularPrice, setRegularPrice] = useState("$110.40");
     const [salePrice, setSalePrice] = useState("$450");
+    const [visibility, setVisibility] = useState<string | undefined>("visible"); // New state for visibility, default to visible
 
     // State for validation errors
     const [formErrors, setFormErrors] = useState<{ [key: string]: string | undefined }>({});
@@ -113,8 +115,12 @@ const ProductForm = forwardRef<ProductFormRef>((props, ref) => {
             isValid = false;
         }
         if (!gender) {
-            // Validation for gender
             errors.gender = "Vui lòng chọn giới tính!";
+            isValid = false;
+        }
+        if (!visibility) {
+            // Validation for visibility
+            errors.visibility = "Vui lòng chọn trạng thái hiển thị!";
             isValid = false;
         }
 
@@ -129,9 +135,17 @@ const ProductForm = forwardRef<ProductFormRef>((props, ref) => {
         if (!regularPrice.trim()) {
             errors.regularPrice = "Vui lòng nhập giá gốc!";
             isValid = false;
+        } else if (isNaN(parseFloat(regularPrice.replace(/[^0-9.-]+/g, "")))) {
+            // Basic number validation
+            errors.regularPrice = "Giá gốc phải là số!";
+            isValid = false;
         }
         if (!salePrice.trim()) {
             errors.salePrice = "Vui lòng nhập giá bán!";
+            isValid = false;
+        } else if (isNaN(parseFloat(salePrice.replace(/[^0-9.-]+/g, "")))) {
+            // Basic number validation
+            errors.salePrice = "Giá bán phải là số!";
             isValid = false;
         }
 
@@ -147,10 +161,11 @@ const ProductForm = forwardRef<ProductFormRef>((props, ref) => {
             productCategory: productCategory || "",
             sportsGroup: sportsGroup || "",
             sport: sport || "",
-            gender: gender || "", // Include gender in returned data
-            selectedSizes, // Include selectedSizes in returned data
+            gender: gender || "",
+            selectedSizes,
             regularPrice,
             salePrice,
+            visibility: visibility || "", // Include visibility in returned data
         }),
         validate: validateForm,
     }));
@@ -328,6 +343,26 @@ const ProductForm = forwardRef<ProductFormRef>((props, ref) => {
                         {formErrors.selectedSizes && <p className="!text-red-500 !text-xs !mt-1">{formErrors.selectedSizes}</p>}
                     </div>
                 )}
+
+                {/* New Visibility Dropdown */}
+                <div className="!mb-0">
+                    <label className="!text-base !font-semibold !text-gray-800 !block !mb-1">Visibility</label>
+                    <Select
+                        placeholder="Select visibility"
+                        value={visibility}
+                        onChange={(value) => {
+                            setVisibility(value);
+                            setFormErrors((prev) => ({ ...prev, visibility: undefined }));
+                        }}
+                        className="!w-full"
+                        dropdownClassName="!border !border-gray-300 !rounded-md"
+                        status={formErrors.visibility ? "error" : undefined}
+                    >
+                        <Option value="visible">Visible</Option>
+                        <Option value="hidden">Hidden</Option>
+                    </Select>
+                    {formErrors.visibility && <p className="!text-red-500 !text-xs !mt-1">{formErrors.visibility}</p>}
+                </div>
 
                 {/* Regular Price and Sale Price are already a 2-col grid, keep as is inside this new grid */}
                 <div className="!grid !grid-cols-2 !gap-4 !col-span-full">
