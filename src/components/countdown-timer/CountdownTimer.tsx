@@ -1,6 +1,8 @@
 /** @format */
 
+import { Flex } from "antd";
 import React, { useEffect, useState } from "react";
+import { Text } from "../elements";
 
 interface CountdownTimerProps {
     targetDate: Date;
@@ -42,19 +44,19 @@ const CountdownTimer: React.FC<CountdownTimerProps> = ({ targetDate }) => {
     }, [targetDate]);
 
     const timeBox = (value: number, label: string) => (
-        <div className="flex-1 flex flex-col items-center !mr-2 bg-[#002c3e] !shadow">
-            <div className="text-white text-2xl font-bold !py-2">{value}</div>
-            <div className="w-full bg-lime-400 text-[#002c3e] text-sm font-semibold !py-1 text-center">{label}</div>
-        </div>
+        <Flex vertical align="center" className="min-w-12.5 max-w-14 flex-1 !mr-2 bg-[#002c3e] !shadow">
+            <Text color="white" size="2xl" fontWeight="bold" padding={[8, 0, 8, 0]} titleText={value.toString()} />
+            <Text color="#002d3a" size="sm" fontWeight="semibold" padding={[4, 0, 4, 0]} textAlign="center" titleText={label} className="w-full bg-lime-400"/>
+        </Flex>
     );
 
     return (
-        <div className="flex justify-center">
+        <Flex justify="center" gap={4}>
             {timeBox(timeLeft.days, "Ngày")}
             {timeBox(timeLeft.hours, "Giờ")}
             {timeBox(timeLeft.minutes, "Phút")}
             {timeBox(timeLeft.seconds, "Giây")}
-        </div>
+        </Flex>
     );
 };
 

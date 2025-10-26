@@ -3,80 +3,140 @@
 import React from "react";
 import { LuMinus, LuPlus } from "react-icons/lu";
 import { IoIosCloseCircleOutline } from "react-icons/io";
+import { BaseButton, BaseInput, Box, Container, Image, Text } from "../elements";
+import { Flex } from "antd";
+import { cartState, changeCartItemCountByInput, ICartItem, increaseCartItemCount, reduceCartItemCount, removeFromCart, useAppDispatch, useAppSelector } from "@/redux-store";
+import { useNavigate } from "react-router-dom";
+import { formatCurrency, isInputOnlyNumber } from "@/utils";
 
+interface ICartMenuProps {
+    onOpenChange: (isOpen: boolean) => void;
+}
 
-const CartMenu: React.FC = () => {
+const CartMenu: React.FunctionComponent<ICartMenuProps> = (props) => {
+    const { onOpenChange } = props;
+    const { cartList } = useAppSelector(cartState);
+    const navigate = useNavigate();
+    const dispatch = useAppDispatch();
+    const getColorName = (cartItem: ICartItem) => {
+        return cartItem.productColors.find((color) => color.value === cartItem.selectedProductColorValue)?.name!;
+    };
+
+    const onIncreaseCount = (item: ICartItem, count: number) => {
+        dispatch(
+            increaseCartItemCount({
+                productId: item._id,
+                selectedProductColorValue: item.selectedProductColorValue,
+                count: count,
+            })
+        );
+    };
+
+    const onReduceCount = (item: ICartItem, count: number) => {
+        dispatch(
+            reduceCartItemCount({
+                productId: item._id,
+                selectedProductColorValue: item.selectedProductColorValue,
+                count: count,
+            })
+        );
+    };
+
+    const getTotalPrice = () => {
+        let total: number = 0;
+        cartList.forEach((item) => {
+            const unitPrice: number = item.salePrice ?? item.originalPrice;
+            total += unitPrice * item.selectedProductCount;
+        });
+        return total;
+    };
+
+    const handlePayment = () => {
+        onOpenChange(false);
+        navigate("/payment");
+    };
     return (
-        <div className="!bg-white w-84 h-auto">
-            <div className="w-full !px-4 !py-2 uppercase text-[15px] font-bold !border-b !border-gray-200">Giỏ hàng</div>
-            <div className="w-full max-h-100 scroll-on-hover !px-4 flex flex-col !border-b !border-gray-200">
-                <div className="w-full flex items-start justify-between gap-4 !py-3 not-last:!border-b not-last:!border-gray-200">
-                    <div className="flex items-center justify-center !py-2 !px-1 !border !border-gray-200">
-                        <img src="https://bizweb.dktcdn.net/thumb/1024x1024/100/490/431/products/p1640075.jpg?v=1694061857890" alt="product" className="w-15 h-15 object-cover" />
-                    </div>
-                    <div className="flex-1 flex flex-col gap-0.5">
-                        <div className="w-full flex flex-row items-start justify-between gap-1">
-                            <div className="flex-1">
-                                <div className="text-[#333] hover:!text-[#77e322] cursor-pointer">SẢN PHẨM KALENJI Giày chạy bộ JOGFLOW 500.1 cho nam</div>
-                                <div className="text-[12px] text-gray-500">Xanh / 36</div>
-                            </div>
-                            <div className="w-6 flex items-center justify-end">
-                                <IoIosCloseCircleOutline className="text-xl text-[#333] hover:!text-red-500 cursor-pointer" />
-                            </div>
-                        </div>
-                        <div className="w-full flex flex-row items-center justify-between">
-                            <div className="flex items-center">
-                                <div className="w-7 h-7 flex items-center justify-center !border !border-gray-200 cursor-pointer hover:!bg-gray-100">
-                                    <LuMinus className="!text-[10px]" />
-                                </div>
-                                <input type="text" className="h-7 w-9 text-center outline-none !border-y !border-gray-200" />
-                                <div className="w-7 h-7 flex items-center justify-center !border !border-gray-200 cursor-pointer hover:!bg-gray-100">
-                                    <LuPlus className="!text-[10px]" />
-                                </div>
-                            </div>
-                            <div className="text-red-600 font-semibold">969.000đ</div>
-                        </div>
-                    </div>
-                </div>
-                <div className="w-full flex items-start justify-between gap-4 !py-3 not-last:!border-b not-last:!border-gray-200">
-                    <div className="flex items-center justify-center !py-2 !px-1 !border !border-gray-200">
-                        <img src="https://bizweb.dktcdn.net/thumb/1024x1024/100/490/431/products/p1640075.jpg?v=1694061857890" alt="product" className="w-15 h-15 object-cover" />
-                    </div>
-                    <div className="flex-1 flex flex-col gap-0.5">
-                        <div className="w-full flex flex-row items-start justify-between gap-1">
-                            <div className="flex-1">
-                                <div className="text-[#333] hover:!text-[#77e322] cursor-pointer">SẢN PHẨM KALENJI Giày chạy bộ JOGFLOW 500.1 cho nam</div>
-                                <div className="text-[12px] text-gray-500">Xanh / 36</div>
-                            </div>
-                            <div className="w-6 flex items-center justify-end">
-                                <IoIosCloseCircleOutline className="text-xl text-[#333] hover:!text-red-500 cursor-pointer" />
-                            </div>
-                        </div>
-                        <div className="w-full flex flex-row items-center justify-between">
-                            <div className="flex items-center">
-                                <div className="w-7 h-7 flex items-center justify-center !border !border-gray-200 cursor-pointer hover:!bg-gray-100">
-                                    <LuMinus className="!text-[10px]" />
-                                </div>
-                                <input type="text" className="h-7 w-9 text-center outline-none !border-y !border-gray-200" />
-                                <div className="w-7 h-7 flex items-center justify-center !border !border-gray-200 cursor-pointer hover:!bg-gray-100">
-                                    <LuPlus className="!text-[10px]" />
-                                </div>
-                            </div>
-                            <div className="text-red-600 font-semibold">969.000đ</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div className="w-full h-auto !p-4 flex items-center justify-between bg-gray-100">
-                <div className="flex flex-col">
-                    <span className="text-[15px]">Tổng tiền:</span>
-                    <span className="text-red-600 text-xl font-semibold">1.242.000đ</span>
-                </div>
-                <button className="!text-white !bg-[#002932] !px-6 !py-2.5 font-semibold transition-colors duration-400 hover:!bg-[#77e322] hover:!text-[#333] [clip-path:polygon(10%_0%,100%_0%,100%_100%,0%_100%)] cursor-pointer">
-                    THANH TOÁN
-                </button>
-            </div>
-        </div>
+        <Container bgColor="white" className="!w-84 h-auto">
+            <Text padding={[8, 16, 8, 16]} size="base" fontWeight="bold" className="w-full !border-b !border-gray-200" titleText="Giỏ hàng" />
+            <Flex vertical className="max-h-100 scroll-vertical !px-4">
+                {cartList.length === 0 ? (
+                    <Box className="!min-h-40 flex flex-col items-center justify-center gap-6">
+                        <Text color="#999" className="text-center" titleText="Giỏ hàng của bạn đang trống, đi chọn sản phẩm thôi nào!" />
+                        <BaseButton radius="sm" displayText="Tiếp tục mua hàng" onClick={() => navigate("/products")} />
+                    </Box>
+                ) : (
+                    cartList.map((item) => (
+                        <Flex key={item._id} align="flex-start" justify="space-between" gap={16} className="!py-3 not-last:!border-b not-last:!border-gray-200">
+                            <Flex align="center" justify="center" className="!border !border-gray-200">
+                                <Image
+                                    src={item.productColors.find((color) => color.value === item.selectedProductColorValue)?.images[0].url!}
+                                    alt={item.productName}
+                                    objectFit="cover"
+                                    className="w-15 h-15"
+                                />
+                            </Flex>
+                            <Flex vertical gap={2} className="flex-1">
+                                <Flex align="flex-start" justify="space-between" vertical={false} gap={4}>
+                                    <Box className="flex-1">
+                                        <Text color="#333" className="hover:!text-[#77e322] cursor-pointer" onClick={() => navigate(`/product/${item._id}`)} titleText={item.productName} />
+
+                                        <Text color="#7f7f7f" size="xs" titleText={`${!!item.selectedProductSize ? `${item.selectedProductSize} / ` : ""}${getColorName(item)}`} />
+                                    </Box>
+                                    <Flex align="center" justify="flex-end" className="w-6">
+                                        <IoIosCloseCircleOutline className="text-xl text-[#333] hover:!text-red-500 cursor-pointer" onClick={() => dispatch(removeFromCart(item))} />
+                                    </Flex>
+                                </Flex>
+                                <Flex align="center" justify="space-between" vertical={false}>
+                                    <Flex align="center">
+                                        <Flex
+                                            align="center"
+                                            justify="center"
+                                            className="w-7 h-7 !border !border-gray-200 cursor-pointer hover:!bg-gray-100"
+                                            onClick={() => item.selectedProductCount > 1 && onReduceCount(item, 1)}
+                                        >
+                                            <LuMinus className="text-sm" />
+                                        </Flex>
+                                        <BaseInput
+                                            type="text"
+                                            value={item.selectedProductCount.toString()}
+                                            onChange={(value) => {
+                                                if (isInputOnlyNumber(value) && parseInt(value) >= 1 && parseInt(value) <= 99) {
+                                                    dispatch(
+                                                        changeCartItemCountByInput({
+                                                            productId: item._id,
+                                                            selectedProductColorValue: item.selectedProductColorValue,
+                                                            count: parseInt(value),
+                                                        })
+                                                    );
+                                                }
+                                            }}
+                                            className="h-7 w-10 text-base text-center !border-y !border-gray-200 !p-1"
+                                        />
+                                        <Flex
+                                            align="center"
+                                            justify="center"
+                                            className="w-7 h-7 !border !border-gray-200 cursor-pointer hover:!bg-gray-100"
+                                            onClick={() => item.selectedProductCount < 99 && onIncreaseCount(item, 1)}
+                                        >
+                                            <LuPlus className="text-sm" />
+                                        </Flex>
+                                    </Flex>
+
+                                    <Text fontWeight="bold" size="sm" color="#c30000" titleText={formatCurrency(item?.salePrice ? item.salePrice : item.originalPrice)} />
+                                </Flex>
+                            </Flex>
+                        </Flex>
+                    ))
+                )}
+            </Flex>
+            <Flex align="center" justify="space-between" className="h-auto !p-4 bg-gray-100 !border-t !border-gray-200">
+                <Flex vertical>
+                    <Text as="span" size="sm" titleText="Tổng tiền:" />
+                    <Text as="span" size="xl" fontWeight="bold" className="text-red-600" titleText={formatCurrency(getTotalPrice())} />
+                </Flex>
+                {cartList.length > 0 && <BaseButton onClick={handlePayment} padding={[10, 24, 10, 24]} className="[clip-path:polygon(10%_0%,100%_0%,100%_100%,0%_100%)]" displayText="THANH TOÁN" />}
+            </Flex>
+        </Container>
     );
 };
 

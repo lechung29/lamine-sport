@@ -1,5 +1,7 @@
 /** @format */
 
+import { Text } from "@/components/elements";
+import { Flex, Spin } from "antd";
 import React from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 
@@ -27,9 +29,10 @@ const Redirect: React.FunctionComponent<IRedirectPageProps> = (props) => {
     }, [count, navigate, location, props.to]);
 
     return (
-        <section className="flex items-center justify-center flex-col h-screen w-screen text-gray-700 dark:text-white gap-1">
-            <p className="text-center">{message}</p>
-        </section>
+        <Flex vertical align="center" justify="center" gap={16} className="h-screen w-screen text-gray-700 dark:text-white">
+            <Spin size="large" />
+            <Text size="base" textAlign="center" titleText={message}/>
+        </Flex>
     );
 };
 

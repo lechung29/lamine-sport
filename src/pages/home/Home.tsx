@@ -1,33 +1,42 @@
 /** @format */
 
-import { BestSellerList, Carousel, CustomerFeedbackList, FlashSaleList, SportForMenList, SportForWomenList, SportTypeCarousel } from "@/components";
+import { BestSellerList, Box, Carousel, Container, CustomerFeedbackList, FlashSaleList, SportForMenList, SportForWomenList, SportTypeCarousel } from "@/components";
 import React from "react";
 
-const Home: React.FC = () => {
+const Home: React.FunctionComponent = () => {
+    const [isHiddenFlashSale, setIsHiddenFlashSale] = React.useState<boolean>(false);
+    const [isHiddenMenList, setIsHiddenMenList] = React.useState<boolean>(false);
+    const [isHiddenWomenList, setIsHiddenWomenList] = React.useState<boolean>(false);
     return (
-        <div className="w-full">
-            <div className="!mb-7.5">
+        <Container bgColor="transparent" className="w-full">
+            <Box margin={[0, 0, 30, 0]}>
                 <Carousel />
-            </div>
-            <div className="w-full !px-[45px] !py-7.5">
+            </Box>
+            <Box className="w-full !px-8 md:!px-[45px] !py-7.5">
                 <SportTypeCarousel />
-            </div>
-            <div className="w-full !py-7.5">
-                <FlashSaleList />
-            </div>
-            <div className="w-full !px-[45px] !py-7.5">
+            </Box>
+            {!isHiddenFlashSale && (
+                <Box className="w-full !py-7.5">
+                    <FlashSaleList setHidden={setIsHiddenFlashSale} />
+                </Box>
+            )}
+            <Box className="w-full !px-8 md:!px-[45px] !py-7.5">
                 <BestSellerList />
-            </div>
-            <div className="w-full !py-7.5">
-                <SportForMenList />
-            </div>
-            <div className="w-full !py-7.5">
-                <SportForWomenList />
-            </div>
-            <div className="w-full !py-7.5">
+            </Box>
+            {!isHiddenMenList && (
+                <Box className="w-full !py-7.5">
+                    <SportForMenList setHidden={setIsHiddenMenList} />
+                </Box>
+            )}
+            {!isHiddenWomenList && (
+                <Box className="w-full !py-7.5">
+                    <SportForWomenList setHidden={setIsHiddenWomenList} />
+                </Box>
+            )}
+            <Box className="w-full !py-7.5">
                 <CustomerFeedbackList />
-            </div>
-        </div>
+            </Box>
+        </Container>
     );
 };
 

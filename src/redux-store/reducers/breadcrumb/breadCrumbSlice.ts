@@ -38,10 +38,13 @@ const breadcrumbSlice = createSlice({
                 state.breadcrumbList.pop();
             }
         },
+        resetBreadcrumb: () => {
+            return initialState;
+        },
     },
 });
 
 export const breadcrumbState = (state: RootState) => state.breadcrumb;
 
-export const { addBreadcrumb, removeBreadcrumb } = breadcrumbSlice.actions;
+export const { addBreadcrumb, removeBreadcrumb, resetBreadcrumb } = breadcrumbSlice.actions;
 export default breadcrumbSlice.reducer;

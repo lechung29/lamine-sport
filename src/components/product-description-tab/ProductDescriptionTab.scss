@@ -23,13 +23,35 @@
 
             .ant-tabs-tab-active {
                 .tab-nab-label {
-                    color: #002d3a!important;
+                    color: #002d3a !important;
                 }
             }
         }
 
         .ant-tabs-ink-bar {
             background-color: #002d3a;
+        }
+    }
+
+    .tab-content {
+        padding: 0 16px 16px !important;
+    }
+}
+
+@media (max-width: 767px) {
+    .product-description-tab-wrap .ant-tabs-nav-wrap .ant-tabs-nav-list {
+        flex-wrap: wrap;
+        justify-content: center;
+        .ant-tabs-tab {
+            padding: 8px 12px;
+            .ant-tabs-tab-btn {
+                flex-direction: column;
+                align-items: center;
+                gap: 4px;
+                .tab-nab-label {
+                    font-size: 12px;
+                }
+            }
         }
     }
 }

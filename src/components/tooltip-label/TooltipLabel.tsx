@@ -4,6 +4,7 @@ import { classNames } from "@/utils";
 import { Tooltip } from "antd";
 import { TooltipPlacement } from "antd/es/tooltip";
 import React from "react";
+import { Box } from "../elements";
 
 interface ITooltipLabel extends React.HTMLAttributes<HTMLDivElement> {
     text?: string;
@@ -57,7 +58,7 @@ const TooltipLabel: React.FC<ITooltipLabel> = (props) => {
     }, [width]);
 
     const content = (
-        <div
+        <Box
             {...rest}
             ref={titleRef}
             className={classNames("overflow-hidden text-[#333]", tooltipWidth, className)}
@@ -67,7 +68,7 @@ const TooltipLabel: React.FC<ITooltipLabel> = (props) => {
             }}
         >
             {text || props.children}
-        </div>
+        </Box>
     );
 
     return alwaysShow || isOverflowText ? (

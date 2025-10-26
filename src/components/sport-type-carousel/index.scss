@@ -2,16 +2,40 @@
 
 .g-sport-list-section {
     width: 100%;
+    overflow: hidden;
+
     .swiper-wrapper {
         display: flex;
-        align-items: center;
-        gap: 12px;
+        align-items: stretch;
 
         .swiper-slide {
-            width: auto;
-            flex-shrink: 0;
-            min-width: 120px;
-            margin-right: 0 !important;
+            height: auto;
+            display: flex;
+            flex-direction: column;
+            min-width: 100px;
+
+            // Responsive widths
+            @media (min-width: 320px) {
+                min-width: 120px;
+            }
+
+            @media (min-width: 640px) {
+                min-width: 130px;
+            }
+
+            @media (min-width: 1024px) {
+                min-width: 140px;
+            }
+
+            @media (min-width: 1280px) {
+                min-width: 150px;
+            }
         }
+    }
+
+    // Smooth transitions for navigation
+    .swiper-button-prev,
+    .swiper-button-next {
+        transition: all 0.2s ease;
     }
 }

@@ -2,85 +2,141 @@
 
 import React from "react";
 import { Dialog } from "../dialog";
-import { IProductItemProps } from "../product-item";
 import { TooltipLabel } from "../tooltip-label";
-import { Tooltip } from "antd";
-import { classNames } from "@/utils";
+import { Flex, Tooltip } from "antd";
+import { classNames, formatCurrency, isInputOnlyNumber } from "@/utils";
 import { LuMinus, LuPlus } from "react-icons/lu";
+import { IProductColorProps, IProductInfo } from "@/types";
+import { BaseButton, BaseInput, Box, Container, Image, Text } from "../elements";
+import { useImmerState } from "@/hooks";
+import { addToCart, useAppDispatch } from "@/redux-store";
+import { useNotification } from "@/context";
+import { useNavigate } from "react-router-dom";
 
 export interface IAddProductDialogProps {
     isOpen: boolean;
-    productItem?: any;
+    productItem: IProductInfo;
     onClose: () => void;
 }
 
+export interface IAddProductDialogState {
+    selectedColor?: IProductColorProps;
+    selectedSize?: string;
+    addProductCount: number;
+}
+
+const initialState: IAddProductDialogState = {
+    addProductCount: 1,
+};
+
 const AddProductDialog: React.FC<IAddProductDialogProps> = (props) => {
-    const { isOpen, onClose } = props;
-    const [currentItem, setCurrentItem] = React.useState<IProductItemProps | undefined>(undefined);
-    const [currentSize, setCurrentSize] = React.useState<number | undefined>(undefined);
-    const productSize = [36, 37, 38, 39, 40];
+    const { isOpen, productItem, onClose } = props;
+    const [state, setState] = useImmerState<IAddProductDialogState>(initialState);
+    const { selectedColor, selectedSize, addProductCount } = state;
+    const dispatch = useAppDispatch();
+    const notify = useNotification();
+    const navigate = useNavigate();
+    const onIncreaseCount = () => {
+        if (addProductCount < 99) {
+            setState({ addProductCount: addProductCount + 1 });
+        }
+    };
+
+    const onDecreaseCount = () => {
+        if (addProductCount > 1) {
+            setState({ addProductCount: addProductCount - 1 });
+        }
+    };
+
+    const handleAddToCart = () => {
+        if (!selectedColor || (productItem.productSizes && productItem.productSizes.length > 0 && !selectedSize)) {
+            if (!selectedColor) {
+                notify.error("Vui lòng chọn màu sắc cho sản phẩm.");
+            } else if (productItem.productSizes && productItem.productSizes.length > 0 && !selectedSize) {
+                notify.error("Vui lòng chọn kích thước cho sản phẩm.");
+            }
+        } else {
+            dispatch(
+                addToCart({
+                    ...productItem,
+                    selectedProductColorValue: selectedColor.value,
+                    selectedProductSize: selectedSize,
+                    selectedProductCount: addProductCount,
+                })
+            );
+            notify.success("Sản phẩm đã được thêm vào giỏ hàng.");
+            onClose();
+        }
+    };
 
     return (
         <Dialog isOpen={isOpen} onClose={onClose} withoutFooter={true}>
-            <div className="w-full h-full flex items-start justify-center gap-6">
-                <div className="w-2/5 h-auto overflow-hidden cursor-pointer">
-                    <img src={currentItem?.imgUrl || props.productItem[0].imgUrl} alt="Product" className="w-full object-contain" />
-                </div>
-                <div className="flex-1">
-                    <TooltipLabel className="!mb-2 font-semibold text-xl cursor-pointer hover:!text-[#77e322]" text="SẢN PHẨM KALENJI Giày chạy bộ JOGFLOW 500.1 cho nam 2" lineDisplayed={2} />
-                    <div className="w-full !mb-3 flex items-center justify-start gap-2">
-                        <p className="text-[#c30000] font-extrabold text-xl">969.000đ</p>
-                        <p className="text-[#7b7b7b] text-[16px] line-through">1.200.000đ</p>
-                    </div>
-                    <div className="w-full !mb-4">
-                        <p className="text-[#333] text-sm">Màu sắc:</p>
-                        <div className="!my-2 flex items-center justify-start gap-2.5">
-                            {props?.productItem.map((product) => (
-                                <Tooltip title={product.colorText} color={"#002d3a"} key={product.colorValue}>
-                                    <div
+            <Container className="h-full flex items-start justify-center gap-6">
+                <Box className="w-2/5 h-auto overflow-hidden cursor-pointer">
+                    <Image objectFit="contain" src={selectedColor?.images[0].url || productItem?.primaryImage.url} alt="Product" className="w-full" />
+                </Box>
+                <Box className="flex-1">
+                    <TooltipLabel className="!mb-2 font-semibold text-xl cursor-pointer hover:!text-[#77e322]" text={productItem?.productName} lineDisplayed={2} onClick={() => navigate(`/product/${productItem._id}`)}/>
+                    <Flex align="center" justify="flex-start" gap={8} className="!mb-3">
+                        {productItem?.salePrice ? (
+                            <>
+                                <Text fontWeight="extrabold" size="xl" color="#c30000" titleText={formatCurrency(productItem.salePrice)} />
+                                <Text fontWeight="extrabold" size="base" color="#7b7b7b" className="line-through" titleText={formatCurrency(productItem.originalPrice)} />
+                            </>
+                        ) : (
+                            <Text fontWeight="extrabold" size="xl" color="#c30000" titleText={formatCurrency(productItem.originalPrice)} />
+                        )}
+                    </Flex>
+                    <Box margin={[0, 0, 16, 0]}>
+                        <Text as="p" size="sm" color="#333" titleText="Màu sắc:" />
+                        <Flex align="center" justify="flex-start" gap={10} className="!my-2">
+                            {productItem?.productColors.map((product) => (
+                                <Tooltip title={product.name} color={"#002d3a"} key={product.id}>
+                                    <Box
                                         className={classNames(`w-7 h-7 !rounded-full !outline outline-[#d0d0d0] cursor-pointer`, {
-                                            "!outline-2 !outline-[#a2ff00]": currentItem?.colorValue === product.colorValue,
+                                            "!outline-2 !outline-[#a2ff00]": selectedColor?.value === product.value,
                                         })}
-                                        style={{ backgroundColor: product.colorValue }}
-                                        onClick={() => setCurrentItem(product)}
+                                        style={{ backgroundColor: product.hex }}
+                                        onClick={() => setState({ selectedColor: product })}
                                     />
                                 </Tooltip>
                             ))}
-                        </div>
-                    </div>
-                    <div className="w-full !mb-4">
-                        <p className="text-[#333] text-sm">Kích thước:</p>
-                        <div className="!my-2 flex items-center justify-start gap-2.5">
-                            {productSize.map((item) => (
-                                <div
+                        </Flex>
+                    </Box>
+                    <Box margin={[0, 0, 16, 0]} className={productItem.productSizes && productItem.productSizes.length > 0 ? "visible" : "invisible"}>
+                        <Text as="p" size="sm" color="#333" titleText="Kích thước:" />
+                        <Flex align="center" justify="flex-start" gap={10} className="!my-2">
+                            {productItem.productSizes.map((item) => (
+                                <Box
                                     className={classNames("w-7 h-7 !outline text-sm bg-white text-[#333] !outline-gray-200 flex items-center justify-center cursor-pointer", {
-                                        "!bg-[#002d3a] text-white": item === currentSize,
+                                        "!bg-[#002d3a] text-white": item === selectedSize,
                                     })}
-                                    onClick={() => setCurrentSize(item)}
+                                    onClick={() => setState({ selectedSize: item })}
                                 >
                                     {item}
-                                </div>
+                                </Box>
                             ))}
-                        </div>
-                    </div>
-                    <div className="w-full flex items-center justify-start flex-wrap gap-2">
-                        <div className="flex items-center gap-1">
-                            <div className="w-10 h-10 flex items-center justify-center cursor-pointer !text-white hover:!text-[#333] bg-[#002d3a] hover:!bg-[#77e322] transition-colors duration-300">
-                                <LuMinus className="!text-[14px]" />
-                            </div>
-                            <input type="text" className="h-9.75 w-15 text-center !outline !outline-gray-400" />
-                            <div className="w-10 h-10 flex items-center justify-center cursor-pointer !text-white hover:!text-[#333] bg-[#002d3a] hover:!bg-[#77e322] transition-colors duration-300">
-                                <LuPlus className="!text-[14px]" />
-                            </div>
-                        </div>
-                        <button
-                            className="w-37 h-10 flex items-center justify-center gap-1 cursor-pointer !text-white hover:!text-[#333] !bg-[#002d3a] hover:!bg-[#77e322] transition-colors duration-300"
-                        >
-                            <span className="font-semibold text-[16px]">Thêm vào giỏ hàng</span>
-                        </button>
-                    </div>
-                </div>
-            </div>
+                        </Flex>
+                    </Box>
+                    <Flex align="center" justify="flex-start" wrap gap={8}>
+                        <Flex align="center" gap={4}>
+                            <BaseButton textProps={{ size: "sm", fontWeight: 400 }} className="w-10 h-10" displayText={<LuMinus />} onClick={onDecreaseCount} />
+                            <BaseInput
+                                type="text"
+                                value={addProductCount.toString()}
+                                onChange={(value) => {
+                                    if (isInputOnlyNumber(value) && parseInt(value) >= 1 && parseInt(value) <= 99) {
+                                        setState({ addProductCount: parseInt(value) });
+                                    }
+                                }}
+                                className="h-9.75 w-15 text-base text-center"
+                            />
+                            <BaseButton textProps={{ size: "sm", fontWeight: 400 }} className="w-10 h-10" displayText={<LuPlus />} onClick={onIncreaseCount} />
+                        </Flex>
+                        <BaseButton className="h-10" textProps={{ size: "base", fontWeight: 600 }} displayText="Thêm vào giỏ hàng" onClick={handleAddToCart} />
+                    </Flex>
+                </Box>
+            </Container>
         </Dialog>
     );
 };

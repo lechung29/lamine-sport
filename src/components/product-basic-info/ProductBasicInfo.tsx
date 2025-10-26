@@ -1,120 +1,308 @@
 /** @format */
 
 import React from "react";
-import { IoHeartOutline } from "react-icons/io5";
 import { TooltipLabel } from "../tooltip-label";
-import { classNames } from "@/utils";
+import { classNames, formatCurrency, getSalePercent, isInputOnlyNumber } from "@/utils";
 import { TfiRulerAlt } from "react-icons/tfi";
 import { InstructionSizeDialog } from "../instruction-size-dialog";
 import { LuMinus, LuPlus } from "react-icons/lu";
+import { IProductColorProps, IProductInfo, IResponseStatus } from "@/types";
+import { BaseButton, BaseInput, Box, Container, Text } from "../elements";
+import { Flex } from "antd";
+import { addFavoriteProduct, addToCart, favoriteProductState, removeFavoriteProduct, useAppDispatch, useAppSelector, userState } from "@/redux-store";
+import { useNotification } from "@/context";
+import { useImmerState } from "@/hooks";
+import { useNavigate } from "react-router-dom";
+import { ProductService } from "@/services";
+import { FaHeart, FaRegHeart } from "react-icons/fa";
 
-export const productSize = ["S", "M", "L"];
-export const productColorList = ["Xanh dương", "Xám", "Trắng", "Đen"]
+interface IProductBasicInfoProps {
+    productItem: IProductInfo;
+}
 
-const ProductBasicInfo: React.FunctionComponent = () => {
-    const [currentSize, setCurrentSize] = React.useState<string>("S");
-    const [currentColor, setCurrentColor] = React.useState<string>("Xanh dương")
-    const [isOpenInstructionSize, setIsOpenInstructionSize] = React.useState<boolean>(false);
+export interface IProductBasicInfoState {
+    selectedColor?: IProductColorProps;
+    selectedSize?: string;
+    addProductCount: number;
+    isOpenInstructionSize: boolean;
+}
+
+const initialState: IProductBasicInfoState = {
+    addProductCount: 1,
+    isOpenInstructionSize: false,
+};
+
+const ProductBasicInfo: React.FunctionComponent<IProductBasicInfoProps> = (props) => {
+    const { productItem } = props;
+    const [state, setState] = useImmerState<IProductBasicInfoState>(initialState);
+    const { addProductCount, isOpenInstructionSize, selectedColor, selectedSize } = state;
+    const { favoriteProducts } = useAppSelector(favoriteProductState);
+    const { user } = useAppSelector(userState);
+    const navigate = useNavigate();
+    const dispatch = useAppDispatch();
+    const notify = useNotification();
+
+    const onIncreaseCount = () => {
+        if (addProductCount < 99) {
+            setState({ addProductCount: addProductCount + 1 });
+        }
+    };
+
+    const onDecreaseCount = () => {
+        if (addProductCount > 1) {
+            setState({ addProductCount: addProductCount - 1 });
+        }
+    };
+
+    const isFavoriteProduct = React.useMemo(() => {
+        return favoriteProducts.some((product) => product._id === productItem._id);
+    }, [favoriteProducts, productItem._id]);
+
+    const onAddFavoriteProduct = async () => {
+        if (user) {
+            await ProductService.addFavoriteProduct(productItem._id).then((data) => {
+                if (data.status === IResponseStatus.Error) {
+                    notify.error(data.message);
+                } else {
+                    notify.success(data.message);
+                    dispatch(addFavoriteProduct(productItem));
+                }
+            });
+        } else {
+            dispatch(addFavoriteProduct(productItem));
+        }
+    };
+
+    const onRemoveFavoriteProduct = async () => {
+        if (user) {
+            await ProductService.removeFavoriteProduct(productItem._id).then((data) => {
+                if (data.status === IResponseStatus.Error) {
+                    notify.error(data.message);
+                } else {
+                    notify.success(data.message);
+                    dispatch(removeFavoriteProduct(productItem._id));
+                }
+            });
+        } else {
+            dispatch(removeFavoriteProduct(productItem._id));
+        }
+    };
+
+    const getProductStockStatus = (product: IProductInfo): string => {
+        return product.stockQuantity > 0 ? "Còn hàng" : "Hết hàng";
+    };
+
+    const handleAddToCart = (redirectTo?: string) => {
+        if (!selectedColor || (productItem.productSizes && productItem.productSizes.length > 0 && !selectedSize)) {
+            if (!selectedColor) {
+                notify.error("Vui lòng chọn màu sắc cho sản phẩm.");
+            } else if (productItem.productSizes && productItem.productSizes.length > 0 && !selectedSize) {
+                notify.error("Vui lòng chọn kích thước cho sản phẩm.");
+            }
+        } else {
+            dispatch(
+                addToCart({
+                    ...productItem,
+                    selectedProductColorValue: selectedColor.value,
+                    selectedProductSize: selectedSize,
+                    selectedProductCount: addProductCount,
+                })
+            );
+            notify.success("Sản phẩm đã được thêm vào giỏ hàng.");
+            if (redirectTo) {
+                setTimeout(() => navigate(redirectTo), 1000);
+            }
+        }
+    };
     return (
         <React.Fragment>
-            <div className="w-full text-primary text-sm">
-                <div className="w-full !mb-6 !pb-4 !border-b !border-[#DDE1EF]">
-                    <div className="!mb-1 font-bold text-3xl">Áo khoác nỉ leo núi MH520 cho nữ</div>
-                    <div className="flex items-center justify-between">
-                        <span>Mã: Đang cập nhật</span>
-                        <TooltipLabel alwaysShow width="auto" placement="left" tooltipDescription="Thêm vào yêu thích">
-                            <div role="button" className="cursor-pointer">
-                                <IoHeartOutline className="text-3xl" />
-                            </div>
-                        </TooltipLabel>
-                    </div>
-                    <div className="inline-flex gap-2">
-                        <span>Thương hiệu: QUECHUA</span>
-                        <span>|</span>
-                        <span>Tình trạng: Còn hàng</span>
-                    </div>
-                </div>
-                <div className="w-full !pb-4">
-                    <div className="!mb-5">
-                        <p className="!tracking-normal !leading-6">
-                            Chúng tôi đã thiết kế chiếc áo khoác nỉ ấm áp & rất thoáng khí dành khoác cho những người thường xuyên đi hiking muốn vận động tự do mà vẫn giữ được sự nữ tính. Bạn sẽ rất
-                            thích kiểu dáng dài che phần thắt lưng, cổ áo cao mềm mại và cổ tay áo phủ tay tăng độ ấm.
-                        </p>
-                    </div>
-                    <div className="relative flex items-center !mb-6 bg-[#f5f5f5] !px-2.5 !py-2 !pr-15 ">
-                        <p className="!text-[#c30000] !mr-2 !font-bold text-3xl">160.000₫</p>
-                        <p className="!text-[18px] line-through">200.000đ</p>
-                        <div className="absolute top-0 bottom-0 right-0 w-14 inline-flex items-center justify-center !bg-[#c30000] text-white font-semibold [clip-path:polygon(20%_0%,100%_0%,100%_100%,0%_100%)]">- 20%</div>
-                    </div>
-                    <div className="!mb-2">
-                        <p className="text-[16px]">
-                            Màu sắc: <span className="font-bold">{currentColor}</span>
-                        </p>
-                    </div>
-                    <div className="!mb-6 inline-flex gap-2.5">
-                        {productColorList.map((item, idx) => (
-                            <div
-                                key={idx}
-                                className={classNames("w-8.5 h-8.5 !rounded-full !border !border-[#9d9d9d] inline-flex items-center justify-center cursor-pointer", {
-                                    "shadow-primary !border-2 !border-white": item === currentColor,
-                                    "!bg-[#024779]": item === "Xanh dương",
-                                    "!bg-[#615a5a]": item == "Xám",
-                                    "!bg-white": item === "Trắng",
-                                    "!bg-black": item === "Đen"
+            <Container className="w-full text-primary text-sm">
+                <Box padding={[0, 0, 16, 0]} margin={[0, 0, 16, 0]} className="w-full !border-b !border-[#DDE1EF]">
+                    <Text margin={[0, 0, 4, 0]} fontWeight="bold" size="3xl" titleText={productItem.productName} />
+                    <Flex align="center" justify="space-between">
+                        <Text as="span" titleText={`Mã: ${productItem._id}`} />
+                        <TooltipLabel alwaysShow width="auto" placement="left" tooltipDescription="Thêm vào yêu thích" onClick={!isFavoriteProduct ? onAddFavoriteProduct : onRemoveFavoriteProduct}>
+                            <Text
+                                size="2xl"
+                                className={classNames("cursor-pointer", {
+                                    "text-red-500": isFavoriteProduct,
+                                    "text-[#333]": !isFavoriteProduct,
                                 })}
+                                titleText={isFavoriteProduct ? <FaHeart /> : <FaRegHeart />}
+                            />
+                        </TooltipLabel>
+                    </Flex>
+                    <Box className="inline-flex gap-2">
+                        <Text as="span" size="sm" titleText={`Thương hiệu: ${productItem.brandName}  |  Tình trạng: ${getProductStockStatus(productItem)}`} />
+                    </Box>
+                </Box>
+                <Box padding={[0, 0, 16, 0]} className="w-full">
+                    <Box margin={[0, 0, 20, 0]}>
+                        <Text className="!tracking-normal !leading-6" titleText={productItem.description} />
+                    </Box>
+                    <Flex align="center" className="relative !mb-6 bg-[#f5f5f5] !px-2.5 !py-2 !pr-15 ">
+                        {productItem.salePrice ? (
+                            <React.Fragment>
+                                <Text color="#c30000" fontWeight="bold" size="3xl" margin={[0, 8, 0, 0]} titleText={formatCurrency(productItem.salePrice)} />
+                                <Text size="lg" className="line-through" titleText={formatCurrency(productItem.originalPrice)} />
+                                <Box className="absolute top-0 bottom-0 right-0 w-14 inline-flex items-center justify-center !bg-[#c30000] text-white font-semibold [clip-path:polygon(20%_0%,100%_0%,100%_100%,0%_100%)]">
+                                    {getSalePercent(productItem.originalPrice, productItem.salePrice)}%
+                                </Box>
+                            </React.Fragment>
+                        ) : (
+                            <Text color="#c30000" fontWeight="bold" size="3xl" margin={[0, 8, 0, 0]} titleText={formatCurrency(productItem.originalPrice)} />
+                        )}
+                    </Flex>
+                    <Box margin={[0, 0, 8, 0]}>
+                        <Text size="base">
+                            Màu sắc: <Text as="span" fontWeight="bold" titleText={selectedColor?.name} />
+                        </Text>
+                    </Box>
+                    <Box margin={[0, 0, 24, 0]} className="inline-flex gap-2.5">
+                        {productItem.productColors.map((item) => (
+                            <Box
+                                key={item.id}
+                                className={classNames("w-8.5 h-8.5 !rounded-full !border !border-[#9d9d9d] inline-flex items-center justify-center cursor-pointer", {
+                                    "shadow-primary !border-2 !border-white": item.id === selectedColor?.id,
+                                })}
+                                style={{
+                                    backgroundColor: item.hex,
+                                }}
                                 role="button"
-                                onClick={() => setCurrentColor(item)}
+                                onClick={() => setState({ selectedColor: item })}
                             />
                         ))}
-                    </div>
-                    <div className="!mb-2">
-                        <p className="text-[16px]">
-                            Kích thước: <span className="font-bold">{currentSize}</span>
-                        </p>
-                    </div>
-                    <div className="!mb-4 inline-flex gap-2">
-                        {productSize.map((item, idx) => (
-                            <div
-                                key={idx}
+                    </Box>
+                    {productItem.productSizes.length > 0 && (
+                        <Box margin={[0, 0, 8, 0]}>
+                            <Text size="base">
+                                Kích thước: <Text as="span" fontWeight="bold" titleText={selectedSize} />
+                            </Text>
+                        </Box>
+                    )}
+                    <Box margin={[0, 0, 24, 0]} className={productItem.productSizes && productItem.productSizes.length > 0 ? "visible inline-flex gap-2" : "invisible"}>
+                        {productItem.productSizes.map((item) => (
+                            <Box
+                                key={item}
                                 className={classNames("w-8.5 h-8.5 !border !border-[#9d9d9d] inline-flex items-center justify-center cursor-pointer", {
-                                    "text-white !bg-[#002d3a]": item === currentSize,
+                                    "text-white !bg-[#002d3a]": item === selectedSize,
                                 })}
                                 role="button"
-                                onClick={() => setCurrentSize(item)}
+                                onClick={() => setState({ selectedSize: item })}
                             >
                                 {item}
-                            </div>
+                            </Box>
                         ))}
-                    </div>
-                    <div className="!mb-4 flex items-center gap-2" onClick={() => setIsOpenInstructionSize(true)} onMouseDown={(e) => e.preventDefault()}>
+                    </Box>
+                    <Flex align="center" gap={8} className="!mb-4" onClick={() => setState({ isOpenInstructionSize: true })} onMouseDown={(e) => e.preventDefault()}>
                         <TfiRulerAlt className="text-[#fd7e14] text-lg" />
                         <TooltipLabel alwaysShow width="auto" tooltipDescription="Gợi ý tìm size">
-                            <span className="text-[16px] cursor-pointer hover:text-[#a2ff00]">Hướng dẫn chọn kích cỡ</span>
+                            <Text size="base" className="cursor-pointer hover:text-[#a2ff00]" titleText="Hướng dẫn chọn kích cỡ" />
                         </TooltipLabel>
-                    </div>
-                    <div className="inline-flex items-center gap-2 !mb-4">
-                        <span className="text-[16px] font-semibold">Số lượng:</span>
-                        <div className="flex items-center">
-                            <div className="w-7.5 h-10 flex items-center justify-center !border !border-[#ddd] cursor-pointer bg-[#f8f8f8] hover:bg-[#002d3a] group">
-                                <LuMinus className="!text-[10px] group-hover:text-white" />
-                            </div>
-                            <input type="text" className="h-10 w-12.5 text-center outline-none !border-y !border-gray-200" />
-                            <div className="w-7.5 h-10 flex items-center justify-center !border !border-[#ddd] cursor-pointer bg-[#f8f8f8] hover:bg-[#002d3a] group">
-                                <LuPlus className="!text-[10px] group-hover:text-white" />
-                            </div>
-                        </div>
-                    </div>
-                    <div className="flex items-center gap-1 !mb-4">
-                        <button className="flex-1 h-10.5 uppercase !text-[16px] !bg-[#002d3a] !text-white hover:!text-[#333] !px-6 !py-2.5 !font-semibold transition-colors duration-400 hover:!bg-[#77e322] [clip-path:polygon(0%_0%,100%_0%,95%_100%,0%_100%)] cursor-pointer">
-                            Thêm vào giỏ
-                        </button>
-                        <button className="flex-1 h-10.5 uppercase !text-[16px] !bg-[#a2ff00] !px-6 !py-2.5 !font-semibold transition-colors duration-400 hover:!bg-[#77e322] [clip-path:polygon(5%_0%,100%_0%,100%_100%,0%_100%)] cursor-pointer">
-                            Mua ngay
-                        </button>
-                    </div>
-                </div>
-            </div>
-            {isOpenInstructionSize && <InstructionSizeDialog isOpen={isOpenInstructionSize} onClose={() => setIsOpenInstructionSize(false)} />}
+                    </Flex>
+                    <Flex align="center" justify="flex-start" gap={8} className="!mb-4">
+                        <Text as="span" size="base" fontWeight="bold" titleText="Số lượng:" />
+                        <Flex align="center">
+                            <BaseButton
+                                className="w-9 h-10 !border !border-[#ddd]"
+                                colors={{
+                                    normal: {
+                                        textColor: "#333",
+                                        bgColor: "#f8f8f8",
+                                    },
+                                    hover: {
+                                        textColor: "white",
+                                        bgColor: "#002d3a",
+                                    },
+                                }}
+                                padding={[4, 4, 4, 4]}
+                                textProps={{
+                                    size: "xs",
+                                    fontWeight: 400,
+                                }}
+                                displayText={<LuMinus />}
+                                onClick={onDecreaseCount}
+                            />
+                            <BaseInput
+                                withoutBorder
+                                type="text"
+                                value={addProductCount.toString()}
+                                onChange={(value) => {
+                                    if (isInputOnlyNumber(value) && parseInt(value) >= 1 && parseInt(value) <= 99) {
+                                        setState({ addProductCount: parseInt(value) });
+                                    }
+                                }}
+                                className="h-10 w-12.5 !p-1 text-base text-center !border-y !border-gray-200"
+                            />
+                            <BaseButton
+                                className="w-9 h-10 !border !border-[#ddd]"
+                                colors={{
+                                    normal: {
+                                        textColor: "#333",
+                                        bgColor: "#f8f8f8",
+                                    },
+                                    hover: {
+                                        textColor: "white",
+                                        bgColor: "#002d3a",
+                                    },
+                                }}
+                                padding={[4, 4, 4, 4]}
+                                textProps={{
+                                    size: "xs",
+                                    fontWeight: 400,
+                                }}
+                                displayText={<LuPlus />}
+                                onClick={onIncreaseCount}
+                            />
+                        </Flex>
+                    </Flex>
+                    <Flex align="center" gap={4} className="!mb-4">
+                        <BaseButton
+                            textProps={{
+                                size: "base",
+                                fontWeight: 600,
+                                textTransform: "uppercase",
+                            }}
+                            colors={{
+                                normal: {
+                                    textColor: "white",
+                                    bgColor: "#002d3a",
+                                },
+                                hover: {
+                                    textColor: "#333",
+                                    bgColor: "#77e322",
+                                },
+                            }}
+                            padding={[10, 24, 10, 24]}
+                            className="flex-1 h-10.5 [clip-path:polygon(0%_0%,100%_0%,95%_100%,0%_100%)]"
+                            displayText="Thêm vào giỏ"
+                            onClick={() => handleAddToCart()}
+                        />
+                        <BaseButton
+                            textProps={{
+                                size: "base",
+                                fontWeight: 600,
+                                textTransform: "uppercase",
+                            }}
+                            colors={{
+                                normal: {
+                                    textColor: "#333",
+                                    bgColor: "#a2ff00",
+                                },
+                                hover: {
+                                    textColor: "#333",
+                                    bgColor: "#77e322",
+                                },
+                            }}
+                            padding={[10, 24, 10, 24]}
+                            className="flex-1 h-10.5 [clip-path:polygon(5%_0%,100%_0%,100%_100%,0%_100%)]"
+                            displayText="Mua ngay"
+                            onClick={() => handleAddToCart("/cart")}
+                        />
+                    </Flex>
+                </Box>
+            </Container>
+            {isOpenInstructionSize && <InstructionSizeDialog isOpen={isOpenInstructionSize} onClose={() => setState({ isOpenInstructionSize: false })} />}
         </React.Fragment>
     );
 };

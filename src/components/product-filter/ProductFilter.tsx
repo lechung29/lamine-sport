@@ -2,135 +2,108 @@
 
 import React from "react";
 import { ProductFilterItem } from "./ProductFilterItem";
-import { colorFilterValueList, genderFilterValueList, IFilterGroupType, IProductFilterOptionsProps, productPriceFilterValueList } from "./utils";
-import { cloneDeep, differenceBy } from "lodash";
-import { IoClose } from "react-icons/io5";
+import { ICommonFilterOptions, IProductCustomerFilterGroupType, IProductCustomerFilterValue } from "@/types";
+import { productCustomerFilterList } from "@/utils";
+import { Box, Container, Image, Text } from "../elements";
+import { Flex } from "antd";
 
-const ProductFilter: React.FunctionComponent = () => {
-    const [displayedFilters, setDisplayedFilters] = React.useState<IProductFilterOptionsProps[]>([]);
-    const [priceFilterValue, setPriceFilterValue] = React.useState<IProductFilterOptionsProps[]>([]);
-    const [genderFilterValue, setGenderFilterValue] = React.useState<IProductFilterOptionsProps[]>([]);
-    const [colorFilterValue, setColorFilterValue] = React.useState<IProductFilterOptionsProps[]>([]);
+export interface IProductFilterProps {
+    currentFilter: IProductCustomerFilterValue;
+    onApplyFilter: (filter: IProductCustomerFilterValue) => void;
+}
 
-    const handleFilterChange = (checkedFilterList: IProductFilterOptionsProps[], filterGroupType: IFilterGroupType) => {
-        let newDisplayedFilters = cloneDeep(displayedFilters);
-        const groupTypeFilterList = newDisplayedFilters.filter((filter) => filter.type === filterGroupType);
+const ProductFilter: React.FunctionComponent<IProductFilterProps> = (props) => {
+    const { currentFilter, onApplyFilter } = props;
+    const { productPrice, productColors, productGender, productType, sportTypes } = currentFilter;
 
-        const addedFilterList = differenceBy(checkedFilterList, groupTypeFilterList, "value");
-        const removedFilterList = differenceBy(groupTypeFilterList, checkedFilterList, "value");
-
-        if (addedFilterList.length > 0) {
-            newDisplayedFilters = [...newDisplayedFilters, ...addedFilterList];
-        }
-
-        if (removedFilterList.length > 0) {
-            newDisplayedFilters = newDisplayedFilters.filter((filter) => !removedFilterList.some((removed) => filter.type === filterGroupType && removed.value === filter.value));
-        }
-
+    const handleFilterChange = (checkedFilterList: ICommonFilterOptions[], filterGroupType: IProductCustomerFilterGroupType) => {
         switch (filterGroupType) {
-            case IFilterGroupType.Price:
-                setPriceFilterValue(checkedFilterList);
+            case IProductCustomerFilterGroupType.Price:
+                onApplyFilter({
+                    ...currentFilter,
+                    productPrice: checkedFilterList.map((filter) => filter.value),
+                });
                 break;
-            case IFilterGroupType.Gender:
-                setGenderFilterValue(checkedFilterList);
+            case IProductCustomerFilterGroupType.ProductType:
+                onApplyFilter({
+                    ...currentFilter,
+                    productType: checkedFilterList.map((filter) => filter.value),
+                });
                 break;
-            case IFilterGroupType.Color:
-                setColorFilterValue(checkedFilterList);
+            case IProductCustomerFilterGroupType.SportTypes:
+                onApplyFilter({
+                    ...currentFilter,
+                    sportTypes: checkedFilterList.map((filter) => filter.value),
+                });
+                break;
+            case IProductCustomerFilterGroupType.Gender:
+                onApplyFilter({
+                    ...currentFilter,
+                    productGender: checkedFilterList.map((filter) => filter.value),
+                });
+                break;
+            case IProductCustomerFilterGroupType.Color:
+                onApplyFilter({
+                    ...currentFilter,
+                    productColors: checkedFilterList.map((filter) => filter.value),
+                });
                 break;
             default:
                 break;
         }
-        setDisplayedFilters(newDisplayedFilters);
     };
 
-    const onRemoveFilter = (filterValue: IProductFilterOptionsProps)=> {
-        const newAllDisplayedFilters = displayedFilters.filter((item) => !(item.type === filterValue.type && item.value === filterValue.value))
-        switch (filterValue.type) {
-            case IFilterGroupType.Price:
-                const newSingleFilterPrice = priceFilterValue.filter((item) => !(item.value === filterValue.value));
-                setPriceFilterValue(newSingleFilterPrice);
-                break;
-            case IFilterGroupType.Gender:
-                const newSingleFilterByGender = genderFilterValue.filter((item) => !(item.value === filterValue.value));
-                setGenderFilterValue(newSingleFilterByGender);
-                break;
-            case IFilterGroupType.Color:
-                const newSingleFilterByColor = genderFilterValue.filter((item) => !(item.value === filterValue.value));
-                setGenderFilterValue(newSingleFilterByColor);
-                break;
-            default:
-                break;
-        }
-        setDisplayedFilters(newAllDisplayedFilters);
-    }
-
-    const onResetFilter = () => {
-        setDisplayedFilters([]);
-        setGenderFilterValue([])
-        setPriceFilterValue([])
-        setColorFilterValue([])
-    }
-
     return (
-        <div className="w-full h-auto !mb-7.5 !border-1 !border-[#eee]">
-            <div className="w-full bg-[#eee] !p-2.5 !mb-2.5">
-                <div className="w-full flex items-center gap-2">
-                    <img width="24" height="24" src="https://img.icons8.com/badges/48/sorting-options.png" alt="filter-icons" />
-                    <span className="text-[#333] text-xl uppercase font-bold">Bộ lọc sản phẩm</span>
-                </div>
-            </div>
-            <div className="w-full !px-2.5 !py-0">
-                {!!displayedFilters.length && <div className="!pb-4 !border-b-1 !border-[#eee]">
-                    <div className="flex items-center justify-between !mb-2">
-                        <p className="text-[#002d3a] font-semibold">Bạn chọn</p>
-                        <div 
-                            className="flex items-center gap-0.5 text-[#bf1e2e] hover:!text-[#77e322] cursor-pointer" 
-                            role="button"
-                            onClick={() => onResetFilter()}
-                        >
-                            {"Bỏ chọn hết"}
-                            <IoClose />
-                        </div>
-                    </div>
-                    <div className="flex items-center gap-1 flex-wrap">
-                        {displayedFilters.map((filterValue) => (
-                            <div 
-                                className="!px-1.5 !py-0.5 bg-[#002d3e] text-white text-sm flex items-center gap-1 cursor-pointer"
-                                role="button"
-                                onClick={() => onRemoveFilter(filterValue)}
-                            >
-                                <IoClose />
-                                {filterValue.label}
-                            </div>
-                        ))}
-                    </div>
-                </div>}
-                <div className="h-auto">
+        <Container margin={[0, 0, 30, 0]} className="h-auto !border-1 !border-[#eee]">
+            <Box bgColor="#eee" padding={[10, 10, 10, 10]} margin={[0, 0, 10, 0]}>
+                <Flex align="center" gap={8}>
+                    <Image width="24px" height="24px" src="https://img.icons8.com/badges/48/sorting-options.png" alt="filter-icons" />
+                    <Text size="xl" fontWeight="bold" textTransform="uppercase" color="#333" titleText="Bộ lọc sản phẩm" />
+                </Flex>
+            </Box>
+            <Box padding={[0, 10, 0, 10]}>
+                <Box className="h-auto">
                     <ProductFilterItem
                         label="Chọn mức giá"
-                        filterOptions={productPriceFilterValueList}
-                        filterValue={priceFilterValue.map((option) => option.value)}
-                        onFilterChange={(checkedFilterList) => handleFilterChange(checkedFilterList, IFilterGroupType.Price)}
+                        filterOptions={productCustomerFilterList.find((filter) => filter.id === "productPrice")!?.options}
+                        filterValue={productPrice || []}
+                        onFilterChange={(checkedFilterList) => handleFilterChange(checkedFilterList, IProductCustomerFilterGroupType.Price)}
                     />
-                </div>
-                <div className="h-auto">
+                </Box>
+                <Box className="h-auto">
+                    <ProductFilterItem
+                        label="Chọn loại sản phẩm"
+                        filterOptions={productCustomerFilterList.find((filter) => filter.id === "productType")!?.options}
+                        filterValue={productType || []}
+                        onFilterChange={(checkedFilterList) => handleFilterChange(checkedFilterList, IProductCustomerFilterGroupType.ProductType)}
+                    />
+                </Box>
+                <Box className="h-auto">
+                    <ProductFilterItem
+                        label="Chọn môn thể thao"
+                        filterOptions={productCustomerFilterList.find((filter) => filter.id === "sportTypes")!?.options}
+                        filterValue={sportTypes || []}
+                        onFilterChange={(checkedFilterList) => handleFilterChange(checkedFilterList, IProductCustomerFilterGroupType.SportTypes)}
+                    />
+                </Box>
+                <Box className="h-auto">
                     <ProductFilterItem
                         label="Màu sắc"
-                        filterOptions={colorFilterValueList}
-                        filterValue={colorFilterValue.map((option) => option.value)}
-                        onFilterChange={(checkedFilterList) => handleFilterChange(checkedFilterList, IFilterGroupType.Color)}
+                        filterOptions={productCustomerFilterList.find((filter) => filter.id === "productColors")!?.options}
+                        filterValue={productColors || []}
+                        onFilterChange={(checkedFilterList) => handleFilterChange(checkedFilterList, IProductCustomerFilterGroupType.Color)}
                     />
-                </div>
-                <div className="h-auto">
+                </Box>
+                <Box className="h-auto">
                     <ProductFilterItem
                         label="Giới tính"
-                        filterOptions={genderFilterValueList}
-                        filterValue={genderFilterValue.map((option) => option.value)}
-                        onFilterChange={(checkedFilterList) => handleFilterChange(checkedFilterList, IFilterGroupType.Gender)}
+                        filterOptions={productCustomerFilterList.find((filter) => filter.id === "productGender")!?.options}
+                        filterValue={productGender || []}
+                        onFilterChange={(checkedFilterList) => handleFilterChange(checkedFilterList, IProductCustomerFilterGroupType.Gender)}
                     />
-                </div>
-            </div>
-        </div>
+                </Box>
+            </Box>
+        </Container>
     );
 };
 
