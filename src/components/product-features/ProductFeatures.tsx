@@ -1,6 +1,8 @@
 /** @format */
 
 import React from "react";
+import { Box, Text } from "../elements";
+import { Flex } from "antd";
 
 interface FeatureItem {
     icon: React.ReactNode;
@@ -13,17 +15,17 @@ interface FeatureListProps {
 
 const ProductFeatures: React.FC<FeatureListProps> = ({ items }) => {
     return (
-        <div className="!space-y-2">
+        <Box className="!space-y-2">
             {items.map((item, index) => (
-                <div key={index} className="relative h-15 flex items-center gap-3 bg-[#f4f4f4] !border !border-[#ccc]">
-                    <div className="absolute -left-4 w-8 h-8 flex items-center justify-center font-bold rounded-full bg-[#a2ff00] text-[#333]">{index + 1}</div>
-                    <div className="w-full flex items-center !py-2.5 !pr-2.5 !pl-7 gap-2">
+                <Flex align="center" gap={12} key={index} className="relative h-15 bg-[#f4f4f4] !border !border-[#ccc]">
+                    <Flex align="center" justify="center" className="absolute -left-4 w-8 h-8 font-bold rounded-full bg-[#a2ff00] text-[#333]">{index + 1}</Flex>
+                    <Flex align="center" gap={8} className="w-full !py-2.5 !pr-2.5 !pl-7">
                         {item.icon}
-                        <span className=" text-[16px] font-semibold">{item.text}</span>
-                    </div>
-                </div>
+                        <Text as="span" size="base" fontWeight="semibold" titleText={item.text} />
+                    </Flex>
+                </Flex>
             ))}
-        </div>
+        </Box>
     );
 };
 

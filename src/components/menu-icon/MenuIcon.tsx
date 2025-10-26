@@ -1,6 +1,8 @@
 /** @format */
 
+import { Flex } from "antd";
 import React from "react";
+import { Box, Text } from "../elements";
 
 interface MenuIconProps {
     onClick?: () => void | Promise<void>;
@@ -8,14 +10,14 @@ interface MenuIconProps {
 
 const MenuIcon: React.FC<MenuIconProps> = ({ onClick }) => {
     return (
-        <div className="h-full flex flex-col items-center justify-center cursor-pointer" onClick={onClick}>
-            <div className="w-8">
-                <div className="w-6 !my-[7px] h-[2px] !bg-white" />
-                <div className="w-7 !my-[7px] h-[2px] !bg-green-500" />
-                <div className="w-8 !my-[7px] h-[2px] !bg-white" />
-            </div>
-            <p className="text-sm uppercase">Menu</p>
-        </div>
+        <Flex vertical align="center" justify="center" className="h-full cursor-pointer" onClick={onClick}>
+            <Box className="w-8">
+                <Box className="w-6 !my-[7px] h-[2px] !bg-white" />
+                <Box className="w-7 !my-[7px] h-[2px] !bg-green-500" />
+                <Box className="w-8 !my-[7px] h-[2px] !bg-white" />
+            </Box>
+            <Text size="sm" textTransform="uppercase" titleText="Menu" />
+        </Flex>
     );
 };
 

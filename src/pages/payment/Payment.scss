@@ -15,11 +15,43 @@
 }
 
 .ant-btn-variant-solid {
-    background-color: #357ebd!important;
+    background-color: #357ebd !important;
 }
 
 .ant-input-outlined.ant-input-status-error:not(.ant-input-disabled),
 .ant-input-outlined.ant-input-status-error:not(.ant-input-disabled):hover {
     border-color: #c10000;
     border-width: 1.5px;
+}
+
+.m-payment-order-info-collapse {
+    .ant-collapse-header {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+
+        background-color: white;
+    }
+
+    .ant-collapse-content-box {
+        background-color: white;
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+}
+
+.d-payment-order-info-collapse {
+    .ant-collapse-header {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+
+    .collapse-desktop-panel {
+        background-color: white !important;
+    }
+
+    .ant-collapse-content-box {
+        background-color: transparent !important;
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
 }

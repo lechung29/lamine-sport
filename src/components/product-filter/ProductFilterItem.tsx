@@ -1,35 +1,31 @@
 /** @format */
 
 import React from "react";
-import { IProductFilterOptionsProps } from "./utils";
-import { Checkbox } from 'antd';
+import { Checkbox } from "antd";
 import "./ProductFilterItem.scss";
+import { ICommonFilterOptions } from "@/types";
+import { Box, Text } from "../elements";
 
 interface IProductFilterItemProps {
     label?: string;
-    filterOptions: IProductFilterOptionsProps[];
+    filterOptions: ICommonFilterOptions[];
     filterValue: number[];
-    onFilterChange: (checkedFilterList: IProductFilterOptionsProps[]) => void;
+    onFilterChange: (checkedFilterList: ICommonFilterOptions[]) => void;
 }
 
 const ProductFilterItem: React.FC<IProductFilterItemProps> = (props) => {
     const { label, filterOptions, filterValue, onFilterChange } = props;
 
     const onChangeFilter = (checkedValues: number[]) => {
-        const checkedFilterList = filterOptions.filter(option => checkedValues.includes(option.value));
+        const checkedFilterList = filterOptions.filter((option) => checkedValues.includes(option.value));
         onFilterChange(checkedFilterList);
-    }   
+    };
 
     return (
-        <div className="w-full !pb-6 !pt-4 !border-b-1 !border-[#eee]">
-            {label && <h2 className="!mb-3 !font-bold uppercase">{label}</h2>}
-            <Checkbox.Group
-                className="filter-checkbox-group-wrapper"
-                options={filterOptions}
-                value={filterValue}
-                onChange={onChangeFilter}
-            />
-        </div>
+        <Box padding={[16, 0, 24, 0]} className="!border-b-1 !border-[#eee]">
+            {label && <Text fontWeight="bold" textTransform="uppercase" margin={[0, 0, 12, 0]} titleText={label} />}
+            <Checkbox.Group className="filter-checkbox-group-wrapper" options={filterOptions} value={filterValue} onChange={onChangeFilter} />
+        </Box>
     );
 };
 

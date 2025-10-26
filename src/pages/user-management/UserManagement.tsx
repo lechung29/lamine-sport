@@ -1,18 +1,19 @@
 /** @format */
 
-import { Breadcrumbs } from "@/components";
+import { Box, Breadcrumbs, Container, Text } from "@/components";
 import { classNames } from "@/utils";
 import React from "react";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { FaRegUser } from "react-icons/fa";
 import { GrDeliver } from "react-icons/gr";
 import { RiCouponLine } from "react-icons/ri";
-import { SlLogout } from "react-icons/sl";
+import { Flex } from "antd";
 
 const userManagementRoute = [
     {
         label: "Thông tin cá nhân",
-        to: "/user-management",
+        to: "/user-management/my-information",
+        subTo: "/user-management",
         icon: <FaRegUser />,
     },
     {
@@ -30,42 +31,41 @@ const userManagementRoute = [
 const UserManagement: React.FunctionComponent = () => {
     const navigation = useNavigate();
     const location = useLocation();
+
     return (
-        <section className="w-full">
+        <Container className="w-full">
             <Breadcrumbs />
-            <div className="w-full !px-[45px] !pb-5" style={{ height: "calc(100vh - 144px)" }}>
-                <div className="h-full flex flex-wrap !mb-10">
-                    <div className="w-full h-full md:!pr-4 md:w-1/3 lg:w-1/4">
-                        <div className="relative !p-4 h-full flex md:flex-col flex-row gap-2 !bg-[#f8f8f8] !rounded-xl">
+            <Box className="w-full !px-4 sm:!px-8 lg:!px-[45px] !pb-5">
+                <Flex className="flex-wrap md:flex-nowrap !mb-10 gap-4 md:gap-0">
+                    <Box className="w-full md:!pr-4 md:w-1/3 xl:w-1/5">
+                        <Box className="w-full h-full !p-2 !py-3 flex flex-row overflow-x-auto whitespace-nowrap md:flex-col md:justify-start gap-2 !bg-[#f8f8f8] !rounded-xl">
                             {userManagementRoute.map((item, key) => (
-                                <div
+                                <Flex
                                     key={key}
-                                    role="button"
-                                    className={classNames("!py-2 !px-4 flex items-center gap-2 cursor-pointer !rounded-lg hover:!bg-[#01112f] hover:text-white", {
-                                        "!bg-[#01112f] text-white": location.pathname === item.to,
-                                    })}
+                                    align="center"
+                                    gap={8}
+                                    className={classNames(
+                                        "!py-2 !px-4 gap-2 cursor-pointer !rounded-lg hover:!bg-[#01112f] hover:text-white transition-colors duration-200 text-center",
+                                        {
+                                            "!bg-[#01112f] text-white": location.pathname === item.to || location.pathname === item.subTo,
+                                        }
+                                    )}
                                     onClick={() => navigation(item.to)}
                                 >
                                     {item.icon}
-                                    <span>{item.label}</span>
-                                </div>
+                                    <Text as="span" titleText={item.label}/>
+                                </Flex>
                             ))}
-                            <div className="absolute bottom-4 !py-2 !px-4 cursor-pointer flex items-center gap-2 font-medium text-[#c30000] hover:text-[#7bb841] group">
-                                <span className="transition-transform duration-200 group-hover:-translate-x-1">
-                                    <SlLogout />
-                                </span>
-                                <span>Đăng xuất</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="w-full h-full md:!pl-4 lg:w-3/4 md:w-2/3">
-                        <div className="h-full !p-4 !bg-[#f8f8f8] !rounded-xl">
+                        </Box>
+                    </Box>
+                    <Box className="w-full md:!pl-4 xl:w-4/5 md:w-2/3">
+                        <Box padding={[16, 16, 16, 16]} bgColor="#f8f8f8" className="h-full !rounded-xl">
                             <Outlet />
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+                        </Box>
+                    </Box>
+                </Flex>
+            </Box>
+        </Container>
     );
 };
 

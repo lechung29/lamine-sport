@@ -5,6 +5,7 @@ import { Dialog } from "../dialog";
 import { IoIosArrowDown } from "react-icons/io";
 import { Popover } from "antd";
 import { classNames } from "@/utils";
+import { Box, Image, Text } from "../elements";
 
 interface IInstructionSizeDialogProps {
     isOpen: boolean;
@@ -49,9 +50,9 @@ const productTypeOptions: IBasicDropdownOption[] = [
 export const InstructionProductOption: React.FunctionComponent<IInstructionProductOptionProps> = (props) => {
     const { menuWidth, selectedOption, options, onChange } = props;
     return (
-        <div className="!p-0.5 !bg-white h-auto" style={{ width: menuWidth || "100%" }}>
+        <Box bgColor="white" padding={[2, 2, 2, 2]} className="h-auto" style={{ width: menuWidth || "100%" }}>
             {options.map((productType) => (
-                <div
+                <Box
                     key={productType.key}
                     className={classNames("w-full !my-0.5 !p-2 !py-1.5 cursor-pointer text-[#333] hover:bg-[#1c2635] hover:text-white transition-all duration-300", {
                         "bg-[#1c2635] text-white": selectedOption?.key === productType.key,
@@ -59,9 +60,9 @@ export const InstructionProductOption: React.FunctionComponent<IInstructionProdu
                     onClick={() => onChange(productType)}
                 >
                     {productType.text}
-                </div>
+                </Box>
             ))}
-        </div>
+        </Box>
     );
 };
 
@@ -102,8 +103,8 @@ const InstructionSizeDialog: React.FunctionComponent<IInstructionSizeDialogProps
 
     return (
         <Dialog isOpen={isOpen} onClose={onClose} withoutFooter={true}>
-            <div className="w-full h-full">
-                <h2 className="!text-[16px] !font-semibold uppercase !mb-3.5">Bảng gợi ý kích cỡ</h2>
+            <Box className="w-full h-full">
+                <Text size="base" fontWeight="semibold" textTransform="uppercase" margin={[0, 0, 14, 0]} titleText="Bảng gợi ý kích cỡ" />
                 <Popover
                     open={isOpenMenu}
                     arrow={false}
@@ -124,13 +125,13 @@ const InstructionSizeDialog: React.FunctionComponent<IInstructionSizeDialogProps
                     onOpenChange={(isOpen) => setIsOpenMenu(isOpen)}
                     trigger="click"
                 >
-                    <div className="inline-flex items-center justify-between max-w-90 w-full h-auto !px-2 !py-1.5 !mb-4 !border !border-[#ebebeb] cursor-pointer" ref={triggerRef}>
-                        <span>{productType?.text ?? "Chọn loại sản phẩm"}</span>
+                    <Box className="inline-flex items-center justify-between max-w-90 w-full h-auto !px-2 !py-1.5 !mb-4 !border !border-[#ebebeb] cursor-pointer" ref={triggerRef}>
+                        <Text as="span" titleText={productType?.text ?? "Chọn loại sản phẩm"} />
                         <IoIosArrowDown />
-                    </div>
+                    </Box>
                 </Popover>
-                {instructionSizeImg && <img src={instructionSizeImg} alt="Instruction Size" className="w-full h-auto !mb-2 object-contain" />}
-            </div>
+                {instructionSizeImg && <Image src={instructionSizeImg} alt="Bảng hướng dẫn size" objectFit="contain" className="w-full h-auto !mb-2" />}
+            </Box>
         </Dialog>
     );
 };

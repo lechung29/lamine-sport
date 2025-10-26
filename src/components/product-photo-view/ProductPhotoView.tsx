@@ -12,6 +12,7 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 import "swiper/css/effect-fade";
 import "./ProductPhotoView.scss";
+import { BaseButton, Box, Container, Image } from "../elements";
 
 interface IProductItemPhotoProps {
     photoList: string[];
@@ -60,58 +61,60 @@ const ProductPhotoView: React.FunctionComponent<IProductItemPhotoProps> = (props
     }, [props.photoList]);
 
     return (
-        <div className="w-full z-10">
+        <Container className="w-full z-10">
             <PhotoView src={currentPhoto}>
-                <img className="w-full cursor-pointer" src={currentPhoto} alt="photo-product" />
+                <Image clickable className="w-full" src={currentPhoto} alt="photo-product" />
             </PhotoView>
-            <div className="w-full !mt-2 relative">
-                <button
-                    className={classNames("absolute top-1/2 -translate-y-1/2 z-10 left-0 !bg-[#002d3a] !p-0.5 !text-center hover:!bg-[#77e322] cursor-pointer custom-prev", {
-                        hidden: isStart || props.photoList.length <= slidesToShow,
-                    })}
-                    onClick={onPreviousItemClick}
-                >
-                    <IoIosArrowBack className="max-sm:!text-sm !text-lg !text-white drop-shadow-md" />
-                </button>
-                <button
-                    className={classNames("absolute top-1/2 -translate-y-1/2 z-10 right-0 !bg-[#002d3a] !p-0.5 !text-center hover:!bg-[#77e322] cursor-pointer custom-next", {
-                        hidden: isEnd || props.photoList.length <= slidesToShow,
-                    })}
-                    onClick={onNextItemClick}
-                >
-                    <IoIosArrowForward className="max-sm:!text-sm !text-lg !text-white drop-shadow-md" />
-                </button>
-                <Swiper
-                    modules={[Navigation, Pagination, Autoplay, EffectFade]}
-                    spaceBetween={16}
-                    slidesPerView={slidesToShow}
-                    navigation={{
-                        nextEl: ".custom-next",
-                        prevEl: ".custom-prev",
-                    }}
-                    className="product-image-list"
-                    onSwiper={(swiper) => {
-                        swiperRef.current = swiper;
-                    }}
-                    onSlideChange={(swiper) => {
-                        setIsStart(swiper.isBeginning);
-                        setIsEnd(swiper.isEnd);
-                    }}
-                >
-                    {props.photoList.map((photo, idx) => (
-                        <SwiperSlide className="!mr-[15.8px]" key={idx}>
-                            <img
-                                src={photo}
-                                alt={`thumbnail-${idx}`}
-                                onClick={() => setCurrentPhoto(photo)}
-                                className={`cursor-pointer !border transition-all duration-200 
+            {props.photoList.length > 1 && (
+                <Box margin={[8, 0, 0, 0]} className="w-full relative">
+                    <BaseButton
+                        className={classNames("absolute top-1/2 -translate-y-1/2 z-10 left-0 !p-0.5 custom-prev", {
+                            hidden: isStart || props.photoList.length <= slidesToShow,
+                        })}
+                        onClick={onPreviousItemClick}
+                    >
+                        <IoIosArrowBack className="max-sm:!text-sm !text-lg !text-white drop-shadow-md" />
+                    </BaseButton>
+                    <BaseButton
+                        className={classNames("absolute top-1/2 -translate-y-1/2 z-10 right-0 !p-0.5 custom-next", {
+                            hidden: isEnd || props.photoList.length <= slidesToShow,
+                        })}
+                        onClick={onNextItemClick}
+                    >
+                        <IoIosArrowForward className="max-sm:!text-sm !text-lg !text-white drop-shadow-md" />
+                    </BaseButton>
+                    <Swiper
+                        modules={[Navigation, Pagination, Autoplay, EffectFade]}
+                        spaceBetween={16}
+                        slidesPerView={slidesToShow}
+                        navigation={{
+                            nextEl: ".custom-next",
+                            prevEl: ".custom-prev",
+                        }}
+                        className="product-image-list"
+                        onSwiper={(swiper) => {
+                            swiperRef.current = swiper;
+                        }}
+                        onSlideChange={(swiper) => {
+                            setIsStart(swiper.isBeginning);
+                            setIsEnd(swiper.isEnd);
+                        }}
+                    >
+                        {props.photoList.map((photo, idx) => (
+                            <SwiperSlide className="!mr-[15.8px]" key={idx}>
+                                <Image
+                                    src={photo}
+                                    alt={`thumbnail-${idx}`}
+                                    onClick={() => setCurrentPhoto(photo)}
+                                    className={`cursor-pointer !border transition-all duration-200 
                                 ${photo === currentPhoto ? "!border-[#77e322]" : "!border-[#f1f1f1]"}`}
-                            />
-                        </SwiperSlide>
-                    ))}
-                </Swiper>
-            </div>
-        </div>
+                                />
+                            </SwiperSlide>
+                        ))}
+                    </Swiper>
+                </Box>
+            )}
+        </Container>
     );
 };
 

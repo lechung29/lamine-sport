@@ -1,0 +1,28 @@
+/*
+ * @format
+ */
+
+.custom-scrollbar {
+    overflow-x: auto;
+    padding-bottom: 16px;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+    height: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+    background: #fff;
+    border-radius: 2px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+    background-color: #002d3a;
+    border-radius: 2px;
+}
+
+@media (min-width: 768px) {
+    .custom-scrollbar::-webkit-scrollbar {
+        display: none;
+    }
+}

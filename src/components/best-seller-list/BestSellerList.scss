@@ -5,12 +5,32 @@
     .swiper-wrapper {
         display: flex;
         align-items: center;
-        gap: 4px;
-
         .swiper-slide {
-            width: auto!important;
-            min-width: 120px!important;
-            margin-right: 8px !important;
+            width: auto !important;
+            min-width: 120px !important;
         }
+    }
+}
+
+.custom-scrollbar {
+    scroll-padding-right: 1rem;
+
+    -webkit-scroll-padding-right: 1rem;
+
+    &::-webkit-scrollbar {
+        height: 4px;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: #fff;
+        border-radius: 10px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: #002d3a;
+        border-radius: 10px;
+    }
+    &::-webkit-scrollbar-thumb:hover {
+        background: #001f28;
     }
 }

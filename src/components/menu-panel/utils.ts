@@ -1,5 +1,7 @@
 /** @format */
 
+import { ProductGender, ProductType, SportType } from "@/types";
+
 export interface IIconProps {
     src: string;
     alt?: string;
@@ -8,12 +10,14 @@ export interface IIconProps {
     rotate?: number;
 }
 
+type ICollapseLabelPropsWithTo = Omit<ICollapseLabelProps, "to"> & { to: string };
+
 export interface ICollapseLabelProps {
     key: string;
     iconProps?: IIconProps;
     label: string;
     to?: string;
-    children?: ICollapseLabelProps[];
+    children?: ICollapseLabelPropsWithTo[];
 }
 export const parentCategoryListProps: ICollapseLabelProps[] = [
     {
@@ -66,15 +70,18 @@ export const instructionsAndPolicyList: ICollapseLabelProps[] = [
         children: [
             {
                 key: "howToOrder",
-                label: "Cách đặt hàng",
+                label: "Hướng dẫn mua hàng",
+                to: "/instruction/purchasing",
             },
             {
-                key: "paymentMethods",
-                label: "Phương thức thanh toán",
+                key: "paymentInstruction",
+                label: "Hướng dẫn thanh toán",
+                to: "/instruction/transfer",
             },
             {
-                key: "shippingMethods",
-                label: "Phương thức vận chuyển",
+                key: "refundInstruction",
+                label: "Hướng dẫn hoàn hàng",
+                to: "/instruction/refund",
             },
         ],
     },
@@ -85,80 +92,140 @@ export const instructionsAndPolicyList: ICollapseLabelProps[] = [
             {
                 key: "buyingPolicy",
                 label: "Chính sách mua hàng",
+                to: "/policy/purchasing",
             },
             {
-                key: "returnPolicy",
-                label: "Chính sách đổi trả",
+                key: "paymentPolicy",
+                label: "Chính sách thanh toán",
+                to: "/policy/payment",
             },
             {
                 key: "shippingPolicy",
                 label: "Chính sách vận chuyển",
+                to: "/policy/shipping",
             },
-
         ],
     },
 ];
 
-export const sportListFake = [
+export const sportListMenu = [
     {
         categoryName: "Thể thao dưới nước",
-        children: ["Bơi lội", "Lặn biển", "Lướt sóng"],
+        children: [
+            {
+                label: "Bơi lội",
+                value: SportType.Swimming,
+            },
+        ],
     },
     {
-        categoryName: "Thể thao ngoài trời",
-        children: ["Leo núi", "Đi bộ đường dài", "Cắm trại"],
+        categoryName: "Chạy bộ & Đi bộ",
+        children: [
+            {
+                label: "Đi bộ",
+                value: SportType.Jogging,
+            },
+            {
+                label: "Cắm trại",
+                value: SportType.Camping,
+            },
+        ],
+    },
+    {
+        categoryName: "Các môn Fitness",
+        children: [
+            {
+                label: "Gym",
+                value: SportType.Fitness,
+            },
+        ],
+    },
+    {
+        categoryName: "Đạp xe và trượt ván",
+        children: [
+            {
+                label: "Đạp xe",
+                value: SportType.Cycling,
+            },
+        ],
     },
     {
         categoryName: "Thể thao đồng đội",
-        children: ["Bóng đá", "Bóng rổ", "Bóng chuyền"],
+        children: [
+            {
+                label: "Bóng rổ",
+                value: SportType.Basketball,
+            },
+            {
+                label: "Bóng đá",
+                value: SportType.Football,
+            },
+            {
+                label: "Bóng chuyền",
+                value: SportType.Volleyball,
+            },
+        ],
     },
     {
         categoryName: "Thể thao cá nhân",
-        children: ["Quần vợt", "Cầu lông", "Bóng bàn"],
+        children: [
+            {
+                label: "Cầu lông",
+                value: SportType.Badminton,
+            },
+            {
+                label: "Bóng bàn",
+                value: SportType.TableTennis,
+            },
+            {
+                label: "Tennis",
+                value: SportType.Tennis,
+            },
+        ],
     },
 ];
 
-export const menListFake = [
+export const menListMenu = [
     {
         categoryName: "Giày dép",
-        children: ["Giày thể thao", "Giày da", "Giày sandal"],
+        to: `/products?productType=${ProductType.Shoes}&gender=${ProductGender.Male}`,
     },
     {
         categoryName: "Quần áo",
-        children: ["Áo thun", "Quần jeans", "Áo khoác"],
+        to: `/products?productType=${ProductType.Shorts}&productType=${ProductType.TShirt}&gender=${ProductGender.Male}`,
     },
     {
         categoryName: "Phụ kiện",
-        children: ["Mũ lưỡi trai", "Kính mát", "Thắt lưng"],
+        to: `/products?productType=${ProductType.Accessory}&gender=${ProductGender.Male}`,
     },
 ];
 
-export const womenListFake = [
+export const womenListMenu = [
     {
         categoryName: "Giày dép",
-        children: ["Giày cao gót", "Giày bệt", "Giày thể thao"],
+        to: `/products?productType=${ProductType.Shoes}&gender=${ProductGender.Female}`,
     },
     {
         categoryName: "Quần áo",
-        children: ["Váy", "Áo sơ mi", "Quần legging"],
+        to: `/products?productType=${ProductType.Shorts}&productType=${ProductType.TShirt}&gender=${ProductGender.Female}`,
     },
     {
         categoryName: "Phụ kiện",
-        children: ["Túi xách", "Khăn quàng cổ", "Trang sức"],
+        to: `/products?productType=${ProductType.Accessory}&gender=${ProductGender.Female}`,
     },
 ];
 
-export const accessoriesListFake = [
+export const accessoriesListMenu = [
     {
         categoryName: "Phụ kiện thể thao",
-        children: ["Bóng", "Vợt", "Găng tay"],
+        to: `/products?productType=${ProductType.Accessory}`,
     },
     {
         categoryName: "Thiết bị điện tử",
-        children: ["Đồng hồ thông minh", "Máy đo nhịp tim", "Tai nghe"],
+        to: `/products?productType=${ProductType.Accessory}`,
     },
     {
         categoryName: "Đồ dùng tập luyện",
-        children: ["Thảm tập yoga", "Dây kháng lực", "Tạ tay"],
+        to: `/products?productType=${ProductType.Accessory}`,
     },
 ];

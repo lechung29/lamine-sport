@@ -1,7 +1,5 @@
 /** @format */
 
-import { isValidPasswordCharacter } from "../../signup/utils/validation";
-
 export interface ILoginValidationResult {
     errorField: "email" | "password" | null;
     errorMessage: string;
@@ -11,14 +9,14 @@ export const validateSignIn = (email: string, password: string): ILoginValidatio
     if (!email) {
         return {
             errorField: "email",
-            errorMessage: "The email address is required. Please provide a value to proceed.",
+            errorMessage: "Vui lòng nhập email để tiếp tục xử lý",
         };
     }
 
     if (!password) {
         return {
             errorField: "password",
-            errorMessage: "The password is required. Please provide a value to proceed.",
+            errorMessage: "Vui lòng nhập mật khẩu để tiếp tục xử lý",
         };
     }
 
@@ -28,23 +26,16 @@ export const validateSignIn = (email: string, password: string): ILoginValidatio
         if (!email.match(emailRegex)) {
             return {
                 errorField: "email",
-                errorMessage: "The email address entered is invalid. Please ensure it follows the correct email format (e.g., name@example.com)."
-            }
+                errorMessage: "Định dang email không hợp lệ. Vui lòng đảm email đã đúng định dạng (VD. name@example.com)",
+            };
         }
     }
 
-    if (!!password) {
-        if (password.length < 8) {
-            return {
-                errorField: "password",
-                errorMessage: "The password is too short. Please provide a password with at least 8 characters."
-            };
-        } else if (!isValidPasswordCharacter(password)) {
-            return {
-                errorField: "password",
-                errorMessage: "The password can only contain English's letters, numbers, and common special characters. No accents or unsupported symbols are allowed."
-            }
-        }
+    if (!!password && password.length < 8) {
+        return {
+            errorField: "password",
+            errorMessage: "Mật khẩu phải chứa ít nhất 8 ký tự",
+        };
     }
 
     return {
@@ -52,4 +43,3 @@ export const validateSignIn = (email: string, password: string): ILoginValidatio
         errorMessage: "",
     };
 };
-

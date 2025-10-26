@@ -1,0 +1,169 @@
+/**
+ * @format
+ */
+
+.filter-button-popover {
+    border-radius: 8px !important;
+}
+
+.popover-content-container {
+    color: #333 !important;
+}
+
+.site-collapse-custom-collapse {
+    background: #fff !important;
+    border: none !important;
+    border-radius: 0px !important;
+    overflow: hidden !important;
+}
+
+.site-collapse-custom-collapse > .ant-collapse-item {
+    border-radius: 0 !important;
+    border-bottom: none !important;
+    box-shadow: none !important;
+}
+
+.site-collapse-custom-panel .ant-collapse-header {
+    padding: 6px 12px !important;
+    transition: background-color 0.2s ease-in-out !important;
+    border-radius: 0 !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+.site-collapse-custom-panel .ant-collapse-header:hover {
+    background-color: #f5f5f5 !important;
+}
+
+.site-collapse-custom-panel.ant-collapse-item-active .ant-collapse-header {
+    background-color: #f0f0f0 !important;
+}
+
+.site-collapse-custom-panel .ant-collapse-content-box {
+    padding: 6px 12px !important;
+    border-radius: 0 !important;
+}
+
+.site-collapse-custom-panel {
+    margin-bottom: 0px !important;
+    overflow: hidden !important;
+    background: #fff !important;
+    border: none !important;
+    border-radius: 0 !important;
+}
+
+.ant-checkbox-group-item {
+    margin-right: 0px !important;
+}
+
+.site-collapse-custom-panel .ant-collapse-header .ant-typography {
+    color: #333 !important;
+    font-weight: normal !important;
+}
+
+.filter-scrollable-content::-webkit-scrollbar {
+    width: 4px !important;
+}
+
+.filter-scrollable-content::-webkit-scrollbar-track {
+    background: transparent !important;
+}
+
+.filter-scrollable-content::-webkit-scrollbar-thumb {
+    background-color: transparent !important;
+    border-radius: 10px !important;
+    transition: background-color 0.3s ease !important;
+}
+
+.filter-scrollable-content:hover::-webkit-scrollbar-thumb {
+    background-color: #002d3a !important;
+}
+
+.ant-checkbox-group .ant-checkbox-wrapper span:not(.ant-checkbox-inner) {
+    color: #333 !important;
+}
+
+.ant-input,
+.ant-input-search > .ant-input-group > .ant-input {
+    color: #333 !important;
+}
+
+.filter-button {
+    background-color: #fff !important;
+    border: 1px solid #d9d9d9 !important;
+    color: rgba(0, 0, 0, 0.88) !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 4px !important;
+
+    &:hover,
+    &.ant-btn-background-ghost:hover {
+        background-color: #f5f5f5 !important;
+        border-color: #d9d9d9 !important;
+        color: rgba(0, 0, 0, 0.88) !important;
+    }
+
+    &.filter-button-active {
+        background-color: #f5f5f5 !important;
+        border-color: #d9d9d9 !important;
+        color: rgba(0, 0, 0, 0.88) !important;
+    }
+
+    position: relative;
+    padding-right: 28px !important;
+}
+
+.filter-badge {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background-color: #002d3a;
+    color: white;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: bold;
+    z-index: 10;
+    box-shadow: 0 0 0 1px #fff;
+}
+
+.filter-popover-content {
+    width: 256px;
+    .filter-scrollable-content {
+        max-height: 300px;
+        overflow-y: auto;
+    }
+    .filter-collapse.ant-collapse {
+        background-color: #fff;
+        border: none;
+        .filter-panel.ant-collapse-item {
+            border-bottom: 1px solid #f0f0f0;
+            &:last-child {
+                border-bottom: none;
+            }
+            .ant-collapse-header {
+                padding: 12px 16px;
+                color: rgba(0, 0, 0, 0.88);
+                font-weight: 500;
+            }
+            .ant-collapse-content-box {
+                padding: 12px 16px;
+            }
+        }
+    }
+    .filter-divider.ant-divider {
+        margin: 0;
+    }
+    .filter-actions-row {
+        width: 100%;
+        padding: 8px 16px;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        gap: 8px;
+    }
+}

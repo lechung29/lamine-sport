@@ -1,0 +1,19 @@
+/** @format */
+
+.custom-table .ant-table-thead > tr > th {
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #e5e7eb;
+    font-weight: 600;
+    color: #6b7280;
+    font-size: 14px;
+    letter-spacing: 0.05em;
+}
+
+.custom-table .ant-table-tbody > tr > td {
+    border-bottom: 1px solid #f3f4f6;
+    padding: 16px;
+}
+
+.custom-table .ant-table-tbody > tr:hover > td {
+    background-color: #f9fafb;
+}

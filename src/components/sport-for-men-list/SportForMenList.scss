@@ -2,16 +2,10 @@
 
 .g-sport-for-men-section {
     width: 100%;
-    .swiper-wrapper {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 4px;
 
-        .swiper-slide {
-            // flex: 1 !important;
-            // min-width: 120px !important;
-            margin-right: 8px !important;
-        }
+    .swiper-slide {
+        width: 200px !important;
+        flex-shrink: 0 !important;
+        margin-right: 12px !important;
     }
 }

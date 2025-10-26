@@ -1,29 +1,32 @@
 /** @format */
 
 import React from "react";
+import { Box, Container, Text } from "../elements";
+import { productSortOptions } from "@/utils";
+import { FaCheck } from "react-icons/fa6";
 
-const ProductSortMenu: React.FC = () => {
+export interface IProductSortMenuProps {
+    activeSort: string;
+    onSortChange: (sort: string) => void;
+}
+
+const ProductSortMenu: React.FunctionComponent<IProductSortMenuProps> = (props) => {
+    const { activeSort, onSortChange } = props;
     return (
-        <div className="!p-1.5 !bg-white flex flex-col gap-1 w-44 h-auto">
-            <div className="w-full !p-2 !py-1.5 cursor-pointer text-[#333] hover:bg-[#1c2635] hover:text-white transition-all duration-300">
-                <span className="text-sm">Mặc định</span>
-            </div>
-            <div className="w-full !p-2 !py-1.5 cursor-pointer text-[#333] hover:bg-[#1c2635] hover:text-white transition-all duration-300">
-                <span className="text-sm">Tên A-Z</span>
-            </div>
-            <div className="w-full !p-2 !py-1.5 cursor-pointer text-[#333] hover:bg-[#1c2635] hover:text-white transition-all duration-300">
-                <span className="text-sm">Tên Z-A</span>
-            </div>
-            <div className="w-full !p-2 !py-1.5 cursor-pointer text-[#333] hover:bg-[#1c2635] hover:text-white transition-all duration-300">
-                <span className="text-sm">Hàng mới</span>
-            </div>
-            <div className="w-full !p-2 !py-1.5 cursor-pointer text-[#333] hover:bg-[#1c2635] hover:text-white transition-all duration-300">
-                <span className="text-sm">Giá thấp đến cao</span>
-            </div>
-            <div className="w-full !p-2 !py-1.5 cursor-pointer text-[#333] hover:bg-[#1c2635] hover:text-white transition-all duration-300">
-                <span className="text-sm">Giá cao xuống thấp</span>
-            </div>
-        </div>
+        <Container padding={[6, 6, 6, 6]} className="flex flex-col gap-1 w-50 h-auto">
+            {productSortOptions.map((option) => (
+                <Box
+                    key={option.value}
+                    bgColor="white"
+                    padding={[6, 8, 6, 8]}
+                    className="cursor-pointer text-[#333] hover:!bg-[#1c2635] hover:text-white transition-all duration-300"
+                    onClick={() => onSortChange(option.value)}
+                >
+                    <Text padding={[0, 8, 0, 0]} as="span" size="sm" titleText={option.label} />
+                    {activeSort === option.value && <FaCheck className="text-lg float-right" />}
+                </Box>
+            ))}
+        </Container>
     );
 };
 

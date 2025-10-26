@@ -1,3 +1,3 @@
 /** @format */
 
-export * from "./userSlice";
+export * from "./user";
