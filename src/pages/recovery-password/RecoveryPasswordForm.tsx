@@ -54,10 +54,10 @@ const RecoveryPasswordForm: React.FunctionComponent<IRecoveryPasswordForm> = (pr
             setIsSubmitting(false);
             if (data) {
                 if (data.status === IResponseStatus.Success) {
-                    notify.success("Thông báo", data.message);
+                    notify.success(data.message);
                     await delayTime(1500).then(() => navigate("/login"));
                 } else {
-                    notify.error("Thông báo", data.message);
+                    notify.error(data.message);
                 }
             }
         }
