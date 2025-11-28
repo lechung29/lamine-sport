@@ -9,7 +9,7 @@ const FEEDBACK_BG = "https://bizweb.dktcdn.net/100/490/431/themes/927074/assets/
 const FEEDBACK_ITEM_BG = "https://bizweb.dktcdn.net/100/490/431/themes/927074/assets/quote-4.svg?1744883926073";
 const DEFAULT_AVATAR = "https://www.pngkey.com/png/full/115-1150420_avatar-png-pic-male-avatar-icon-png.png";
 
-const API_BASE_URL = "http://localhost:5000/api/v1";
+const API_BASE_URL = "https://lamine-sport-api.onrender.com/api/v1";
 
 const FOOTER_SHOP_DES =
     "Lamine Sport - Nhà bán lẻ & phân phối thương hiệu các mặt hàng về thể thao như giày chạy bộ, đồ bơi, kính bơi, giày thể thao, đồ tập gym,... với chất lượng hàng đầu tại Việt Nam.";
