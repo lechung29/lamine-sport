@@ -376,7 +376,7 @@ const Payment: React.FunctionComponent = () => {
                         {appliedCoupon && (
                             <Flex align="center" justify="space-between">
                                 <Text as="span" titleText="Giảm giá" />
-                                <Text as="span" color="#c10000" titleText={`- ${discountPrice} VNĐ`} />
+                                <Text as="span" color="#c10000" titleText={`- ${formatCurrency(discountPrice)}`} />
                             </Flex>
                         )}
                     </Box>
@@ -524,7 +524,7 @@ const Payment: React.FunctionComponent = () => {
                         {appliedCoupon && (
                             <Flex align="center" justify="space-between">
                                 <Text as="span" titleText="Giảm giá" />
-                                <Text as="span" color="#c10000" titleText={`- ${discountPrice} VNĐ`} />
+                                <Text as="span" color="#c10000" titleText={`- ${formatCurrency(discountPrice)}`} />
                             </Flex>
                         )}
                     </Box>
