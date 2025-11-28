@@ -83,19 +83,19 @@ const InstructionSizeDialog: React.FunctionComponent<IInstructionSizeDialogProps
         let imgSrc = "";
         switch (productType?.key) {
             case "sportShoes":
-                imgSrc = "/src/assets/instruction-size-shoes.webp";
+                imgSrc = "./assets/instruction-size-shoes.webp";
                 break;
             case "shirt":
-                imgSrc = "/src/assets/instruction-size-shirt.webp";
+                imgSrc = "./assets/instruction-size-shirt.webp";
                 break;
             case "shorts":
-                imgSrc = "/src/assets/instruction-size-shorts.webp";
+                imgSrc = "./assets/instruction-size-shorts.webp";
                 break;
             case "skirt":
-                imgSrc = "/src/assets/instruction-size-skirt.jpg";
+                imgSrc = "./assets/instruction-size-skirt.jpg";
                 break;
             case "socks":
-                imgSrc = "/src/assets/instruction-size-socks.webp";
+                imgSrc = "./assets/instruction-size-socks.webp";
                 break;
         }
         return imgSrc;
