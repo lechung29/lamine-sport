@@ -16,8 +16,10 @@ import { IDiscountProgram } from "@/types";
 import { DiscountService } from "@/services";
 import dayjs from "dayjs";
 import { useNavigate } from "react-router-dom";
+import slider1 from './assets/slider_1.webp'
+import slider2 from './assets/slider_2.webp'
 
-const images = ["/src/assets/slider_1.webp", "/src/assets/slider_2.webp"];
+const images = [slider1, slider2];
 
 const containerVariants = {
     hidden: {},
