@@ -40,6 +40,9 @@ const cartSlice = createSlice({
         clearCart: (state) => {
             state.cartList = [];
         },
+        restoreCart: (state, action) => {
+            state.cartList = action.payload;
+        },
         changeCartItemCountByInput: (state, action) => {
             const { productId, selectedProductColorValue, count } = action.payload;
             const existingItem = state.cartList.find((item) => item._id === productId && item.selectedProductColorValue === selectedProductColorValue);
@@ -66,5 +69,5 @@ const cartSlice = createSlice({
 
 export const cartState = (state: RootState) => state.cart;
 
-export const { addToCart, removeFromCart, changeCartItemCountByInput, increaseCartItemCount, reduceCartItemCount, clearCart } = cartSlice.actions;
+export const { addToCart, removeFromCart, changeCartItemCountByInput, increaseCartItemCount, reduceCartItemCount, clearCart, restoreCart } = cartSlice.actions;
 export default cartSlice.reducer;

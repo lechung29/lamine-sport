@@ -13,7 +13,7 @@ import { IoIosCheckmarkCircle } from "react-icons/io";
 import { MdContentCopy } from "react-icons/md";
 import { BaseButton, Box, Container, Image, Text, TooltipLabel } from "@/components";
 import { useNavigate } from "react-router-dom";
-import { cartState, clearCart, ICartItem, useAppDispatch, useAppSelector, userState } from "@/redux-store";
+import { cartState, clearCart, restoreCart, ICartItem, useAppDispatch, useAppSelector, userState } from "@/redux-store";
 import { AccountLockedError, delayTime, formatCurrency, isInputOnlyNumber, UnauthorizedError } from "@/utils";
 import { CouponValueType, ICouponData, IResponseStatus } from "@/types";
 import { CouponService } from "@/services";
@@ -59,7 +59,6 @@ const OrderItem: React.FunctionComponent<CartItemProps> = (props) => {
     );
 };
 
-// ============ QR Payment Modal ============
 interface QrPaymentModalProps {
     open: boolean;
     qrUrl: string;
@@ -96,7 +95,6 @@ const QrPaymentModal: React.FunctionComponent<QrPaymentModalProps> = ({ open, qr
         setTimeLeft(QR_TIMEOUT_MS);
         setIsPaid(false);
 
-        // Countdown timer
         timerRef.current = setInterval(() => {
             setTimeLeft((prev) => {
                 if (prev <= 1000) {
@@ -108,7 +106,6 @@ const QrPaymentModal: React.FunctionComponent<QrPaymentModalProps> = ({ open, qr
             });
         }, 1000);
 
-        // Polling kiểm tra thanh toán
         pollingRef.current = setInterval(async () => {
             try {
                 const res = await OrderService.checkPaymentStatus(orderCode);
@@ -119,7 +116,6 @@ const QrPaymentModal: React.FunctionComponent<QrPaymentModalProps> = ({ open, qr
                     onSuccess();
                 }
             } catch {
-                // ignore network errors during polling
             }
         }, POLLING_INTERVAL_MS);
 
@@ -242,8 +238,11 @@ const Payment: React.FunctionComponent = () => {
     const [qrModalOpen, setQrModalOpen] = React.useState<boolean>(false);
     const [qrUrl, setQrUrl] = React.useState<string>("");
     const [currentOrderCode, setCurrentOrderCode] = React.useState<string>("");
+    const [currentOrderId, setCurrentOrderId] = React.useState<string>("");
     const [transferContent, setTransferContent] = React.useState<string>("");
     const [bankInfo, setBankInfo] = React.useState<IBankInfo | undefined>(undefined);
+    // Snapshot giỏ hàng để restore nếu user hủy QR
+    const [cartSnapshot, setCartSnapshot] = React.useState<ICartItem[]>([]);
 
     const navigate = useNavigate();
     const notify = useNotification();
@@ -393,17 +392,34 @@ const Payment: React.FunctionComponent = () => {
                 notify.error(data.message);
                 return;
             }
-            dispatch(clearCart());
 
-            if (paymentMethod === IOrderPayment.Transfer && data.data?.qrUrl) {
+            // Thanh toán COD: clear cart và chuyển hướng luôn
+            if (paymentMethod !== IOrderPayment.Transfer) {
+                dispatch(clearCart());
+                notify.success(data.message);
+                await delayTime(1500);
+                navigate("/user-management/my-orders");
+                return;
+            }
+
+            // Thanh toán QR SePay:
+            // - Lưu snapshot giỏ hàng trước khi clear (để restore nếu hủy)
+            // - Clear cart khỏi UI (đơn hàng đã được tạo, hàng đã bị trừ kho phía backend)
+            // - Mở modal QR và bắt đầu polling
+            if (data.data?.qrUrl) {
+                setCartSnapshot([...cartList]);
+                dispatch(clearCart());
                 setQrUrl(data.data.qrUrl);
                 setCurrentOrderCode(data.data.orderCode ?? data.data.order.orderCode);
+                setCurrentOrderId(data.data.order._id);
                 setTransferContent(data.data.transferContent ?? "");
                 setBankInfo(data.data.bankInfo);
                 setQrModalOpen(true);
                 return;
             }
 
+            // Fallback nếu không có qrUrl
+            dispatch(clearCart());
             notify.success(data.message);
             await delayTime(1500);
             navigate("/user-management/my-orders");
@@ -416,6 +432,7 @@ const Payment: React.FunctionComponent = () => {
 
     const handleQrPaymentSuccess = async () => {
         setQrModalOpen(false);
+        setCartSnapshot([]);
         notify.success("Thanh toán thành công! Đơn hàng đã được ghi nhận.");
         await delayTime(500);
         navigate("/user-management/my-orders");
@@ -424,19 +441,39 @@ const Payment: React.FunctionComponent = () => {
     const handleQrTimeout = () => {
         setQrModalOpen(false);
         notify.error("QR đã hết hạn. Vui lòng kiểm tra đơn hàng hoặc hủy và đặt lại.");
+        setCartSnapshot([]);
         navigate("/user-management/my-orders");
     };
 
-    const handleQrClose = () => {
+    /**
+     * Khi user đóng modal QR:
+     * 1. Gọi API hủy đơn hàng (restore tồn kho phía backend)
+     * 2. Restore lại giỏ hàng ở frontend từ snapshot
+     * 3. Thông báo cho user
+     */
+    const handleQrClose = async () => {
         setQrModalOpen(false);
-        notify.error("Bạn đã đóng QR. Đơn hàng vẫn còn trong hệ thống, vào Đơn hàng của tôi để kiểm tra hoặc hủy.");
-        navigate("/user-management/my-orders");
+
+        if (currentOrderId) {
+            try {
+                await OrderService.cancelOrder(currentOrderId);
+            } catch {
+                // Nếu cancel thất bại, vẫn restore cart để user không mất hàng
+            }
+        }
+
+        // Restore giỏ hàng từ snapshot
+        if (cartSnapshot.length > 0) {
+            dispatch(restoreCart(cartSnapshot));
+            setCartSnapshot([]);
+        }
+
+        notify.warning("Đã hủy thanh toán QR. Giỏ hàng đã được khôi phục.");
     };
 
     // ============ Render (giữ nguyên layout) ============
     return (
         <Container bgColor="white" className="min-h-screen flex flex-col items-center justify-center">
-            {/* QR Modal */}
             <QrPaymentModal
                 open={qrModalOpen}
                 qrUrl={qrUrl}
@@ -449,7 +486,6 @@ const Payment: React.FunctionComponent = () => {
                 onClose={handleQrClose}
             />
 
-            {/* Desktop layout */}
             <Box className="w-full items-start justify-center hidden md:flex">
                 <Box padding={[40, 28, 40, 28]} className="min-h-screen w-full lg:w-2/3">
                     <Flex justify="center" className="!pb-5">
