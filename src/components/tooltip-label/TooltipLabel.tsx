@@ -21,7 +21,6 @@ const TooltipLabel: React.FC<ITooltipLabel> = (props) => {
     const [windowWidth, setWindowWidth] = React.useState(window.innerWidth);
     const titleRef = React.useRef<HTMLDivElement>(null);
 
-
     React.useEffect(() => {
         const handleResize = () => {
             setWindowWidth(window.innerWidth);
@@ -35,13 +34,14 @@ const TooltipLabel: React.FC<ITooltipLabel> = (props) => {
 
     React.useEffect(() => {
         const el = titleRef.current;
-        if (el) {
-            const timeout = setTimeout(() => {
-                const isOverflowing = el.scrollHeight > el.clientHeight + 1 || el.scrollWidth > el.clientWidth + 1;
-                setIsOverflowText(isOverflowing);
-            }, 0);
-            return () => clearTimeout(timeout);
-        }
+        if (!el) return;
+
+        const timeout = setTimeout(() => {
+            const isOverflowing = el.scrollHeight > el.clientHeight + 1 || el.scrollWidth > el.clientWidth + 1;
+            setIsOverflowText(isOverflowing);
+        }, 0);
+
+        return () => clearTimeout(timeout);
     }, [text, lineDisplayed, windowWidth]);
 
     const labelStyle: React.CSSProperties = {
@@ -55,6 +55,7 @@ const TooltipLabel: React.FC<ITooltipLabel> = (props) => {
         } else if (width === "full") {
             return "!w-full";
         }
+        return undefined;
     }, [width]);
 
     const content = (

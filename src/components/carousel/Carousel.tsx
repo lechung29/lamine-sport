@@ -3,7 +3,7 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination, Navigation, EffectFade } from "swiper/modules";
 import React from "react";
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
@@ -19,7 +19,7 @@ import { useNavigate } from "react-router-dom";
 
 const images = ["./assets/slider_1.webp", "./assets/slider_2.webp"];
 
-const containerVariants = {
+const containerVariants: Variants = {
     hidden: {},
     visible: {
         transition: {
@@ -36,7 +36,7 @@ const itemVariants = {
         y: 0,
         transition: {
             duration: 0.8,
-            ease: "easeOut",
+            ease: "easeOut" as const,
         },
     },
 };
@@ -57,11 +57,11 @@ const Carousel: React.FunctionComponent = () => {
 
     return (
         <Box className="relative w-full group overflow-hidden">
-            <button className="!text-white !bg-[#002932] max-[480px]:hidden absolute top-1/2 !-left-10 group-hover:!left-4 transition-all ease-in-out !z-10 transform -translate-y-1/2 !py-0.5 !pr-1 duration-400 hover:!bg-[#77e322] hover:!text-[#333] [clip-path:polygon(0%_0%,85%_0%,100%_100%,0%_100%)] cursor-pointer custom-prev">
-                <IoIosArrowBack className="max-sm:!text-lg !text-3xl text-white drop-shadow-md" />
+            <button className="text-white! bg-[#002932]! max-[480px]:hidden absolute top-1/2 -left-10! group-hover:left-4! transition-all ease-in-out z-10! transform -translate-y-1/2 py-0.5! pr-1! duration-400 hover:bg-[#77e322]! hover:text-[#333]! [clip-path:polygon(0%_0%,85%_0%,100%_100%,0%_100%)] cursor-pointer custom-prev">
+                <IoIosArrowBack className="max-sm:text-lg! text-3xl! text-white drop-shadow-md" />
             </button>
-            <button className="!text-white !bg-[#002932] max-[480px]:hidden absolute top-1/2 !-right-10 group-hover:!right-4 transition-all ease-in-out !z-10 transform -translate-y-1/2 !py-0.5 !pl-1 duration-400 hover:!bg-[#77e322] hover:!text-[#333] [clip-path:polygon(0%_0%,100%_0%,100%_100%,15%_100%)] cursor-pointer custom-next">
-                <IoIosArrowForward className="max-sm:!text-lg !text-3xl text-white drop-shadow-md" />
+            <button className="text-white! bg-[#002932]! max-[480px]:hidden absolute top-1/2 -right-10! group-hover:right-4! transition-all ease-in-out z-10! transform -translate-y-1/2 py-0.5! pl-1! duration-400 hover:bg-[#77e322]! hover:text-[#333]! [clip-path:polygon(0%_0%,100%_0%,100%_100%,15%_100%)] cursor-pointer custom-next">
+                <IoIosArrowForward className="max-sm:text-lg! text-3xl! text-white drop-shadow-md" />
             </button>
 
             <Swiper
@@ -87,42 +87,42 @@ const Carousel: React.FunctionComponent = () => {
             >
                 {images.map((img, index) => (
                     <SwiperSlide key={index}>
-                        <Box className="relative w-full aspect-[16/6] max-[480px]:aspect-[1/1] bg-cover bg-center" style={{ backgroundImage: `url(${img})` }}>
-                            <Box className="absolute inset-0 bg-black/50 min-[480px]:!hidden z-10 pointer-events-none" />
+                        <Box className="relative w-full aspect-16/6 max-[480px]:aspect-square bg-cover bg-center" style={{ backgroundImage: `url(${img})` }}>
+                            <Box className="absolute inset-0 bg-black/50 min-[480px]:hidden! z-10 pointer-events-none" />
                             {activeIndex === index && !!currentProgram && (
                                 <motion.div
                                     key={index}
-                                    className="absolute top-1/2 left-[5%] sm:left-[7%] -translate-y-1/2 z-20 max-[480px]:!text-white text-[#333] !p-4 sm:!p-0" // Added padding for mobile
+                                    className="absolute top-1/2 left-[5%] sm:left-[7%] -translate-y-1/2 z-20 max-[480px]:text-white! text-[#333] p-4! sm:p-0!"
                                     variants={containerVariants}
                                     initial="hidden"
                                     animate="visible"
                                 >
-                                    <motion.div className="!text-[clamp(12px,2vw,1.2rem)] max-[480px]:!text-[clamp(1rem,4.5vw,1.5rem)] uppercase !font-bold" variants={itemVariants}>
+                                    <motion.div className="text-[clamp(12px,2vw,1.2rem)]! max-[480px]:text-[clamp(1rem,4.5vw,1.5rem)]! uppercase font-bold!" variants={itemVariants}>
                                         Hot deal
                                     </motion.div>
                                     <motion.div
-                                        className="!text-[clamp(18px,3.6vw,10rem)] max-[480px]:!text-[clamp(20px,8.5vw,10rem)] oswald-font uppercase !font-black !leading-tight !mb-2" // Adjusted line-height and margin
+                                        className="text-[clamp(18px,3.6vw,10rem)]! max-[480px]:text-[clamp(20px,8.5vw,10rem)]! oswald-font uppercase font-black! leading-tight! mb-2!" 
                                         variants={itemVariants}
                                         style={{ textShadow: "1px 1px 2px rgba(0,0,0,0.4)" }}
                                     >
                                         {currentProgram.programName}
                                     </motion.div>
                                     <motion.div
-                                        className="!text-[clamp(14px,2.4vw,1.8rem)] max-[480px]:!text-[clamp(1rem,4.5vw,1.5rem)] oswald-font !font-medium !mb-2"
+                                        className="text-[clamp(14px,2.4vw,1.8rem)]! max-[480px]:text-[clamp(1rem,4.5vw,1.5rem)]! oswald-font font-medium! mb-2!"
                                         variants={itemVariants}
                                         style={{ textShadow: "1px 1px 2px rgba(0,0,0,0.4)", color: "#333" }}
                                     >
                                         Giảm giá lên đến {currentProgram.discountPercentage}%
                                     </motion.div>
-                                    <motion.div className="!text-[clamp(10px,1.8vw,1.2rem)] max-[480px]:!text-[clamp(14px,3.5vw,1.2rem)] font-medium !mb-4" variants={itemVariants}>
+                                    <motion.div className="text-[clamp(10px,1.8vw,1.2rem)]! max-[480px]:text-[clamp(14px,3.5vw,1.2rem)]! font-medium mb-4!" variants={itemVariants}>
                                         Thời gian: {dayjs(currentProgram.startDate).format("DD/MM/YY")} - {dayjs(currentProgram.endDate).format("DD/MM/YY")}
                                     </motion.div>
                                     <motion.div
-                                        className="!mt-7 inline-flex items-center justify-center gap-1 !text-white !bg-[#002932] !px-[clamp(12px,1vw,16px)] max-[480px]:!px-[clamp(16px,3vw,24px)] !py-[clamp(4px,1vw,8px)] max-[480px]:!py-[clamp(6px,3vw,12px)] transition-colors duration-300 hover:!bg-[#77e322] hover:!text-[black] [clip-path:polygon(5%_0%,100%_0%,95%_100%,0%_100%)] cursor-pointer"
+                                        className="mt-7! inline-flex items-center justify-center gap-1 text-white! bg-[#002932]! px-[clamp(12px,1vw,16px)]! max-[480px]:px-[clamp(16px,3vw,24px)]! py-[clamp(4px,1vw,8px)]! max-[480px]:py-[clamp(6px,3vw,12px)]! transition-colors duration-300 hover:bg-[#77e322]! hover:text-[black]! [clip-path:polygon(5%_0%,100%_0%,95%_100%,0%_100%)] cursor-pointer"
                                         variants={itemVariants}
                                         onClick={navigateToProduct}
                                     >
-                                        <Text className="font-semibold !text-[clamp(8px,1.3vw,1.3rem)] max-[480px]:!text-[clamp(12px,1.3vw,1.3rem)]" titleText="Xem chi tiết" />
+                                        <Text className="font-semibold text-[clamp(8px,1.3vw,1.3rem)]! max-[480px]:text-[clamp(12px,1.3vw,1.3rem)]!" titleText="Xem chi tiết" />
                                         <GoArrowRight />
                                     </motion.div>
                                 </motion.div>

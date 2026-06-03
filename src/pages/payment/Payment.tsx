@@ -24,9 +24,7 @@ import { IOrderPayment, PaymentStatus, IBankInfo } from "@/types/orders";
 const { Search } = Input;
 const { Panel } = Collapse;
 
-// Thời gian timeout QR (10 phút)
 const QR_TIMEOUT_MS = 10 * 60 * 1000;
-// Polling mỗi 3 giây
 const POLLING_INTERVAL_MS = 3000;
 
 interface CartItemProps {
@@ -226,7 +224,6 @@ const QrPaymentModal: React.FunctionComponent<QrPaymentModalProps> = ({ open, qr
     );
 };
 
-// ============ Payment Component ============
 const Payment: React.FunctionComponent = () => {
     const { user } = useAppSelector(userState);
     const { cartList } = useAppSelector(cartState);
@@ -243,7 +240,6 @@ const Payment: React.FunctionComponent = () => {
     const [collapseActiveKey, setCollapseActiveKey] = React.useState<string | string[]>(["1"]);
     const [isSubmitting, setIsSubmitting] = React.useState<boolean>(false);
 
-    // SePay QR Modal state
     const [qrModalOpen, setQrModalOpen] = React.useState<boolean>(false);
     const [qrUrl, setQrUrl] = React.useState<string>("");
     const [currentOrderCode, setCurrentOrderCode] = React.useState<string>("");
