@@ -15,6 +15,13 @@ export enum IOrderPayment {
     Transfer,
 }
 
+export enum PaymentStatus {
+    Pending = 1,
+    Paid,
+    Failed,
+    Cancelled,
+}
+
 export interface IOrderItem {
     product: IProductInfo;
     selectedColor: ProductBasicColor;
@@ -24,6 +31,7 @@ export interface IOrderItem {
 }
 
 export interface IOrder {
+    _id: string;
     userId: string;
     userInfo?: IUserInformation;
     orderCode: string;
@@ -37,6 +45,9 @@ export interface IOrder {
         note?: string;
     };
     paymentMethod: IOrderPayment;
+    paymentStatus: PaymentStatus;
+    transactionRef?: string;
+    paidAt?: string;
     orderStatus: OrderStatus;
     shippingFees: number;
     productsFees: number;
@@ -60,6 +71,27 @@ export interface ICreateOrderPayload {
     discountValue?: number;
     totalPrice: number;
     couponCode?: string;
+}
+
+export interface IBankInfo {
+    bankCode: string;
+    accountNumber: string;
+    accountName: string;
+}
+
+export interface ICreateOrderResponse {
+    order: IOrder;
+    qrUrl?: string;
+    orderCode?: string;
+    transferContent?: string;
+    bankInfo?: IBankInfo;
+}
+
+export interface ICheckPaymentStatusResponse {
+    orderCode: string;
+    paymentStatus: PaymentStatus;
+    orderStatus: OrderStatus;
+    paidAt?: string;
 }
 
 export interface IDashboardStats {

@@ -39,6 +39,7 @@ import {
     Favorite,
     Search,
     TemplateManagement,
+    PaymentReturn,
 } from "./pages";
 import { ScrollToTop } from "./components/scroll-to-top";
 import { InstallmentInstruction, PurchaseInstruction, RefundInstruction, ReturnInstruction, TransferInstruct } from "./pages/instruction";
@@ -71,6 +72,7 @@ function App() {
                         <Route path="about" element={<About />} />
                         <Route path="contact" element={<Contact />} />
                         <Route path="payment" element={<Payment />} />
+                        <Route path="payment-return" element={<PaymentReturn />} />
                         <Route path="policy" element={<PurchasingPolicy />} />
                         <Route path="policy/purchasing" element={<PurchasingPolicy />} />
                         <Route path="policy/payment" element={<PaymentPolicy />} />

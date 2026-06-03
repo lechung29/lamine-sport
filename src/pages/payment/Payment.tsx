@@ -1,7 +1,7 @@
 /** @format */
 
 import { SUB_LOGO_URL } from "@/constants";
-import { Badge, Input, Collapse, Flex } from "antd";
+import { Badge, Input, Collapse, Flex, Modal, Spin } from "antd";
 import TextArea from "antd/es/input/TextArea";
 import React from "react";
 import { FaCircleUser } from "react-icons/fa6";
@@ -9,6 +9,8 @@ import { Radio } from "antd";
 import "./Payment.scss";
 import { FaRegMoneyBillAlt } from "react-icons/fa";
 import { MdChevronLeft } from "react-icons/md";
+import { IoIosCheckmarkCircle } from "react-icons/io";
+import { MdContentCopy } from "react-icons/md";
 import { BaseButton, Box, Container, Image, Text, TooltipLabel } from "@/components";
 import { useNavigate } from "react-router-dom";
 import { cartState, clearCart, ICartItem, useAppDispatch, useAppSelector, userState } from "@/redux-store";
@@ -16,12 +18,16 @@ import { AccountLockedError, delayTime, formatCurrency, isInputOnlyNumber, Unaut
 import { CouponValueType, ICouponData, IResponseStatus } from "@/types";
 import { CouponService } from "@/services";
 import { useNotification } from "@/context";
-import { IoIosCheckmarkCircle } from "react-icons/io";
 import { OrderService } from "@/services/order/OrderService";
-import { IOrderPayment } from "@/types/orders";
+import { IOrderPayment, PaymentStatus, IBankInfo } from "@/types/orders";
 
 const { Search } = Input;
 const { Panel } = Collapse;
+
+// Thời gian timeout QR (10 phút)
+const QR_TIMEOUT_MS = 10 * 60 * 1000;
+// Polling mỗi 3 giây
+const POLLING_INTERVAL_MS = 3000;
 
 interface CartItemProps {
     item: ICartItem;
@@ -55,6 +61,172 @@ const OrderItem: React.FunctionComponent<CartItemProps> = (props) => {
     );
 };
 
+// ============ QR Payment Modal ============
+interface QrPaymentModalProps {
+    open: boolean;
+    qrUrl: string;
+    orderCode: string;
+    transferContent: string;
+    totalPrice: number;
+    bankInfo?: IBankInfo;
+    onSuccess: () => void;
+    onTimeout: () => void;
+    onClose: () => void;
+}
+
+const QrPaymentModal: React.FunctionComponent<QrPaymentModalProps> = ({ open, qrUrl, orderCode, transferContent, totalPrice, bankInfo, onSuccess, onTimeout, onClose }) => {
+    const [timeLeft, setTimeLeft] = React.useState<number>(QR_TIMEOUT_MS);
+    const [isPaid, setIsPaid] = React.useState<boolean>(false);
+    const [copied, setCopied] = React.useState<string | null>(null);
+    const pollingRef = React.useRef<ReturnType<typeof setInterval> | null>(null);
+    const timerRef = React.useRef<ReturnType<typeof setInterval> | null>(null);
+    const notify = useNotification ? useNotification() : null;
+
+    const stopPolling = () => {
+        if (pollingRef.current) {
+            clearInterval(pollingRef.current);
+            pollingRef.current = null;
+        }
+        if (timerRef.current) {
+            clearInterval(timerRef.current);
+            timerRef.current = null;
+        }
+    };
+
+    React.useEffect(() => {
+        if (!open || !orderCode) return;
+
+        setTimeLeft(QR_TIMEOUT_MS);
+        setIsPaid(false);
+
+        // Countdown timer
+        timerRef.current = setInterval(() => {
+            setTimeLeft((prev) => {
+                if (prev <= 1000) {
+                    stopPolling();
+                    onTimeout();
+                    return 0;
+                }
+                return prev - 1000;
+            });
+        }, 1000);
+
+        // Polling kiểm tra thanh toán
+        pollingRef.current = setInterval(async () => {
+            try {
+                const res = await OrderService.checkPaymentStatus(orderCode);
+                if (res.data?.paymentStatus === PaymentStatus.Paid) {
+                    setIsPaid(true);
+                    stopPolling();
+                    await delayTime(1500);
+                    onSuccess();
+                }
+            } catch {
+                // ignore network errors during polling
+            }
+        }, POLLING_INTERVAL_MS);
+
+        return () => {
+            stopPolling();
+        };
+    }, [open, orderCode]);
+
+    const formatTimeLeft = (ms: number) => {
+        const totalSecs = Math.floor(ms / 1000);
+        const mins = Math.floor(totalSecs / 60);
+        const secs = totalSecs % 60;
+        return `${String(mins).padStart(2, "0")}:${String(secs).padStart(2, "0")}`;
+    };
+
+    const handleCopy = (text: string, field: string) => {
+        navigator.clipboard.writeText(text).then(() => {
+            setCopied(field);
+            setTimeout(() => setCopied(null), 2000);
+        });
+    };
+
+    return (
+        <Modal
+            open={open}
+            onCancel={() => {
+                stopPolling();
+                onClose();
+            }}
+            footer={null}
+            centered
+            width={420}
+            title={<Text fontWeight="bold" color="#333" size="lg" titleText="Thanh toán QR SePay" />}
+            maskClosable={false}
+        >
+            {isPaid ? (
+                <Flex vertical align="center" justify="center" gap={16} className="!py-8">
+                    <IoIosCheckmarkCircle size={72} color="#52c41a" />
+                    <Text fontWeight="bold" color="#52c41a" size="xl" titleText="Thanh toán thành công!" />
+                    <Text color="#717171" size="sm" titleText="Đang chuyển đến trang đơn hàng..." />
+                    <Spin size="small" />
+                </Flex>
+            ) : (
+                <Flex vertical align="center" gap={16} className="!py-4">
+                    {/* QR Image */}
+                    <Box className="!border !border-[#e0e0e0] !rounded-xl !p-3 !bg-white shadow-sm">
+                        <img
+                            src={qrUrl}
+                            alt="QR Code thanh toán"
+                            className="w-56 h-56 object-contain"
+                            onError={(e) => {
+                                (e.target as HTMLImageElement).src = `https://api.qrserver.com/v1/create-qr-code/?size=224x224&data=${encodeURIComponent(transferContent)}`;
+                            }}
+                        />
+                    </Box>
+
+                    {/* Countdown */}
+                    <Flex align="center" gap={8}>
+                        <Spin size="small" spinning={timeLeft > 0} />
+                        <Text color={timeLeft < 60000 ? "#c10000" : "#717171"} size="sm" titleText={timeLeft > 0 ? `QR hết hạn sau: ${formatTimeLeft(timeLeft)}` : "QR đã hết hạn"} />
+                    </Flex>
+
+                    {/* Bank info */}
+                    {bankInfo && (
+                        <Box className="w-full !bg-[#f5f5f5] !rounded-lg !p-4" style={{ fontSize: 13 }}>
+                            <Flex align="center" justify="space-between" className="!mb-2">
+                                <Text color="#717171" size="sm" titleText="Ngân hàng" />
+                                <Text fontWeight="bold" color="#333" size="sm" titleText={bankInfo.bankCode} />
+                            </Flex>
+                            <Flex align="center" justify="space-between" className="!mb-2">
+                                <Text color="#717171" size="sm" titleText="Số tài khoản" />
+                                <Flex align="center" gap={6}>
+                                    <Text fontWeight="bold" color="#333" size="sm" titleText={bankInfo.accountNumber} />
+                                    <MdContentCopy className="cursor-pointer text-[#357ebd] hover:text-[#2a6395]" onClick={() => handleCopy(bankInfo.accountNumber, "account")} title="Sao chép" />
+                                    {copied === "account" && <Text color="#52c41a" size="xs" titleText="Đã sao chép!" />}
+                                </Flex>
+                            </Flex>
+                            <Flex align="center" justify="space-between" className="!mb-2">
+                                <Text color="#717171" size="sm" titleText="Chủ tài khoản" />
+                                <Text fontWeight="bold" color="#333" size="sm" titleText={bankInfo.accountName} />
+                            </Flex>
+                            <Flex align="center" justify="space-between" className="!mb-2">
+                                <Text color="#717171" size="sm" titleText="Số tiền" />
+                                <Text fontWeight="bold" color="#2a9dcc" size="sm" titleText={formatCurrency(totalPrice)} />
+                            </Flex>
+                            <Flex align="center" justify="space-between">
+                                <Text color="#717171" size="sm" titleText="Nội dung CK" />
+                                <Flex align="center" gap={6}>
+                                    <Text fontWeight="bold" color="#c10000" size="sm" titleText={transferContent} />
+                                    <MdContentCopy className="cursor-pointer text-[#357ebd] hover:text-[#2a6395]" onClick={() => handleCopy(transferContent, "content")} title="Sao chép" />
+                                    {copied === "content" && <Text color="#52c41a" size="xs" titleText="Đã sao chép!" />}
+                                </Flex>
+                            </Flex>
+                        </Box>
+                    )}
+
+                    <Text color="#717171" size="xs" titleText="Sau khi quét mã, trạng thái sẽ tự động cập nhật. Vui lòng không đóng trang này." />
+                </Flex>
+            )}
+        </Modal>
+    );
+};
+
+// ============ Payment Component ============
 const Payment: React.FunctionComponent = () => {
     const { user } = useAppSelector(userState);
     const { cartList } = useAppSelector(cartState);
@@ -67,12 +239,21 @@ const Payment: React.FunctionComponent = () => {
     const [couponCode, setCouponCode] = React.useState<string>("");
     const [isValidatingCoupon, setIsValidatingCoupon] = React.useState<boolean>(false);
     const [appliedCoupon, setAppliedCoupon] = React.useState<ICouponData | null>(null);
-    const [paymentMethod, setPaymentMethod] = React.useState<number>(IOrderPayment.COD);
+    const [paymentMethod, setPaymentMethod] = React.useState<number>(IOrderPayment.Transfer);
     const [collapseActiveKey, setCollapseActiveKey] = React.useState<string | string[]>(["1"]);
     const [isSubmitting, setIsSubmitting] = React.useState<boolean>(false);
+
+    // SePay QR Modal state
+    const [qrModalOpen, setQrModalOpen] = React.useState<boolean>(false);
+    const [qrUrl, setQrUrl] = React.useState<string>("");
+    const [currentOrderCode, setCurrentOrderCode] = React.useState<string>("");
+    const [transferContent, setTransferContent] = React.useState<string>("");
+    const [bankInfo, setBankInfo] = React.useState<IBankInfo | undefined>(undefined);
+
     const navigate = useNavigate();
     const notify = useNotification();
     const dispatch = useAppDispatch();
+
     const handleCollapseChange = (key: string | string[]) => {
         setCollapseActiveKey(key);
     };
@@ -107,7 +288,6 @@ const Payment: React.FunctionComponent = () => {
 
     const finalTotalPrice = React.useMemo(() => {
         let tempTotalPrice = getTotalPrice() - discountPrice;
-
         if (!isFreeShipping) {
             tempTotalPrice = tempTotalPrice + 40000;
         }
@@ -115,32 +295,10 @@ const Payment: React.FunctionComponent = () => {
     }, [appliedCoupon, cartList]);
 
     const validateInput = (displayName: string, email: string, phoneNumber: string, address: string) => {
-        if (!email) {
-            return {
-                isValid: false,
-                errorMessage: "Vui lòng nhập email nhận hàng",
-            };
-        }
-        if (!displayName) {
-            return {
-                isValid: false,
-                errorMessage: "Vui lòng nhập họ tên người nhận hàng",
-            };
-        }
-
-        if (!phoneNumber) {
-            return {
-                isValid: false,
-                errorMessage: "Vui lòng nhập số điện thoại nhận hàng",
-            };
-        }
-
-        if (!address) {
-            return {
-                isValid: false,
-                errorMessage: "Vui lòng nhập địa chỉ nhận hàng",
-            };
-        }
+        if (!email) return { isValid: false, errorMessage: "Vui lòng nhập email nhận hàng" };
+        if (!displayName) return { isValid: false, errorMessage: "Vui lòng nhập họ tên người nhận hàng" };
+        if (!phoneNumber) return { isValid: false, errorMessage: "Vui lòng nhập số điện thoại nhận hàng" };
+        if (!address) return { isValid: false, errorMessage: "Vui lòng nhập địa chỉ nhận hàng" };
 
         if (!!email) {
             const emailRegex =
@@ -164,16 +322,10 @@ const Payment: React.FunctionComponent = () => {
         }
 
         if (!!phoneNumber && phoneNumber[0] !== "0") {
-            return {
-                isValid: false,
-                errorMessage: "Số điện thoại phải bằng đầu bằng 0",
-            };
+            return { isValid: false, errorMessage: "Số điện thoại phải bắt đầu bằng 0" };
         }
 
-        return {
-            isValid: true,
-            errorMessage: "",
-        };
+        return { isValid: true, errorMessage: "" };
     };
 
     const validateCoupon = async () => {
@@ -201,17 +353,21 @@ const Payment: React.FunctionComponent = () => {
         try {
             setIsSubmitting(true);
             const { isValid, errorMessage } = validateInput(displayName.trim(), email.trim(), phoneNumber.trim(), address.trim());
+
             if (!user) {
                 notify.error("Bạn chưa đăng nhập, vui lòng đăng nhập để đặt hàng");
                 setIsSubmitting(false);
-                return Promise.resolve();
-            } else if (!isValid) {
+                return;
+            }
+
+            if (!isValid) {
                 notify.error(errorMessage);
                 setIsSubmitting(false);
-                return Promise.resolve();
+                return;
             }
+
             const data = await OrderService.createOrder({
-                paymentMethod: paymentMethod,
+                paymentMethod,
                 productsFees: getTotalPrice(),
                 shippingFees: isFreeShipping ? 0 : 40000,
                 discountValue: discountPrice,
@@ -226,7 +382,7 @@ const Payment: React.FunctionComponent = () => {
                 },
                 orderItems: cartList.map((item: ICartItem) => ({
                     product: (() => {
-                        const { selectedProductColorValue: selectedProductColorId, selectedProductCount, selectedProductSize, ...rest } = item;
+                        const { selectedProductColorValue, selectedProductCount, selectedProductSize, ...rest } = item;
                         return rest;
                     })(),
                     quantity: item.selectedProductCount,
@@ -235,24 +391,70 @@ const Payment: React.FunctionComponent = () => {
                     unitPrice: item.salePrice ?? item.originalPrice,
                 })),
             });
+
             setIsSubmitting(false);
+
             if (data.status === IResponseStatus.Error) {
                 notify.error(data.message);
-            } else {
-                notify.success(data.message);
-                dispatch(clearCart());
-                await delayTime(1500).then(() => navigate("/user-management/my-orders"));
-            }
-        } catch (error) {
-            if (error instanceof UnauthorizedError || error instanceof AccountLockedError) {
                 return;
             }
+            dispatch(clearCart());
+
+            if (paymentMethod === IOrderPayment.Transfer && data.data?.qrUrl) {
+                setQrUrl(data.data.qrUrl);
+                setCurrentOrderCode(data.data.orderCode ?? data.data.order.orderCode);
+                setTransferContent(data.data.transferContent ?? "");
+                setBankInfo(data.data.bankInfo);
+                setQrModalOpen(true);
+                return;
+            }
+
+            notify.success(data.message);
+            await delayTime(1500);
+            navigate("/user-management/my-orders");
+        } catch (error) {
+            setIsSubmitting(false);
+            if (error instanceof UnauthorizedError || error instanceof AccountLockedError) return;
             notify.error("Có lỗi xảy ra khi đặt đơn hàng");
         }
     };
 
+    const handleQrPaymentSuccess = async () => {
+        setQrModalOpen(false);
+        notify.success("Thanh toán thành công! Đơn hàng đã được ghi nhận.");
+        await delayTime(500);
+        navigate("/user-management/my-orders");
+    };
+
+    const handleQrTimeout = () => {
+        setQrModalOpen(false);
+        notify.error("QR đã hết hạn. Vui lòng kiểm tra đơn hàng hoặc hủy và đặt lại.");
+        navigate("/user-management/my-orders");
+    };
+
+    const handleQrClose = () => {
+        setQrModalOpen(false);
+        notify.error("Bạn đã đóng QR. Đơn hàng vẫn còn trong hệ thống, vào Đơn hàng của tôi để kiểm tra hoặc hủy.");
+        navigate("/user-management/my-orders");
+    };
+
+    // ============ Render (giữ nguyên layout) ============
     return (
         <Container bgColor="white" className="min-h-screen flex flex-col items-center justify-center">
+            {/* QR Modal */}
+            <QrPaymentModal
+                open={qrModalOpen}
+                qrUrl={qrUrl}
+                orderCode={currentOrderCode}
+                transferContent={transferContent}
+                totalPrice={finalTotalPrice}
+                bankInfo={bankInfo}
+                onSuccess={handleQrPaymentSuccess}
+                onTimeout={handleQrTimeout}
+                onClose={handleQrClose}
+            />
+
+            {/* Desktop layout */}
             <Box className="w-full items-start justify-center hidden md:flex">
                 <Box padding={[40, 28, 40, 28]} className="min-h-screen w-full lg:w-2/3">
                     <Flex justify="center" className="!pb-5">
@@ -297,14 +499,13 @@ const Payment: React.FunctionComponent = () => {
                             <Box margin={[20, 0, 0, 0]}>
                                 <Text fontWeight="bold" color="#333" size="lg" titleText="Thanh toán" />
                                 <Box margin={[12, 0, 0, 0]} className="!border !border-[#cecdcd] !rounded-md">
-                                    <Flex align="center" justify="space-between" className="!p-3.5 cursor-not-allowed">
+                                    <Flex align="center" justify="space-between" className="!p-3.5 cursor-pointer" onClick={() => setPaymentMethod(IOrderPayment.Transfer)}>
                                         <Radio.Group
                                             onChange={(e) => setPaymentMethod(e.target.value)}
                                             name="radiogroup"
                                             value={paymentMethod}
                                             className="gap-2"
-                                            disabled
-                                            options={[{ value: IOrderPayment.Transfer, label: "Chuyển khoản" }]}
+                                            options={[{ value: IOrderPayment.Transfer, label: "Thanh toán QR (SePay)" }]}
                                         />
                                         <FaRegMoneyBillAlt className="cursor-pointer text-2xl text-[#337ab7]" />
                                     </Flex>
@@ -485,14 +686,13 @@ const Payment: React.FunctionComponent = () => {
                         <Box margin={[20, 0, 0, 0]}>
                             <Text fontWeight="bold" color="#333" size="lg" titleText="Thanh toán" />
                             <Box margin={[12, 0, 0, 0]} className="!border !border-[#cecdcd] !rounded-md">
-                                <Flex align="center" justify="space-between" className="!p-3.5 cursor-not-allowed">
+                                <Flex align="center" justify="space-between" className="!p-3.5 cursor-pointer" onClick={() => setPaymentMethod(IOrderPayment.Transfer)}>
                                     <Radio.Group
                                         onChange={(e) => setPaymentMethod(e.target.value)}
                                         name="radiogroup"
                                         value={paymentMethod}
                                         className="gap-2"
-                                        disabled
-                                        options={[{ value: IOrderPayment.Transfer, label: "Chuyển khoản" }]}
+                                        options={[{ value: IOrderPayment.Transfer, label: "Thanh toán QR (SePay)" }]}
                                     />
                                     <FaRegMoneyBillAlt className="cursor-pointer text-2xl text-[#337ab7]" />
                                 </Flex>

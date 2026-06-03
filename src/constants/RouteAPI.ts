@@ -48,6 +48,7 @@ export const API_ROUTE = {
     UPDATE_ORDER_STATUS: "/order/update-status",
     GET_ORDER_DETAIL: "/order/get-details-order",
     GET_DASHBOARD_STATS: "/order/get-dashboard-stats",
+    CHECK_PAYMENT_STATUS: "/order/check-payment",
 
     CREATE_REVIEW: "/review/create-review",
     GET_ALL_REVIEWS: "/review/get-reviews",

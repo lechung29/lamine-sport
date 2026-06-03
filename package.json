@@ -33,7 +33,6 @@
     "react": "^19.1.0",
     "react-calendar": "^6.0.0",
     "react-dom": "^19.1.0",
-    "react-facebook-login": "^4.1.1",
     "react-icons": "^5.5.0",
     "react-photo-view": "^1.2.7",
     "react-redux": "^9.2.0",
@@ -47,7 +46,7 @@
     "swiper": "^11.2.6",
     "tailwind-merge": "^3.3.1",
     "tailwindcss": "^4.1.6",
-    "vite-plugin-static-copy": "^1.0.0"
+    "vite-plugin-static-copy": "^4.0.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.25.0",

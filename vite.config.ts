@@ -1,32 +1,32 @@
 /** @format */
 
+// vite.config.ts
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
-import path from 'path'
-import { viteStaticCopy } from 'vite-plugin-static-copy'
+import { viteStaticCopy } from "vite-plugin-static-copy";
+import { fileURLToPath, URL } from "node:url";
 
-// https://vite.dev/config/
 export default defineConfig({
     plugins: [
-        react(), 
+        react(),
         tailwindcss(),
         viteStaticCopy({
-         targets: [
-           {
-             src: 'src/assets/*',
-             dest: 'assets'
-           }
-         ]
-       })
+            targets: [
+                {
+                    src: "src/assets/*",
+                    dest: "assets",
+                },
+            ],
+        }),
     ],
     resolve: {
         alias: {
-            "@": path.resolve(__dirname, "./src"),
+            "@": fileURLToPath(new URL("./src", import.meta.url)),
         },
     },
     build: {
-        outDir: 'dist',
+        outDir: "dist",
         chunkSizeWarningLimit: 1000,
     },
 });

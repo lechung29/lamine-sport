@@ -3,11 +3,18 @@
 import instance from "@/config/axios/axios";
 import { API_ROUTE } from "@/constants";
 import { IQueryObject, IResponseAdvance, IResponseBase } from "@/types";
-import { ICreateOrderPayload, IDashboardStats, IOrder, OrderStatus } from "@/types/orders";
+import {
+    ICreateOrderPayload,
+    ICreateOrderResponse,
+    ICheckPaymentStatusResponse,
+    IDashboardStats,
+    IOrder,
+    OrderStatus,
+} from "@/types/orders";
 import { createQueryString } from "@/utils";
 
 class OrderService {
-    public static createOrder(payload: ICreateOrderPayload): Promise<IResponseAdvance<IOrder>> {
+    public static createOrder(payload: ICreateOrderPayload): Promise<IResponseAdvance<ICreateOrderResponse>> {
         return instance.post(API_ROUTE.CREATE_ORDER, payload);
     }
 
@@ -33,6 +40,10 @@ class OrderService {
 
     public static getDashboardStats(): Promise<IResponseAdvance<IDashboardStats>> {
         return instance.get(API_ROUTE.GET_DASHBOARD_STATS);
+    }
+
+    public static checkPaymentStatus(orderCode: string): Promise<IResponseAdvance<ICheckPaymentStatusResponse>> {
+        return instance.get(`${API_ROUTE.CHECK_PAYMENT_STATUS}/${orderCode}`);
     }
 }
 

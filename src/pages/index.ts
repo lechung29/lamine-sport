@@ -20,3 +20,4 @@ export * from "./contact";
 export * from "./policy";
 export * from "./favorite";
 export * from "./search";
+export * from "./payment-return"

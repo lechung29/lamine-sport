@@ -204,52 +204,52 @@ const sportTypeOptions = [
     {
         label: "Chạy bộ",
         value: SportType.Jogging,
-        imageUrl: "./assets/image_cate_jogging.webp",
+        imageUrl: "/assets/image_cate_jogging.webp",
     },
     {
         label: "Tennis",
         value: SportType.Tennis,
-        imageUrl: "./assets/image_cate_tennis.webp",
+        imageUrl: "/assets/image_cate_tennis.webp",
     },
     {
         label: "Đạp xe",
         value: SportType.Cycling,
-        imageUrl: "./assets/image_cate_cycling.webp",
+        imageUrl: "/assets/image_cate_cycling.webp",
     },
     {
         label: "Bóng đá",
         value: SportType.Football,
-        imageUrl: "./assets/image_cate_football.webp",
+        imageUrl: "/assets/image_cate_football.webp",
     },
     {
         label: "Bóng bàn",
         value: SportType.TableTennis,
-        imageUrl: "./assets/image_cate_tabletennis.webp",
+        imageUrl: "/assets/image_cate_tabletennis.webp",
     },
     {
         label: "Cầu lông",
         value: SportType.Badminton,
-        imageUrl: "./assets//image_cate_badminton.webp",
+        imageUrl: "/assets//image_cate_badminton.webp",
     },
     {
         label: "Bóng rổ",
         value: SportType.Basketball,
-        imageUrl: "./assets/image_cate_basketball.webp",
+        imageUrl: "/assets/image_cate_basketball.webp",
     },
     {
         label: "Bơi lội",
         value: SportType.Swimming,
-        imageUrl: "./assets/image_cate_swimming.webp",
+        imageUrl: "/assets/image_cate_swimming.webp",
     },
     {
         label: "Cắm trại",
         value: SportType.Camping,
-        imageUrl: "./assets/image_cate_camping.webp",
+        imageUrl: "/assets/image_cate_camping.webp",
     },
     {
         label: "Các môn thể dục",
         value: SportType.Fitness,
-        imageUrl: "./assets/image_cate_fitness.webp",
+        imageUrl: "/assets/image_cate_fitness.webp",
     },
 ];
 
