@@ -94,8 +94,8 @@ const UserOrders: React.FunctionComponent = () => {
         }
     };
 
-    const handleOpenCancelModal = (orderCode: string) => {
-        setState({ orderToCancel: orderCode, isConfirmCancelOrderOpen: true });
+    const handleOpenCancelModal = (orderId: string) => {
+        setState({ orderToCancel: orderId, isConfirmCancelOrderOpen: true });
     };
 
     const handleCloseCancelModal = () => {
@@ -137,7 +137,7 @@ const UserOrders: React.FunctionComponent = () => {
                     </Tooltip>
                     {record.orderStatus === OrderStatus.WaitingConfirm && (
                         <Tooltip title="Hủy đơn hàng">
-                            <Button icon={<FaXmark />} onClick={() => handleOpenCancelModal(record.orderCode)} className="!p-2 !bg-red-100 !text-red-500 !border-none hover:!bg-red-200" />
+                            <Button icon={<FaXmark />} onClick={() => handleOpenCancelModal(record._id)} className="!p-2 !bg-red-100 !text-red-500 !border-none hover:!bg-red-200" />
                         </Tooltip>
                     )}
                 </Flex>
