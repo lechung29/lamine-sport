@@ -78,7 +78,6 @@ const QrPaymentModal: React.FunctionComponent<QrPaymentModalProps> = ({ open, qr
     const [copied, setCopied] = React.useState<string | null>(null);
     const pollingRef = React.useRef<ReturnType<typeof setInterval> | null>(null);
     const timerRef = React.useRef<ReturnType<typeof setInterval> | null>(null);
-    const notify = useNotification ? useNotification() : null;
 
     const stopPolling = () => {
         if (pollingRef.current) {
