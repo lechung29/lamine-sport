@@ -25,7 +25,7 @@ const { Search } = Input;
 const { Panel } = Collapse;
 
 const QR_TIMEOUT_MS = 10 * 60 * 1000;
-const POLLING_INTERVAL_MS = 3000;
+const POLLING_INTERVAL_MS = 5000;
 
 interface CartItemProps {
     item: ICartItem;
@@ -44,13 +44,13 @@ const OrderItem: React.FunctionComponent<CartItemProps> = (props) => {
     };
 
     return (
-        <Flex align="center" justify="center" className="w-full !py-3.5 overflow-hidden">
+        <Flex align="center" justify="center" className="w-full py-3.5! overflow-hidden">
             <Badge size="default" color="#2a9dcc" count={item.selectedProductCount}>
-                <Box className="w-14 !border !border-[#0000001a] !rounded-md overflow-hidden">
+                <Box className="w-14 border! border-[#0000001a]! rounded-md! overflow-hidden">
                     <Image src={item.productColors.find((color) => color.value === item.selectedProductColorValue)?.images[0].url!} className="w-full h-auto object-cover" />
                 </Box>
             </Badge>
-            <Flex vertical className="flex-1 !px-4">
+            <Flex vertical className="flex-1 px-4!">
                 <TooltipLabel text={props.item.productName} className="text-sm" width="auto" lineDisplayed={2} />
                 <Text color="#7f7f7f" size="xs" titleText={`${!!props.item.selectedProductSize ? `${props.item.selectedProductSize} / ` : ""}${getColorName()}`} />
             </Flex>
@@ -59,7 +59,7 @@ const OrderItem: React.FunctionComponent<CartItemProps> = (props) => {
     );
 };
 
-interface QrPaymentModalProps {
+export interface QrPaymentModalProps {
     open: boolean;
     qrUrl: string;
     orderCode: string;
@@ -152,16 +152,15 @@ const QrPaymentModal: React.FunctionComponent<QrPaymentModalProps> = ({ open, qr
             maskClosable={false}
         >
             {isPaid ? (
-                <Flex vertical align="center" justify="center" gap={16} className="!py-8">
+                <Flex vertical align="center" justify="center" gap={16} className="py-8!">
                     <IoIosCheckmarkCircle size={72} color="#52c41a" />
                     <Text fontWeight="bold" color="#52c41a" size="xl" titleText="Thanh toán thành công!" />
                     <Text color="#717171" size="sm" titleText="Đang chuyển đến trang đơn hàng..." />
                     <Spin size="small" />
                 </Flex>
             ) : (
-                <Flex vertical align="center" gap={16} className="!py-4">
-                    {/* QR Image */}
-                    <Box className="!border !border-[#e0e0e0] !rounded-xl !p-3 !bg-white shadow-sm">
+                <Flex vertical align="center" gap={16} className="py-4!">
+                    <Box className="border! border-[#e0e0e0]! rounded-xl! p-3! bg-white! shadow-sm">
                         <img
                             src={qrUrl}
                             alt="QR Code thanh toán"
@@ -172,20 +171,18 @@ const QrPaymentModal: React.FunctionComponent<QrPaymentModalProps> = ({ open, qr
                         />
                     </Box>
 
-                    {/* Countdown */}
                     <Flex align="center" gap={8}>
                         <Spin size="small" spinning={timeLeft > 0} />
                         <Text color={timeLeft < 60000 ? "#c10000" : "#717171"} size="sm" titleText={timeLeft > 0 ? `QR hết hạn sau: ${formatTimeLeft(timeLeft)}` : "QR đã hết hạn"} />
                     </Flex>
 
-                    {/* Bank info */}
                     {bankInfo && (
-                        <Box className="w-full !bg-[#f5f5f5] !rounded-lg !p-4" style={{ fontSize: 13 }}>
-                            <Flex align="center" justify="space-between" className="!mb-2">
+                        <Box className="w-full bg-[#f5f5f5]! rounded-lg! p-4!" style={{ fontSize: 13 }}>
+                            <Flex align="center" justify="space-between" className="mb-2!">
                                 <Text color="#717171" size="sm" titleText="Ngân hàng" />
                                 <Text fontWeight="bold" color="#333" size="sm" titleText={bankInfo.bankCode} />
                             </Flex>
-                            <Flex align="center" justify="space-between" className="!mb-2">
+                            <Flex align="center" justify="space-between" className="mb-2!">
                                 <Text color="#717171" size="sm" titleText="Số tài khoản" />
                                 <Flex align="center" gap={6}>
                                     <Text fontWeight="bold" color="#333" size="sm" titleText={bankInfo.accountNumber} />
@@ -193,11 +190,11 @@ const QrPaymentModal: React.FunctionComponent<QrPaymentModalProps> = ({ open, qr
                                     {copied === "account" && <Text color="#52c41a" size="xs" titleText="Đã sao chép!" />}
                                 </Flex>
                             </Flex>
-                            <Flex align="center" justify="space-between" className="!mb-2">
+                            <Flex align="center" justify="space-between" className="mb-2!">
                                 <Text color="#717171" size="sm" titleText="Chủ tài khoản" />
                                 <Text fontWeight="bold" color="#333" size="sm" titleText={bankInfo.accountName} />
                             </Flex>
-                            <Flex align="center" justify="space-between" className="!mb-2">
+                            <Flex align="center" justify="space-between" className="mb-2!">
                                 <Text color="#717171" size="sm" titleText="Số tiền" />
                                 <Text fontWeight="bold" color="#2a9dcc" size="sm" titleText={formatCurrency(totalPrice)} />
                             </Flex>
@@ -238,10 +235,8 @@ const Payment: React.FunctionComponent = () => {
     const [qrModalOpen, setQrModalOpen] = React.useState<boolean>(false);
     const [qrUrl, setQrUrl] = React.useState<string>("");
     const [currentOrderCode, setCurrentOrderCode] = React.useState<string>("");
-    const [currentOrderId, setCurrentOrderId] = React.useState<string>("");
     const [transferContent, setTransferContent] = React.useState<string>("");
     const [bankInfo, setBankInfo] = React.useState<IBankInfo | undefined>(undefined);
-    // Snapshot giỏ hàng để restore nếu user hủy QR
     const [cartSnapshot, setCartSnapshot] = React.useState<ICartItem[]>([]);
 
     const navigate = useNavigate();
@@ -393,7 +388,6 @@ const Payment: React.FunctionComponent = () => {
                 return;
             }
 
-            // Thanh toán COD: clear cart và chuyển hướng luôn
             if (paymentMethod !== IOrderPayment.Transfer) {
                 dispatch(clearCart());
                 notify.success(data.message);
@@ -402,23 +396,16 @@ const Payment: React.FunctionComponent = () => {
                 return;
             }
 
-            // Thanh toán QR SePay:
-            // - Lưu snapshot giỏ hàng trước khi clear (để restore nếu hủy)
-            // - Clear cart khỏi UI (đơn hàng đã được tạo, hàng đã bị trừ kho phía backend)
-            // - Mở modal QR và bắt đầu polling
             if (data.data?.qrUrl) {
                 setCartSnapshot([...cartList]);
-                dispatch(clearCart());
                 setQrUrl(data.data.qrUrl);
                 setCurrentOrderCode(data.data.orderCode ?? data.data.order.orderCode);
-                setCurrentOrderId(data.data.order._id);
                 setTransferContent(data.data.transferContent ?? "");
                 setBankInfo(data.data.bankInfo);
                 setQrModalOpen(true);
                 return;
             }
 
-            // Fallback nếu không có qrUrl
             dispatch(clearCart());
             notify.success(data.message);
             await delayTime(1500);
@@ -433,6 +420,7 @@ const Payment: React.FunctionComponent = () => {
     const handleQrPaymentSuccess = async () => {
         setQrModalOpen(false);
         setCartSnapshot([]);
+        dispatch(clearCart());
         notify.success("Thanh toán thành công! Đơn hàng đã được ghi nhận.");
         await delayTime(500);
         navigate("/user-management/my-orders");
@@ -445,24 +433,9 @@ const Payment: React.FunctionComponent = () => {
         navigate("/user-management/my-orders");
     };
 
-    /**
-     * Khi user đóng modal QR:
-     * 1. Gọi API hủy đơn hàng (restore tồn kho phía backend)
-     * 2. Restore lại giỏ hàng ở frontend từ snapshot
-     * 3. Thông báo cho user
-     */
     const handleQrClose = async () => {
         setQrModalOpen(false);
 
-        if (currentOrderId) {
-            try {
-                await OrderService.cancelOrder(currentOrderId);
-            } catch {
-                // Nếu cancel thất bại, vẫn restore cart để user không mất hàng
-            }
-        }
-
-        // Restore giỏ hàng từ snapshot
         if (cartSnapshot.length > 0) {
             dispatch(restoreCart(cartSnapshot));
             setCartSnapshot([]);
@@ -471,7 +444,6 @@ const Payment: React.FunctionComponent = () => {
         notify.warning("Đã hủy thanh toán QR. Giỏ hàng đã được khôi phục.");
     };
 
-    // ============ Render (giữ nguyên layout) ============
     return (
         <Container bgColor="white" className="min-h-screen flex flex-col items-center justify-center">
             <QrPaymentModal
@@ -488,8 +460,8 @@ const Payment: React.FunctionComponent = () => {
 
             <Box className="w-full items-start justify-center hidden md:flex">
                 <Box padding={[40, 28, 40, 28]} className="min-h-screen w-full lg:w-2/3">
-                    <Flex justify="center" className="!pb-5">
-                        <Image clickable src={SUB_LOGO_URL} objectFit="cover" alt="app-logo" className="!h-16 w-auto" onClick={() => navigate("/")} />
+                    <Flex justify="center" className="pb-5!">
+                        <Image clickable src={SUB_LOGO_URL} objectFit="cover" alt="app-logo" className="h-16! w-auto" onClick={() => navigate("/")} />
                     </Flex>
                     <Flex align="flex-start" justify="center" gap={20} className="flex-col lg:flex-row">
                         <Box padding={[0, 14, 0, 14]} className="w-full lg:w-1/2">
@@ -502,8 +474,8 @@ const Payment: React.FunctionComponent = () => {
                                     </Flex>
                                 )}
                             </Flex>
-                            <Input value={email} onChange={(e) => setEmail(e.target.value)} className="!mt-3" allowClear size="large" placeholder="Email nhận đơn" />
-                            <Input value={displayName} onChange={(e) => setDisplayName(e.target.value)} className="!mt-3" allowClear size="large" placeholder="Họ và tên người nhận hàng" />
+                            <Input value={email} onChange={(e) => setEmail(e.target.value)} className="mt-3!" allowClear size="large" placeholder="Email nhận đơn" />
+                            <Input value={displayName} onChange={(e) => setDisplayName(e.target.value)} className="mt-3!" allowClear size="large" placeholder="Họ và tên người nhận hàng" />
                             <Input
                                 value={phoneNumber}
                                 onChange={(e) => {
@@ -511,26 +483,26 @@ const Payment: React.FunctionComponent = () => {
                                         setPhoneNumber(e.target.value);
                                     }
                                 }}
-                                className="!mt-3"
+                                className="mt-3!"
                                 allowClear
                                 size="large"
                                 placeholder="Số điện thoại nhận hàng"
                             />
-                            <Input value={address} onChange={(e) => setAddress(e.target.value)} className="!mt-3" allowClear size="large" placeholder="Địa chỉ nhận hàng" />
-                            <TextArea value={note} onChange={(e) => setNote(e.target.value)} className="!mt-3" rows={4} placeholder="Ghi chú (Tùy chọn)" maxLength={1000} />
+                            <Input value={address} onChange={(e) => setAddress(e.target.value)} className="mt-3!" allowClear size="large" placeholder="Địa chỉ nhận hàng" />
+                            <TextArea value={note} onChange={(e) => setNote(e.target.value)} className="mt-3!" rows={4} placeholder="Ghi chú (Tùy chọn)" maxLength={1000} />
                         </Box>
                         <Box padding={[0, 14, 0, 14]} className="w-full lg:w-1/2">
                             <Box>
                                 <Text fontWeight="bold" color="#333" size="lg" titleText="Vận chuyển" />
-                                <Flex align="center" justify="space-between" className="!mt-3 !border !border-[#cecdcd] !p-3.5 !rounded-md">
+                                <Flex align="center" justify="space-between" className="mt-3! border! border-[#cecdcd]! p-3.5! rounded-md!">
                                     <Radio.Group name="radiogroup" defaultValue={1} className="gap-2" options={[{ value: 1, label: "Giao hàng tận nơi" }]} />
                                     {!isFreeShipping && <Text color="#333" titleText={formatCurrency(40000)} />}
                                 </Flex>
                             </Box>
                             <Box margin={[20, 0, 0, 0]}>
                                 <Text fontWeight="bold" color="#333" size="lg" titleText="Thanh toán" />
-                                <Box margin={[12, 0, 0, 0]} className="!border !border-[#cecdcd] !rounded-md">
-                                    <Flex align="center" justify="space-between" className="!p-3.5 cursor-pointer" onClick={() => setPaymentMethod(IOrderPayment.Transfer)}>
+                                <Box margin={[12, 0, 0, 0]} className="border! border-[#cecdcd]! rounded-md!">
+                                    <Flex align="center" justify="space-between" className="p-3.5! cursor-pointer" onClick={() => setPaymentMethod(IOrderPayment.Transfer)}>
                                         <Radio.Group
                                             onChange={(e) => setPaymentMethod(e.target.value)}
                                             name="radiogroup"
@@ -540,8 +512,8 @@ const Payment: React.FunctionComponent = () => {
                                         />
                                         <FaRegMoneyBillAlt className="cursor-pointer text-2xl text-[#337ab7]" />
                                     </Flex>
-                                    <hr className="w-full !border-[#cecdcd]" />
-                                    <Flex align="center" justify="space-between" className="!p-3.5 cursor-pointer" onClick={() => setPaymentMethod(IOrderPayment.COD)}>
+                                    <hr className="w-full border-[#cecdcd]!" />
+                                    <Flex align="center" justify="space-between" className="p-3.5! cursor-pointer" onClick={() => setPaymentMethod(IOrderPayment.COD)}>
                                         <Radio.Group
                                             onChange={(e) => setPaymentMethod(e.target.value)}
                                             name="radiogroup"
@@ -556,7 +528,7 @@ const Payment: React.FunctionComponent = () => {
                         </Box>
                     </Flex>
                 </Box>
-                <Box padding={[20, 28, 20, 28]} bgColor="white" className="d-payment-order-info-collapse min-h-screen w-full lg:w-1/3 !border-l !border-[#cecdcd] overflow-hidden">
+                <Box padding={[20, 28, 20, 28]} bgColor="white" className="d-payment-order-info-collapse min-h-screen w-full lg:w-1/3 border-l! border-[#cecdcd]! overflow-hidden">
                     <Collapse defaultActiveKey={["1"]} bordered={false} onChange={handleCollapseChange}>
                         <Panel
                             header={
@@ -565,7 +537,7 @@ const Payment: React.FunctionComponent = () => {
                                 </Flex>
                             }
                             key="1"
-                            className="!pb-0 !px-0 !border-b !border-[#cecdcd] collapse-desktop-panel"
+                            className="pb-0! px-0! border-b! border-[#cecdcd]! collapse-desktop-panel"
                         >
                             <Box className="">
                                 {cartList.map((cartItem) => (
@@ -574,11 +546,11 @@ const Payment: React.FunctionComponent = () => {
                             </Box>
                         </Panel>
                     </Collapse>
-                    <Box padding={[16, 0, 16, 0]} className="!border-b !border-[#cecdcd]">
+                    <Box padding={[16, 0, 16, 0]} className="border-b! border-[#cecdcd]!">
                         <Flex align="center" justify="center" gap={8}>
                             {appliedCoupon && <IoIosCheckmarkCircle size={24} color="#77e322" />}
                             <Search
-                                className="!mb-1"
+                                className="mb-1!"
                                 status={couponErrorMessage ? "error" : undefined}
                                 value={couponCode}
                                 onChange={(e) => {
@@ -596,12 +568,12 @@ const Payment: React.FunctionComponent = () => {
                         </Flex>
                         {couponErrorMessage && <Text size="sm" color="#c10000" titleText={couponErrorMessage} />}
                     </Box>
-                    <Box padding={[24, 0, 16, 0]} className="!border-b !border-[#cecdcd] text-[#717171]">
-                        <Flex align="center" justify="space-between" className="!mb-3">
+                    <Box padding={[24, 0, 16, 0]} className="border-b! border-[#cecdcd]! text-[#717171]">
+                        <Flex align="center" justify="space-between" className="mb-3!">
                             <Text as="span" titleText="Tạm tính" />
                             <Text as="span" color="#2a9dcc" titleText={formatCurrency(getTotalPrice())} />
                         </Flex>
-                        <Flex align="center" justify="space-between" className="!mb-3">
+                        <Flex align="center" justify="space-between" className="mb-3!">
                             <Text as="span" titleText="Phí vận chuyển" />
                             <Text as="span" color="#2a9dcc" titleText={isFreeShipping ? "Miễn phí" : formatCurrency(40000)} />
                         </Flex>
@@ -613,17 +585,17 @@ const Payment: React.FunctionComponent = () => {
                         )}
                     </Box>
                     <Box padding={[16, 0, 16, 0]} className="text-[#717171]">
-                        <Flex align="center" justify="space-between" className="!mb-3">
+                        <Flex align="center" justify="space-between" className="mb-3!">
                             <Text as="span" size="xl" titleText="Tổng cộng" />
                             <Text as="span" size="2xl" color="#2a9dcc" titleText={formatCurrency(finalTotalPrice)} />
                         </Flex>
-                        <Flex align="center" justify="space-between" className="!mb-3">
+                        <Flex align="center" justify="space-between" className="mb-3!">
                             <Box className="inline-flex items-center justify-center gap-0.5 cursor-pointer text-[#2a9dcc] hover:text-[#2a6395]">
                                 <MdChevronLeft className="text-sm" />
                                 <Text as="span" size="sm" titleText="Quay về giỏ hàng" onClick={() => navigate("/cart")} />
                             </Box>
                             <BaseButton
-                                className="w-30 !py-2.5 !rounded-md uppercase text-center !bg-[#357ebd] hover:!bg-[#2a6395] !text-white"
+                                className="w-30 py-2.5! rounded-md! uppercase text-center bg-[#357ebd]! hover:bg-[#2a6395]! text-white!"
                                 displayText="Đặt hàng"
                                 onClick={handleCreateOrder}
                                 isLoading={isSubmitting}
@@ -634,9 +606,9 @@ const Payment: React.FunctionComponent = () => {
                 </Box>
             </Box>
 
-            <Flex vertical className="w-full md:!hidden items-start justify-center lg:gap-14">
-                <Flex justify="center" className="w-full !pb-5 !mt-8">
-                    <Image clickable objectFit="cover" src={SUB_LOGO_URL} alt="app-logo" className="!h-16 w-auto" />
+            <Flex vertical className="w-full md:hidden! items-start justify-center lg:gap-14">
+                <Flex justify="center" className="w-full pb-5! mt-8!">
+                    <Image clickable objectFit="cover" src={SUB_LOGO_URL} alt="app-logo" className="h-16! w-auto" />
                 </Flex>
                 <Box margin={[0, 0, 16, 0]} padding={[0, 42, 0, 42]} className="w-full m-payment-order-info-collapse">
                     <Collapse className="mobile-order-collapse" bordered={false} onChange={handleCollapseChange} activeKey={collapseActiveKey} expandIcon={undefined}>
@@ -651,16 +623,16 @@ const Payment: React.FunctionComponent = () => {
                             }
                             key="1"
                         >
-                            <Box className="!border-b !border-[#cecdcd]">
+                            <Box className="border-b! border-[#cecdcd]!">
                                 {cartList.map((cartItem) => (
                                     <OrderItem key={cartItem._id} item={cartItem} />
                                 ))}
                             </Box>
                         </Panel>
                     </Collapse>
-                    <Box className="!pb-4 !pt-2 !border-b !border-[#cecdcd]">
+                    <Box className="pb-4! pt-2! border-b! border-[#cecdcd]!">
                         <Search
-                            className="!mb-1"
+                            className="mb-1!"
                             status={couponErrorMessage ? "error" : undefined}
                             value={couponCode}
                             onChange={(e) => {
@@ -678,7 +650,7 @@ const Payment: React.FunctionComponent = () => {
                         {couponErrorMessage && <Text size="sm" color="#c10000" titleText={couponErrorMessage} />}
                     </Box>
                 </Box>
-                <Flex vertical gap={20} className="w-full !px-7 !bg-white">
+                <Flex vertical gap={20} className="w-full px-7! bg-white!">
                     <Box padding={[0, 10, 0, 10]}>
                         <Flex align="center" justify="space-between">
                             <Text fontWeight="bold" color="#333" size="lg" titleText="Thông tin nhận hàng" />
@@ -689,8 +661,8 @@ const Payment: React.FunctionComponent = () => {
                                 </Flex>
                             )}
                         </Flex>
-                        <Input value={email} onChange={(e) => setEmail(e.target.value)} className="!mt-3" allowClear size="large" placeholder="Email" />
-                        <Input value={displayName} onChange={(e) => setDisplayName(e.target.value)} className="!mt-3" allowClear size="large" placeholder="Họ và tên" />
+                        <Input value={email} onChange={(e) => setEmail(e.target.value)} className="mt-3!" allowClear size="large" placeholder="Email" />
+                        <Input value={displayName} onChange={(e) => setDisplayName(e.target.value)} className="mt-3!" allowClear size="large" placeholder="Họ và tên" />
                         <Input
                             value={phoneNumber}
                             onChange={(e) => {
@@ -698,26 +670,26 @@ const Payment: React.FunctionComponent = () => {
                                     setPhoneNumber(e.target.value);
                                 }
                             }}
-                            className="!mt-3"
+                            className="mt-3!"
                             allowClear
                             size="large"
                             placeholder="Số điện thoại"
                         />
-                        <Input value={address} onChange={(e) => setAddress(e.target.value)} className="!mt-3" allowClear size="large" placeholder="Địa chỉ" />
-                        <TextArea value={note} onChange={(e) => setNote(e.target.value)} className="!mt-3" rows={4} placeholder="Ghi chú (Tùy chọn)" maxLength={1000} />
+                        <Input value={address} onChange={(e) => setAddress(e.target.value)} className="mt-3!" allowClear size="large" placeholder="Địa chỉ" />
+                        <TextArea value={note} onChange={(e) => setNote(e.target.value)} className="mt-3!" rows={4} placeholder="Ghi chú (Tùy chọn)" maxLength={1000} />
                     </Box>
                     <Box padding={[0, 10, 0, 10]}>
                         <Box>
                             <Text fontWeight="bold" color="#333" size="lg" titleText="Vận chuyển" />
-                            <Flex align="center" justify="space-between" className="!mt-3 !border !border-[#cecdcd] !p-3.5 !rounded-md">
+                            <Flex align="center" justify="space-between" className="mt-3! border! border-[#cecdcd]! p-3.5! rounded-md!">
                                 <Radio.Group name="radiogroup" defaultValue={1} className="gap-2" options={[{ value: 1, label: "Giao hàng tận nơi" }]} />
                                 {!isFreeShipping && <Text color="#333" titleText={formatCurrency(40000)} />}
                             </Flex>
                         </Box>
                         <Box margin={[20, 0, 0, 0]}>
                             <Text fontWeight="bold" color="#333" size="lg" titleText="Thanh toán" />
-                            <Box margin={[12, 0, 0, 0]} className="!border !border-[#cecdcd] !rounded-md">
-                                <Flex align="center" justify="space-between" className="!p-3.5 cursor-pointer" onClick={() => setPaymentMethod(IOrderPayment.Transfer)}>
+                            <Box margin={[12, 0, 0, 0]} className="border! border-[#cecdcd]! rounded-md!">
+                                <Flex align="center" justify="space-between" className="p-3.5! cursor-pointer" onClick={() => setPaymentMethod(IOrderPayment.Transfer)}>
                                     <Radio.Group
                                         onChange={(e) => setPaymentMethod(e.target.value)}
                                         name="radiogroup"
@@ -727,8 +699,8 @@ const Payment: React.FunctionComponent = () => {
                                     />
                                     <FaRegMoneyBillAlt className="cursor-pointer text-2xl text-[#337ab7]" />
                                 </Flex>
-                                <hr className="w-full !border-[#cecdcd]" />
-                                <Flex align="center" justify="space-between" className="!p-3.5 cursor-pointer" onClick={() => setPaymentMethod(IOrderPayment.COD)}>
+                                <hr className="w-full border-[#cecdcd]!" />
+                                <Flex align="center" justify="space-between" className="p-3.5! cursor-pointer" onClick={() => setPaymentMethod(IOrderPayment.COD)}>
                                     <Radio.Group
                                         onChange={(e) => setPaymentMethod(e.target.value)}
                                         name="radiogroup"
@@ -743,12 +715,12 @@ const Payment: React.FunctionComponent = () => {
                     </Box>
                 </Flex>
                 <Box padding={[24, 28, 0, 28]} className="w-full text-[#717171]">
-                    <Box padding={[16, 14, 16, 14]} className="!border-b !border-[#cecdcd] text-[#717171]">
-                        <Flex align="center" justify="space-between" className="!mb-3">
+                    <Box padding={[16, 14, 16, 14]} className="border-b! border-[#cecdcd]! text-[#717171]">
+                        <Flex align="center" justify="space-between" className="mb-3!">
                             <Text as="span" titleText="Tạm tính" />
                             <Text as="span" color="#2a9dcc" titleText={formatCurrency(getTotalPrice())} />
                         </Flex>
-                        <Flex align="center" justify="space-between" className="!mb-3">
+                        <Flex align="center" justify="space-between" className="mb-3!">
                             <Text as="span" titleText="Phí vận chuyển" />
                             <Text as="span" color="#2a9dcc" titleText={isFreeShipping ? "Miễn phí" : formatCurrency(40000)} />
                         </Flex>
@@ -760,17 +732,17 @@ const Payment: React.FunctionComponent = () => {
                         )}
                     </Box>
                     <Box padding={[16, 14, 16, 14]} className="text-[#717171]">
-                        <Flex align="center" justify="space-between" className="!mb-3">
+                        <Flex align="center" justify="space-between" className="mb-3!">
                             <Text as="span" size="xl" titleText="Tổng cộng" />
                             <Text as="span" size="2xl" color="#2a9dcc" titleText={formatCurrency(finalTotalPrice)} />
                         </Flex>
-                        <Flex align="center" justify="space-between" className="!mb-3">
+                        <Flex align="center" justify="space-between" className="mb-3!">
                             <Box className="inline-flex items-center justify-center gap-0.5 cursor-pointer text-[#2a9dcc] hover:text-[#2a6395]">
                                 <MdChevronLeft className="text-sm" />
                                 <Text as="span" size="sm" titleText="Quay về giỏ hàng" onClick={() => navigate("/cart")} />
                             </Box>
                             <BaseButton
-                                className="w-30 !py-2.5 !rounded-md uppercase text-center !bg-[#357ebd] hover:!bg-[#2a6395] !text-white"
+                                className="w-30 py-2.5! rounded-md! uppercase text-center bg-[#357ebd]! hover:bg-[#2a6395]! text-white!"
                                 displayText="Đặt hàng"
                                 onClick={handleCreateOrder}
                                 isLoading={isSubmitting}
@@ -784,4 +756,4 @@ const Payment: React.FunctionComponent = () => {
     );
 };
 
-export { Payment };
+export { Payment, QrPaymentModal };
