@@ -428,7 +428,7 @@ const Payment: React.FunctionComponent = () => {
 
     const handleQrTimeout = () => {
         setQrModalOpen(false);
-        notify.error("QR đã hết hạn. Vui lòng kiểm tra đơn hàng hoặc hủy và đặt lại.");
+        notify.error("QR đã hết hạn. Đơn hàng chưa được hoàn tất, vui lòng thanh toán đơn hàng trong trang đơn hàng của bạn để tiếp tục hoặc hủy đơn hàng.");
         setCartSnapshot([]);
         navigate("/user-management/my-orders");
     };
@@ -441,7 +441,7 @@ const Payment: React.FunctionComponent = () => {
             setCartSnapshot([]);
         }
 
-        notify.warning("Đã hủy thanh toán QR. Giỏ hàng đã được khôi phục.");
+        notify.warning("Bạn đã đóng cửa sổ thanh toán QR. Đơn hàng chưa được hoàn tất, vui lòng thanh toán đơn hàng trong trang đơn hàng của bạn để tiếp tục hoặc hủy đơn hàng");
     };
 
     return (
