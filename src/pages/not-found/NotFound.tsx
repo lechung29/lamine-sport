@@ -34,7 +34,7 @@ const NotFound: React.FunctionComponent<INotFoundPageProps> = ({ errorMessage = 
 
     return (
         <Flex align="center" justify="center" className="min-h-screen bg-white relative overflow-hidden">
-            <Container className="absolute !inset-0 pointer-events-none hidden lg:block">
+            <Container className="absolute inset-0! pointer-events-none hidden lg:block">
                 <Box className="absolute top-20 left-16 text-6xl text-gray-100 animate-bounce" style={{ animationDelay: "0s", animationDuration: "4s" }}>
                     ⚽
                 </Box>
@@ -55,8 +55,8 @@ const NotFound: React.FunctionComponent<INotFoundPageProps> = ({ errorMessage = 
                 </Box>
             </Container>
 
-            <Container maxWidth="2xl" className="text-center relative z-10 !px-4 sm:!px-8">
-                <Box className="!mb-4 relative !bg-transparent">
+            <Container maxWidth="2xl" className="text-center relative z-10 px-4! sm:px-8!">
+                <Box className="mb-4! relative bg-transparent!">
                     <Box
                         className="inline-block text-8xl transition-transform duration-100"
                         style={{
@@ -70,16 +70,16 @@ const NotFound: React.FunctionComponent<INotFoundPageProps> = ({ errorMessage = 
                     </Text>
                 </Box>
 
-                <Box className="!mb-6">
-                    <Text size="8xl" textTransform="uppercase" fontWeight="semibold" color="#c90000" margin={[0, 0, 8, 0]} className="!tracking-wider" titleText={errorCode} />
+                <Box className="mb-6!">
+                    <Text size="8xl" textTransform="uppercase" fontWeight="semibold" color="#c90000" margin={[0, 0, 8, 0]} className="tracking-wider!" titleText={errorCode} />
                     <Text size="lg" color="#6a7282" className="italic" titleText={errorSubMessage} />
                 </Box>
 
                 <Text size="3xl" color="#1e2939" margin={[0, 0, 8, 0]} titleText={errorTitle} />
 
-                <Text size="lg" color="#4a5565" margin={[0, 0, 16, 0]} className="!leading-relaxed" titleText={errorMessage} />
+                <Text size="lg" color="#4a5565" margin={[0, 0, 16, 0]} className="leading-relaxed!" titleText={errorMessage} />
 
-                <Container bgColor="white" padding={[16, 16, 16, 16]} margin={[0, 0, 16, 0]} className="!border-l-4 !border-green-500 !rounded-r-lg">
+                <Container bgColor="white" padding={[16, 16, 16, 16]} margin={[0, 0, 16, 0]} className="border-l-4! border-green-500! rounded-r-lg!">
                     <Flex align="center">
                         <Text as="p" size="2xl" margin={[0, 12, 0, 0]}>
                             ⚽
@@ -95,7 +95,7 @@ const NotFound: React.FunctionComponent<INotFoundPageProps> = ({ errorMessage = 
                     <BaseButton
                         radius="lg"
                         padding={[12, 32, 12, 32]}
-                        className="!shadow-lg hover:!shadow-xl transform hover:-translate-y-0.5"
+                        className="shadow-lg! hover:shadow-xl! transform hover:-translate-y-0.5"
                         onClick={() => navigate(backTo)}
                         displayText={
                             <React.Fragment>
@@ -108,8 +108,8 @@ const NotFound: React.FunctionComponent<INotFoundPageProps> = ({ errorMessage = 
                     />
                 </Flex>
 
-                <Box className="!mt-6">
-                    <Flex align="center" justify="center" className="!space-x-4 text-gray-500">
+                <Box className="mt-6!">
+                    <Flex align="center" justify="center" className="space-x-4! text-gray-500">
                         <Text size="2xl">⚽</Text>
                         <Text size="base" titleText="Lamine Sport - Nơi ước mơ thể thao thành hiện thực" />
                         <Text size="2xl">⚽</Text>

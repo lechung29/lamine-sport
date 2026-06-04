@@ -239,16 +239,16 @@ const DiscountEvent: React.FunctionComponent = () => {
     return (
         <Flex vertical className="bg-transparent flex-grow min-h-full">
             <Box margin={[0, 0, 24, 0]}>
-                <TextBase className="!text-gray-900" size="2xl" fontWeight="bold" titleText="Quản lý ưu đãi hiện hành" margin={[0, 0, 16, 0]} />
+                <TextBase className="text-gray-900!" size="2xl" fontWeight="bold" titleText="Quản lý ưu đãi hiện hành" margin={[0, 0, 16, 0]} />
             </Box>
 
-            <Container bgColor="white" className="flex-grow !rounded-lg !shadow-sm" padding={[24, 24, 24, 24]}>
-                <Flex align="center" justify="space-between" wrap="wrap" gap="small" className="!mb-6">
-                    <Title level={4} className="!mb-0">
+            <Container bgColor="white" className="flex-grow rounded-lg! shadow-xs!" padding={[24, 24, 24, 24]}>
+                <Flex align="center" justify="space-between" wrap="wrap" gap="small" className="mb-6!">
+                    <Title level={4} className="mb-0!">
                         {isLoading ? "Đang tải thông tin ưu đãi..." : currentProgram ? "Thông tin chương trình ưu đãi hiện hành" : "Tạo chương trình ưu đãi mới"}
                     </Title>
                     {!isLoading && currentProgram && (
-                        <Tag color={getStatusColor(getProgramStatus(currentProgram.status))} className="!px-4 !py-1 !rounded-full !text-base !font-medium">
+                        <Tag color={getStatusColor(getProgramStatus(currentProgram.status))} className="px-4! py-1! rounded-full! text-base! font-medium!">
                             {getProgramStatus(currentProgram.status)}
                         </Tag>
                     )}
@@ -261,13 +261,13 @@ const DiscountEvent: React.FunctionComponent = () => {
                 ) : (
                     <>
                         {(!currentProgram || getProgramStatus(currentProgram.status) === "Expired") && !isShowForm ? (
-                            <Card className="!p-6 text-center !border-dashed !border-2 !border-gray-300 min-h-[300px] flex flex-col justify-center items-center">
-                                <Text className="!block !text-lg !text-gray-600 !mb-4">Chưa có chương trình ưu đãi nào đang hoạt động hoặc sắp diễn ra.</Text>
+                            <Card className="p-6! text-center border-dashed! border-2! border-gray-300! min-h-[300px] flex flex-col justify-center items-center">
+                                <Text className="block! text-lg! text-gray-600! mb-4!">Chưa có chương trình ưu đãi nào đang hoạt động hoặc sắp diễn ra.</Text>
                                 <Button
                                     type="primary"
                                     size="large"
                                     icon={<PlusOutlined />}
-                                    className="!bg-[#364153] hover:!bg-[#4e596b] !border-[#364153] hover:!border-[#364153] !px-6"
+                                    className="bg-[#364153]! hover:bg-[#4e596b]! border-[#364153]! hover:border-[#364153]! px-6!"
                                     onClick={() => {
                                         resetForm();
                                         setState({
@@ -281,13 +281,13 @@ const DiscountEvent: React.FunctionComponent = () => {
                                 </Button>
                             </Card>
                         ) : (
-                            <Box className="!space-y-6">
+                            <Box className="space-y-6!">
                                 <Spin spinning={isCancelingProgram} indicator={<LoadingOutlined style={{ fontSize: 24 }} spin />}>
-                                    <Box className="!grid !grid-cols-1 md:!grid-cols-2 !gap-6">
+                                    <Box className="grid! grid-cols-1! md:grid-cols-2! gap-6!">
                                         <Box>
                                             <TextBase requireIcon fontWeight="medium" className="text-gray-700" titleText="Tên ưu đãi" />
                                             <Input
-                                                className="!mt-2"
+                                                className="mt-2!"
                                                 value={programName}
                                                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => setState({ programName: e.target.value })}
                                                 placeholder="Nhập tên ưu đãi"
@@ -308,25 +308,25 @@ const DiscountEvent: React.FunctionComponent = () => {
                                                     }
                                                 }}
                                                 suffix="%"
-                                                className="!w-full !mt-2"
+                                                className="w-full! mt-2!"
                                                 size="large"
                                                 disabled={isActionProcessing}
                                             />
                                         </Box>
 
-                                        <Box className="md:!col-span-2">
+                                        <Box className="md:col-span-2!">
                                             <TextBase requireIcon fontWeight="medium" className="text-gray-700" titleText="Thời gian áp dụng" />
                                             <RangePicker
                                                 value={activeDateRange}
                                                 onChange={(dates: [Dayjs | null, Dayjs | null] | null) => setState({ activeDateRange: dates as [Dayjs, Dayjs] | null })}
-                                                className="!w-full !mt-2"
+                                                className="w-full! mt-2!"
                                                 format="YYYY-MM-DD"
                                                 size="large"
                                                 disabled={isActionProcessing}
                                             />
                                         </Box>
 
-                                        <Box className="md:!col-span-2">
+                                        <Box className="md:col-span-2!">
                                             <TextBase as="span" fontWeight="medium" className="text-gray-700" titleText="Sản phẩm áp dụng" />
                                             <Select<DiscountApplyType>
                                                 value={applyType}
@@ -336,7 +336,7 @@ const DiscountEvent: React.FunctionComponent = () => {
                                                         setState({ productIds: [], productOptions: [] });
                                                     }
                                                 }}
-                                                className="!w-full !mt-2"
+                                                className="w-full! mt-2!"
                                                 size="large"
                                                 disabled={isActionProcessing}
                                             >
@@ -346,8 +346,8 @@ const DiscountEvent: React.FunctionComponent = () => {
                                         </Box>
 
                                         {applyType === DiscountApplyType.SpecificProducts && (
-                                            <Box className="md:!col-span-2">
-                                                <TextBase requireIcon fontWeight="medium" className="!text-gray-700" titleText="Chọn Sản phẩm cần ưu đãi" />
+                                            <Box className="md:col-span-2!">
+                                                <TextBase requireIcon fontWeight="medium" className="text-gray-700!" titleText="Chọn Sản phẩm cần ưu đãi" />
                                                 <Select
                                                     mode="multiple"
                                                     placeholder="Tìm kiếm và chọn sản phẩm theo tên"
@@ -371,7 +371,7 @@ const DiscountEvent: React.FunctionComponent = () => {
                                             </Box>
                                         )}
 
-                                        <Box className="md:!col-span-2">
+                                        <Box className="md:col-span-2!">
                                             <TextBase as="span" fontWeight="medium" className="text-gray-700" titleText="Cài đặt áp dụng" />
                                             <Radio.Group
                                                 value={applySetting}
@@ -391,7 +391,7 @@ const DiscountEvent: React.FunctionComponent = () => {
                                         </Box>
                                     </Box>
 
-                                    <Flex justify="flex-end" gap={16} className="!pt-4 !border-t !border-gray-100">
+                                    <Flex justify="flex-end" gap={16} className="pt-4! border-t! border-gray-100!">
                                         <Button
                                             type="default"
                                             size="large"
@@ -406,7 +406,7 @@ const DiscountEvent: React.FunctionComponent = () => {
                                             type="primary"
                                             size="large"
                                             icon={<EditOutlined />}
-                                            className="!bg-blue-500 hover:!bg-blue-600 !border-blue-500 hover:!border-blue-600 disabled:!text-white"
+                                            className="bg-blue-500! hover:bg-blue-600! border-blue-500! hover:border-blue-600! disabled:text-white!"
                                             onClick={handleSubmitProgram}
                                             disabled={isActionProcessing}
                                             loading={isActionProcessing}
@@ -430,11 +430,11 @@ const DiscountEvent: React.FunctionComponent = () => {
                                 <TextBase size="sm" className="text-gray-500" titleText="Hành động này không thể hoàn tác." />
                             </Box>
 
-                            <Flex justify="flex-end" className="!space-x-2">
-                                <Button onClick={() => setState({ isOpenStopProgramDialog: false })} disabled={isCancelingProgram} className="!px-4 !py-2">
+                            <Flex justify="flex-end" className="space-x-2!">
+                                <Button onClick={() => setState({ isOpenStopProgramDialog: false })} disabled={isCancelingProgram} className="px-4! py-2!">
                                     Hủy
                                 </Button>
-                                <Button type="primary" loading={isCancelingProgram} onClick={handleCancelProgram} className="!bg-red-600 !border-red-600 hover:!bg-red-700 !px-4 !py-2">
+                                <Button type="primary" loading={isCancelingProgram} onClick={handleCancelProgram} className="bg-red-600! border-red-600! hover:bg-red-700! px-4! py-2!">
                                     Hủy chương trình
                                 </Button>
                             </Flex>

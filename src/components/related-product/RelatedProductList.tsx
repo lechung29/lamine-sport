@@ -47,25 +47,25 @@ const RelatedProductList: React.FunctionComponent<IRelatedProductListProps> = (p
     };
     return relatedProducts.length > 0 ? (
         <Box margin={[0, 0, 40, 0]} className="w-full">
-            <Flex align="center" justify="space-between" className="relative w-full !mb-5">
+            <Flex align="center" justify="space-between" className="relative w-full mb-5!">
                 <Text fontWeight="bold" size="3xl" textTransform="uppercase" padding={[0, 16, 8, 0]} className="inline-block text-primary oswald-font leading-12" titleText="Sản phẩm liên quan" />
                 <Box className="h-1 w-22 absolute bottom-0 left-0 bg-[#a2ff00] [clip-path:polygon(0%_0%,100%_0%,95%_100%,0%_100%)]" />
                 <Flex gap={8}>
                     <button
-                        className={classNames("!bg-white !py-1.5 !px-1 !text-center hover:!bg-[#77e322] !border-[1.5px] !border-[#333] cursor-pointer", {
-                            "!opacity-30 hover:!bg-transparent !cursor-not-allowed": isStart,
+                        className={classNames("bg-white! py-1.5! px-1! text-center! hover:bg-[#77e322]! border-[1.5px]! border-[#333]! cursor-pointer", {
+                            "opacity-30! hover:bg-transparent! cursor-not-allowed!": isStart,
                         })}
                         onClick={onPreviousItemClick}
                     >
-                        <IoIosArrowBack className="max-sm:!text-lg !text-2xl !text-[#333] drop-shadow-md" />
+                        <IoIosArrowBack className="max-sm:text-lg! text-2xl! text-[#333]! drop-shadow-md" />
                     </button>
                     <button
-                        className={classNames("!bg-white !p-1.5 !px-1 !text-center hover:!bg-[#77e322] !border-[1.5px] !border-[#333] cursor-pointer", {
-                            "!opacity-30 hover:!bg-transparent !cursor-not-allowed": isEnd,
+                        className={classNames("bg-white! p-1.5! px-1! text-center! hover:bg-[#77e322]! border-[1.5px]! border-[#333]! cursor-pointer", {
+                            "opacity-30! hover:bg-transparent! cursor-not-allowed!": isEnd,
                         })}
                         onClick={onNextItemClick}
                     >
-                        <IoIosArrowForward className="max-sm:!text-lg !text-2xl !text-[#333] drop-shadow-md" />
+                        <IoIosArrowForward className="max-sm:text-lg! text-2xl! text-[#333]! drop-shadow-md" />
                     </button>
                 </Flex>
             </Flex>
@@ -92,7 +92,7 @@ const RelatedProductList: React.FunctionComponent<IRelatedProductListProps> = (p
                 }}
             >
                 {relatedProducts.map((item) => (
-                    <SwiperSlide key={item._id} className="!w-50">
+                    <SwiperSlide key={item._id} className="w-50!">
                         <ProductItem productItem={item} />
                     </SwiperSlide>
                 ))}

@@ -51,9 +51,9 @@ const TooltipLabel: React.FC<ITooltipLabel> = (props) => {
     };
     const tooltipWidth = React.useMemo(() => {
         if (width === "auto") {
-            return "!w-auto";
+            return "w-auto!";
         } else if (width === "full") {
-            return "!w-full";
+            return "w-full!";
         }
         return undefined;
     }, [width]);

@@ -64,7 +64,7 @@ export const validateSignUp = (firstName: string, lastName: string, email: strin
     if (!!email) {
         const emailRegex =
             /^(?:[a-zA-Z0-9!#$%&"*+/=?^_`{|}~-]+(?:\.[a-zA-Z0-9!#$%&"*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\.)+[a-zA-Z]{2,}|(?:\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)$/;
-        if (!email.match(emailRegex)) {
+        if (email!.match(emailRegex)) {
             return {
                 errorField: "email",
                 errorMessage: "Định dang email không hợp lệ. Vui lòng đảm email đã đúng định dạng (VD. name@example.com)",
@@ -72,14 +72,14 @@ export const validateSignUp = (firstName: string, lastName: string, email: strin
         }
     }
 
-    if (!!phoneNumber && phoneNumber[0] !== "0") {
+    if (!phoneNumber! && phoneNumber[0] !== "0") {
         return {
             errorField: "phoneNumber",
             errorMessage: "Số điện thoại phải bắt đầu bằng 0",
         };
     }
 
-    if (!!password && password.length < 8) {
+    if (!password! && password.length < 8) {
         return {
             errorField: "password",
             errorMessage: "Mật khẩu phải chứa ít nhất 8 ký tự",

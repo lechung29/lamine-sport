@@ -62,7 +62,7 @@ const CartItem: React.FunctionComponent<CartItemProps> = (props) => {
                 <Flex vertical gap={8} className="flex-1">
                     <Flex vertical gap={4}>
                         <TooltipLabel className="text-sm font-semibold hover:text-[#77e322]! cursor-pointer" onClick={() => navigate(`/product/${cartItem._id}`)} lineDisplayed={2} text={cartItem.productName} />
-                        <Text color="#7f7f7f" size="xs" titleText={`${!!cartItem.selectedProductSize ? `${cartItem.selectedProductSize} / ` : ""}${getColorName()}`} />
+                        <Text color="#7f7f7f" size="xs" titleText={`${!cartItem!.selectedProductSize ? `${cartItem.selectedProductSize} / ` : ""}${getColorName()}`} />
                         <Flex align="center" gap={8} className="mt-2!">
                             {cartItem?.salePrice ? (
                                 <>
@@ -128,7 +128,7 @@ const CartItem: React.FunctionComponent<CartItemProps> = (props) => {
                 />
                 <Flex vertical justify="center" gap={4} className="h-full flex-1 pr-4! overflow-hidden">
                     <TooltipLabel className="cursor-pointer hover:text-[#77e322]!" lineDisplayed={2} onClick={() => navigate(`/product/${cartItem._id}`)} text={cartItem.productName} />
-                    <Text color="#7f7f7f" size="xs" titleText={`${!!cartItem.selectedProductSize ? `${cartItem.selectedProductSize} / ` : ""}${getColorName()}`} />
+                    <Text color="#7f7f7f" size="xs" titleText={`${!cartItem!.selectedProductSize ? `${cartItem.selectedProductSize} / ` : ""}${getColorName()}`} />
                     <IoTrashOutline className="w-5 h-5 cursor-pointer hover:text-[#c10000]" onClick={() => dispatch(removeFromCart(cartItem))} />
                 </Flex>
             </Flex>

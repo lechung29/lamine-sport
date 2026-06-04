@@ -171,17 +171,17 @@ const OrderDetail: React.FunctionComponent = () => {
     const getStatusClasses = (status: string) => {
         switch (status) {
             case "pending":
-                return "!bg-yellow-100 !text-yellow-700 !border-yellow-100";
+                return "bg-yellow-100! text-yellow-700! border-yellow-100!";
             case "processing":
-                return "!bg-blue-100 !text-blue-700 !border-blue-100";
+                return "bg-blue-100! text-blue-700! border-blue-100!";
             case "delivered":
-                return "!bg-green-100 !text-green-700 !border-green-100";
+                return "bg-green-100! text-green-700! border-green-100!";
             case "cancel":
-                return "!bg-red-100 !text-red-700 !border-red-100";
+                return "bg-red-100! text-red-700! border-red-100!";
             case "refunded":
-                return "!bg-purple-100 !text-purple-700 !border-purple-100";
+                return "bg-purple-100! text-purple-700! border-purple-100!";
             default:
-                return "!bg-gray-100 !text-gray-700 !border-gray-100";
+                return "bg-gray-100! text-gray-700! border-gray-100!";
         }
     };
 
@@ -193,18 +193,18 @@ const OrderDetail: React.FunctionComponent = () => {
             render: (productInfo: IProductInfo) => {
                 const orderItem = getProductItemInfo(productInfo._id);
                 return (
-                    <Flex align="center" className="!space-x-3">
-                        <Box className="!relative">
+                    <Flex align="center" className="space-x-3!">
+                        <Box className="relative!">
                             <Image
                                 src={orderItem.product?.productColors.find((color) => color.value === orderItem.selectedColor)?.images[0].url}
                                 alt={productInfo?.productName}
                                 height={48}
                                 width={48}
                                 objectFit="cover"
-                                className="!rounded-lg"
+                                className="rounded-lg!"
                             />
                         </Box>
-                        <Text className="!text-gray-900" titleText={productInfo?.productName} />
+                        <Text className="text-gray-900!" titleText={productInfo?.productName} />
                     </Flex>
                 );
             },
@@ -213,18 +213,18 @@ const OrderDetail: React.FunctionComponent = () => {
             title: "Đơn giá",
             dataIndex: "unitPrice",
             key: "unitPrice",
-            render: (price: number) => <Text className="!text-gray-700" titleText={formatCurrency(price)} />,
+            render: (price: number) => <Text className="text-gray-700!" titleText={formatCurrency(price)} />,
         },
         {
             title: "Số lượng",
             dataIndex: "quantity",
             key: "quantity",
-            render: (quantity) => <Text className="!text-gray-700" titleText={quantity} />,
+            render: (quantity) => <Text className="text-gray-700!" titleText={quantity} />,
         },
         {
             title: "Tổng cộng",
             key: "total",
-            render: (orderItem: IOrderItem) => <Text className="!text-gray-700" titleText={formatCurrency(orderItem.quantity * orderItem.unitPrice)} />,
+            render: (orderItem: IOrderItem) => <Text className="text-gray-700!" titleText={formatCurrency(orderItem.quantity * orderItem.unitPrice)} />,
         },
     ];
 
@@ -233,7 +233,7 @@ const OrderDetail: React.FunctionComponent = () => {
             <Container bgColor="transparent" margin={[0, 0, 12, 0]} className="flex-shrink-0">
                 <Flex align="center" justify="space-between">
                     <Box>
-                        <Text className="!text-gray-900" size="2xl" fontWeight="bold" titleText="Chi tiết đơn hàng" margin={[0, 0, 12, 0]} />
+                        <Text className="text-gray-900!" size="2xl" fontWeight="bold" titleText="Chi tiết đơn hàng" margin={[0, 0, 12, 0]} />
                     </Box>
                 </Flex>
             </Container>
@@ -244,7 +244,7 @@ const OrderDetail: React.FunctionComponent = () => {
                 </Flex>
             ) : (
                 <>
-                    <Box bgColor="white" padding={[24, 24, 24, 24]} margin={[0, 0, 24, 0]} className="bg-white !rounded-lg !shadow-sm !border !border-gray-200 ">
+                    <Box bgColor="white" padding={[24, 24, 24, 24]} margin={[0, 0, 24, 0]} className="bg-white rounded-lg! shadow-xs! border! border-gray-200! ">
                         <Box
                             className="
                         flex 
@@ -254,8 +254,8 @@ const OrderDetail: React.FunctionComponent = () => {
                         gap-4 md:gap-6"
                         >
                             <Box>
-                                <Text size="lg" fontWeight="semibold" margin={[0, 0, 4, 0]} className="!text-gray-900" titleText={`Mã đơn hàng : ${orderInfo?.orderCode}`} />
-                                <Text size="sm" className="!text-gray-500" titleText={`Thời gian đặt : ${dayjs(orderInfo?.createdAt).format("DD-MM-YYYY HH:mm:ss")}`} />
+                                <Text size="lg" fontWeight="semibold" margin={[0, 0, 4, 0]} className="text-gray-900!" titleText={`Mã đơn hàng : ${orderInfo?.orderCode}`} />
+                                <Text size="sm" className="text-gray-500!" titleText={`Thời gian đặt : ${dayjs(orderInfo?.createdAt).format("DD-MM-YYYY HH:mm:ss")}`} />
                             </Box>
                             <Box
                                 className="
@@ -272,7 +272,7 @@ const OrderDetail: React.FunctionComponent = () => {
                                             type="default"
                                             icon={<CheckOutlined />}
                                             onClick={handleAcceptOrderBulk}
-                                            className="!bg-green-100 !text-green-700 hover:!bg-green-200 !border-green-100 !rounded"
+                                            className="bg-green-100! text-green-700! hover:bg-green-200! border-green-100! rounded-sm!"
                                             disabled={isUpdatingStatus.isAccept || isUpdatingStatus.isReject}
                                             loading={isUpdatingStatus.isAccept}
                                         >
@@ -282,7 +282,7 @@ const OrderDetail: React.FunctionComponent = () => {
                                             type="default"
                                             icon={<CloseOutlined />}
                                             onClick={handleRejectOrderBulk}
-                                            className="!bg-red-100 !text-red-700 hover:!bg-red-200 !border-red-100 !rounded"
+                                            className="bg-red-100! text-red-700! hover:bg-red-200! border-red-100! rounded-sm!"
                                             disabled={isUpdatingStatus.isAccept || isUpdatingStatus.isReject}
                                             loading={isUpdatingStatus.isReject}
                                         >
@@ -295,9 +295,9 @@ const OrderDetail: React.FunctionComponent = () => {
                                         <Button
                                             type="default"
                                             className={`
-                                                    !rounded
+                                                    rounded-sm!
                                                     ${getStatusClasses("processing")}
-                                                    hover:!brightness-90
+                                                    hover:brightness-90!
                                                 `}
                                             disabled={isUpdatingStatus.isChange}
                                             loading={isUpdatingStatus.isChange}
@@ -307,71 +307,71 @@ const OrderDetail: React.FunctionComponent = () => {
                                     </Dropdown>
                                 )}
                                 <Tooltip title="Quay lại trang trước">
-                                    <Button type="default" icon={<IoArrowBackSharp />} onClick={() => navigate(-1)} className="!bg-[#e7e7e3] !text-gray-700 hover:!bg-gray-200 !rounded !border-none" />
+                                    <Button type="default" icon={<IoArrowBackSharp />} onClick={() => navigate(-1)} className="bg-[#e7e7e3]! text-gray-700! hover:bg-gray-200! rounded-sm! border-none!" />
                                 </Tooltip>
                             </Box>
                         </Box>
                     </Box>
                     <Container bgColor="transparent" className="grid grid-cols-1 lg:grid-cols-3 gap-6 flex-grow">
-                        <Box bgColor="white" padding={[24, 24, 24, 24]} className="!rounded-lg !shadow-sm !border !border-gray-200">
-                            <Text size="lg" fontWeight="semibold" margin={[0, 0, 16, 0]} className="!text-gray-900" titleText="Thông tin khách hàng" />
-                            <Box className="!space-y-4">
-                                <Flex align="center" className="!space-x-3">
-                                    <Text as="span" className="!text-gray-600 w-24" titleText="Tên khách hàng" />
-                                    <Flex align="center" className="!space-x-3">
+                        <Box bgColor="white" padding={[24, 24, 24, 24]} className="rounded-lg! shadow-xs! border! border-gray-200!">
+                            <Text size="lg" fontWeight="semibold" margin={[0, 0, 16, 0]} className="text-gray-900!" titleText="Thông tin khách hàng" />
+                            <Box className="space-y-4!">
+                                <Flex align="center" className="space-x-3!">
+                                    <Text as="span" className="text-gray-600! w-24" titleText="Tên khách hàng" />
+                                    <Flex align="center" className="space-x-3!">
                                         <Avatar src={orderInfo?.userInfo?.avatar} size={32} />
-                                        <Text as="span" className="!text-gray-900" titleText={orderInfo?.shippingInfo?.receiver} />
+                                        <Text as="span" className="text-gray-900!" titleText={orderInfo?.shippingInfo?.receiver} />
                                     </Flex>
                                 </Flex>
-                                <Flex align="center" className="!space-x-3">
-                                    <Text as="span" className="!text-gray-600 w-24" titleText="Email" />
-                                    <Text as="span" className="!text-gray-900" titleText={orderInfo?.shippingInfo.emailReceived} />
+                                <Flex align="center" className="space-x-3!">
+                                    <Text as="span" className="text-gray-600! w-24" titleText="Email" />
+                                    <Text as="span" className="text-gray-900!" titleText={orderInfo?.shippingInfo.emailReceived} />
                                 </Flex>
-                                <Flex align="center" className="!space-x-3">
-                                    <Text as="span" className="!text-gray-600 w-24" titleText="Số điện thoại" />
-                                    <Text as="span" className="!text-gray-900" titleText={orderInfo?.shippingInfo?.phoneNumberReceived} />
+                                <Flex align="center" className="space-x-3!">
+                                    <Text as="span" className="text-gray-600! w-24" titleText="Số điện thoại" />
+                                    <Text as="span" className="text-gray-900!" titleText={orderInfo?.shippingInfo?.phoneNumberReceived} />
                                 </Flex>
                             </Box>
                         </Box>
 
-                        <Box bgColor="white" padding={[24, 24, 24, 24]} className="!rounded-lg !shadow-sm !border !border-gray-200">
-                            <Text size="lg" fontWeight="semibold" margin={[0, 0, 16, 0]} className="!text-gray-900" titleText="Thông tin đơn hàng" />
-                            <Box className="!space-y-4">
+                        <Box bgColor="white" padding={[24, 24, 24, 24]} className="rounded-lg! shadow-xs! border! border-gray-200!">
+                            <Text size="lg" fontWeight="semibold" margin={[0, 0, 16, 0]} className="text-gray-900!" titleText="Thông tin đơn hàng" />
+                            <Box className="space-y-4!">
                                 <Flex align="center" justify="space-between">
-                                    <Text as="span" className="!text-gray-600" titleText="Thời gian đặt hàng" />
-                                    <Text as="span" className="!text-gray-900" titleText={dayjs(orderInfo?.createdAt).format("DD-MM-YYYY HH:mm:ss")} />
+                                    <Text as="span" className="text-gray-600!" titleText="Thời gian đặt hàng" />
+                                    <Text as="span" className="text-gray-900!" titleText={dayjs(orderInfo?.createdAt).format("DD-MM-YYYY HH:mm:ss")} />
                                 </Flex>
                                 <Flex align="center" justify="space-between">
-                                    <Text as="span" className="!text-gray-600" titleText="Phương thức thanh toán" />
-                                    <Text as="span" className="!text-gray-900" titleText={getPaymentText(orderInfo?.paymentMethod!)} />
+                                    <Text as="span" className="text-gray-600!" titleText="Phương thức thanh toán" />
+                                    <Text as="span" className="text-gray-900!" titleText={getPaymentText(orderInfo?.paymentMethod!)} />
                                 </Flex>
                                 <Flex align="center" justify="space-between">
-                                    <Text as="span" className="!text-gray-600" titleText="Trạng thái đơn hàng" />
-                                    <Tag color={getStatusColor(orderInfo?.orderStatus!)} className="!rounded-full !px-3 !py-1 !text-xs !font-medium">
+                                    <Text as="span" className="text-gray-600!" titleText="Trạng thái đơn hàng" />
+                                    <Tag color={getStatusColor(orderInfo?.orderStatus!)} className="rounded-full! px-3! py-1! text-xs! font-medium!">
                                         {getStatusText(orderInfo?.orderStatus!)}
                                     </Tag>
                                 </Flex>
                             </Box>
                         </Box>
-                        <Box bgColor="white" padding={[24, 24, 24, 24]} className="!rounded-lg !shadow-sm !border !border-gray-200">
-                            <Text size="lg" fontWeight="semibold" margin={[0, 0, 16, 0]} className="!text-gray-900" titleText="Thông tin giao hàng" />
-                            <Box className="!space-y-4">
+                        <Box bgColor="white" padding={[24, 24, 24, 24]} className="rounded-lg! shadow-xs! border! border-gray-200!">
+                            <Text size="lg" fontWeight="semibold" margin={[0, 0, 16, 0]} className="text-gray-900!" titleText="Thông tin giao hàng" />
+                            <Box className="space-y-4!">
                                 <Flex align="center" justify="space-between">
-                                    <Text as="span" className="!text-gray-600" titleText="Địa chỉ nhận hàng" />
-                                    <Text as="span" className="!text-gray-900" titleText={orderInfo?.shippingInfo.address} />
+                                    <Text as="span" className="text-gray-600!" titleText="Địa chỉ nhận hàng" />
+                                    <Text as="span" className="text-gray-900!" titleText={orderInfo?.shippingInfo.address} />
                                 </Flex>
                                 <Flex vertical align="flex-start">
-                                    <Text as="span" className="!text-gray-600" titleText="Ghi chú" />
-                                    <Text as="span" className="!text-gray-900" titleText={!!orderInfo?.shippingInfo.note ? orderInfo?.shippingInfo.note : "Không có"} />
+                                    <Text as="span" className="text-gray-600!" titleText="Ghi chú" />
+                                    <Text as="span" className="text-gray-900!" titleText={!!orderInfo?.shippingInfo.note ? orderInfo?.shippingInfo.note : "Không có"} />
                                 </Flex>
                             </Box>
                         </Box>
                     </Container>
-                    <Flex vertical className="!mt-8 flex-grow">
+                    <Flex vertical className="mt-8! flex-grow">
                         <Box className="grid grid-cols-1 lg:grid-cols-3 gap-6 w-full flex-grow">
                             <Box className="lg:col-span-2 flex flex-col">
-                                <Box bgColor="white" padding={[24, 24, 24, 24]} className="!rounded-lg !shadow-sm !border !border-gray-200 flex-grow overflow-auto">
-                                    <Table columns={productColumns} dataSource={getItemToShow().map((item) => ({...item, key: item.product._id}))} pagination={false} className="custom-table !mb-2" size="middle" scroll={{ x: "max-content" }} />
+                                <Box bgColor="white" padding={[24, 24, 24, 24]} className="rounded-lg! shadow-xs! border! border-gray-200! flex-grow overflow-auto">
+                                    <Table columns={productColumns} dataSource={getItemToShow().map((item) => ({...item, key: item.product._id}))} pagination={false} className="custom-table mb-2!" size="middle" scroll={{ x: "max-content" }} />
                                     {orderInfo?.orderItems && orderInfo?.orderItems.length > 0 && (
                                         <Flex justify="end">
                                             <Pagination
@@ -388,25 +388,25 @@ const OrderDetail: React.FunctionComponent = () => {
                                     )}
                                 </Box>
                             </Box>
-                            <Box bgColor="white" padding={[24, 24, 24, 24]} className="!rounded-lg !shadow-sm !border !border-gray-200 flex-shrink-0">
-                                <Text size="lg" fontWeight="semibold" margin={[0, 0, 16, 0]} className="!text-gray-900" titleText="Giá trị đơn hàng" />
-                                <Box className="!space-y-3">
+                            <Box bgColor="white" padding={[24, 24, 24, 24]} className="rounded-lg! shadow-xs! border! border-gray-200! flex-shrink-0">
+                                <Text size="lg" fontWeight="semibold" margin={[0, 0, 16, 0]} className="text-gray-900!" titleText="Giá trị đơn hàng" />
+                                <Box className="space-y-3!">
                                     <Flex align="center" justify="space-between">
-                                        <Text as="span" className="!text-gray-600" titleText="Tạm tính:" />
-                                        <Text as="span" className="!text-gray-900" titleText={formatCurrency(orderInfo?.productsFees)} />
+                                        <Text as="span" className="text-gray-600!" titleText="Tạm tính:" />
+                                        <Text as="span" className="text-gray-900!" titleText={formatCurrency(orderInfo?.productsFees)} />
                                     </Flex>
                                     <Flex align="center" justify="space-between">
-                                        <Text as="span" className="!text-gray-600" titleText="Phí giao hàng:" />
-                                        <Text as="span" className="!text-red-500" titleText={formatCurrency(orderInfo?.shippingFees)} />
+                                        <Text as="span" className="text-gray-600!" titleText="Phí giao hàng:" />
+                                        <Text as="span" className="text-red-500!" titleText={formatCurrency(orderInfo?.shippingFees)} />
                                     </Flex>
                                     <Flex align="center" justify="space-between">
-                                        <Text as="span" className="!text-gray-600" titleText="Giảm giá:" />
-                                        <Text as="span" className="!text-blue-500" titleText={`- ${formatCurrency(orderInfo?.discountValue)}`} />
+                                        <Text as="span" className="text-gray-600!" titleText="Giảm giá:" />
+                                        <Text as="span" className="text-blue-500!" titleText={`- ${formatCurrency(orderInfo?.discountValue)}`} />
                                     </Flex>
-                                    <hr className="!border-gray-200" />
+                                    <hr className="border-gray-200!" />
                                     <Flex align="center" justify="space-between">
-                                        <Text as="span" className="!text-gray-600" titleText="Tổng cộng:" />
-                                        <Text as="span" size="lg" fontWeight="semibold" className="!text-gray-900" titleText={formatCurrency(orderInfo?.totalPrice)} />
+                                        <Text as="span" className="text-gray-600!" titleText="Tổng cộng:" />
+                                        <Text as="span" size="lg" fontWeight="semibold" className="text-gray-900!" titleText={formatCurrency(orderInfo?.totalPrice)} />
                                     </Flex>
                                 </Box>
                             </Box>

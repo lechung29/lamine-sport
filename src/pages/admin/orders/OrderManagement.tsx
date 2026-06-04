@@ -131,17 +131,17 @@ const OrderManagement: React.FunctionComponent = () => {
     const getStatusClasses = (status: string) => {
         switch (status) {
             case "pending":
-                return "!bg-yellow-100 !text-yellow-700 !border-yellow-100";
+                return "bg-yellow-100! text-yellow-700! border-yellow-100!";
             case "processing":
-                return "!bg-blue-100 !text-blue-700 !border-blue-100";
+                return "bg-blue-100! text-blue-700! border-blue-100!";
             case "delivered":
-                return "!bg-green-100 !text-green-700 !border-green-100";
+                return "bg-green-100! text-green-700! border-green-100!";
             case "cancel":
-                return "!bg-red-100 !text-red-700 !border-red-100";
+                return "bg-red-100! text-red-700! border-red-100!";
             case "refunded":
-                return "!bg-purple-100 !text-purple-700 !border-purple-100";
+                return "bg-purple-100! text-purple-700! border-purple-100!";
             default:
-                return "!bg-gray-100 !text-gray-700 !border-gray-100";
+                return "bg-gray-100! text-gray-700! border-gray-100!";
         }
     };
 
@@ -219,8 +219,8 @@ const OrderManagement: React.FunctionComponent = () => {
             key: "userInfo",
             width: 180,
             render: (userInfo: IUserInformation) => (
-                <Flex align="center" className="!space-x-3">
-                    <Image src={userInfo.avatar} alt={userInfo.displayName} objectFit="cover" height={32} width={32} className="!rounded-full" />
+                <Flex align="center" className="space-x-3!">
+                    <Image src={userInfo.avatar} alt={userInfo.displayName} objectFit="cover" height={32} width={32} className="rounded-full!" />
                     <Tooltip title={userInfo.displayName} placement="topLeft">
                         <Text ellipsis={true} className="text-gray-900" style={{ maxWidth: 120 }}>
                             {userInfo.displayName}
@@ -239,21 +239,21 @@ const OrderManagement: React.FunctionComponent = () => {
                 orderItems.forEach((item) => {
                     totalQty = totalQty + item.quantity;
                 });
-                return <TextBase as="span" className="!text-gray-700" titleText={`${totalQty} sản phẩm`} />;
+                return <TextBase as="span" className="text-gray-700!" titleText={`${totalQty} sản phẩm`} />;
             },
         },
         {
             title: "Tổng tiền",
             dataIndex: "totalPrice",
             key: "totalPrice",
-            render: (total: number) => <TextBase as="span" className="!text-gray-900" titleText={formatCurrency(total)} />,
+            render: (total: number) => <TextBase as="span" className="text-gray-900!" titleText={formatCurrency(total)} />,
         },
         {
             title: "Trạng thái",
             dataIndex: "orderStatus",
             key: "orderStatus",
             render: (orderStatus: OrderStatus) => (
-                <Tag color={getStatusColor(orderStatus)} className="!rounded-full !px-3 !py-1 !text-xs !font-medium">
+                <Tag color={getStatusColor(orderStatus)} className="rounded-full! px-3! py-1! text-xs! font-medium!">
                     {getStatusText(orderStatus)}
                 </Tag>
             ),
@@ -263,13 +263,13 @@ const OrderManagement: React.FunctionComponent = () => {
             dataIndex: "paymentMethod",
             key: "paymentMethod",
             width: 110,
-            render: (paymentMethod: IOrderPayment) => <span className="!text-gray-700">{getPaymentText(paymentMethod)}</span>,
+            render: (paymentMethod: IOrderPayment) => <span className="text-gray-700!">{getPaymentText(paymentMethod)}</span>,
         },
         {
             title: "Ngày đặt",
             dataIndex: "createdAt",
             key: "createdAt",
-            render: (createdAt: string) => <TextBase className="!text-gray-600">{dayjs(createdAt).format("DD-MM-YYYY")}</TextBase>,
+            render: (createdAt: string) => <TextBase className="text-gray-600!">{dayjs(createdAt).format("DD-MM-YYYY")}</TextBase>,
         },
         {
             title: "Hành động",
@@ -281,11 +281,11 @@ const OrderManagement: React.FunctionComponent = () => {
                         size="small"
                         icon={<EyeOutlined />}
                         className="
-                            !text-gray-600
-                            hover:!text-white
-                            hover:!bg-[#364153]
-                            hover:!border-[#364153]
-                            !transition-colors !duration-200"
+                            text-gray-600!
+                            hover:text-white!
+                            hover:bg-[#364153]!
+                            hover:border-[#364153]!
+                            transition-colors! duration-200!"
                         disabled={isLoading}
                     />
                 </Link>
@@ -320,18 +320,18 @@ const OrderManagement: React.FunctionComponent = () => {
     return (
         <Flex vertical className="bg-transparent flex-grow min-h-full">
             <Box margin={[0, 0, 24, 0]}>
-                <TextBase className="!text-gray-900" size="2xl" fontWeight="bold" titleText="Quản lý đơn hàng" margin={[0, 0, 16, 0]} />
+                <TextBase className="text-gray-900!" size="2xl" fontWeight="bold" titleText="Quản lý đơn hàng" margin={[0, 0, 16, 0]} />
             </Box>
 
-            <Container bgColor="white" className="flex-grow !rounded-lg !shadow-sm" padding={[24, 24, 24, 24]}>
-                <Flex align="center" justify="space-between" wrap="wrap" gap="middle" className="!mb-6">
+            <Container bgColor="white" className="flex-grow rounded-lg! shadow-xs!" padding={[24, 24, 24, 24]}>
+                <Flex align="center" justify="space-between" wrap="wrap" gap="middle" className="mb-6!">
                     <Input.Search
                         placeholder="Tìm theo khách hàng hoặc mã đơn hàng"
                         allowClear
                         onSearch={handleSearch}
                         value={searchText}
                         onChange={(e) => setState({ searchText: e.target.value })}
-                        className="!w-full max-w-[300px]"
+                        className="w-full! max-w-[300px]"
                         size="middle"
                         disabled={isLoading}
                     />
@@ -345,7 +345,7 @@ const OrderManagement: React.FunctionComponent = () => {
                                             type="default"
                                             icon={<CheckOutlined />}
                                             onClick={handleAcceptOrderBulk}
-                                            className="!bg-green-100 !text-green-700 hover:!bg-green-200 !border-green-100 !rounded"
+                                            className="bg-green-100! text-green-700! hover:bg-green-200! border-green-100! rounded-sm!"
                                             disabled={isUpdatingStatus.isAccept || isUpdatingStatus.isReject}
                                             loading={isUpdatingStatus.isAccept}
                                         >
@@ -355,7 +355,7 @@ const OrderManagement: React.FunctionComponent = () => {
                                             type="default"
                                             icon={<CloseOutlined />}
                                             onClick={handleRejectOrderBulk}
-                                            className="!bg-red-100 !text-red-700 hover:!bg-red-200 !border-red-100 !rounded"
+                                            className="bg-red-100! text-red-700! hover:bg-red-200! border-red-100! rounded-sm!"
                                             disabled={isUpdatingStatus.isAccept || isUpdatingStatus.isReject}
                                             loading={isUpdatingStatus.isReject}
                                         >
@@ -369,9 +369,9 @@ const OrderManagement: React.FunctionComponent = () => {
                                         <Button
                                             type="default"
                                             className={`
-                                                    !rounded
+                                                    rounded-sm!
                                                     ${getStatusClasses("processing")}
-                                                    hover:!brightness-90
+                                                    hover:brightness-90!
                                                 `}
                                             disabled={isUpdatingStatus.isChange}
                                             loading={isUpdatingStatus.isChange}
@@ -395,7 +395,7 @@ const OrderManagement: React.FunctionComponent = () => {
                             columns={columns}
                             dataSource={orders.map((order) => ({ ...order, key: order.orderCode }))}
                             pagination={false}
-                            className="w-full !mb-8"
+                            className="w-full mb-8!"
                             rowKey="orderCode"
                             scroll={{ x: orders.length > 0 ? "max-content" : undefined }}
                             rowSelection={rowSelection}

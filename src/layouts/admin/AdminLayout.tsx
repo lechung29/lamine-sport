@@ -48,20 +48,20 @@ const Navbar: React.FunctionComponent<{ toggleSidebar: () => void }> = ({ toggle
                         }}
                         padding={[8, 8, 8, 8]}
                         displayText={
-                            <svg className="!h-6 !w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <svg className="h-6! w-6!" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16m-7 6h7" />
                             </svg>
                         }
                         onClick={toggleSidebar}
                     />
                 </Box>
-                <Box className="!flex-shrink-0">
+                <Box className="flex-shrink-0!">
                     <Image clickable height="48px" src={SUB_LOGO_URL} alt="app-logo" className="object-cover" onClick={() => navigate("/")} />
                 </Box>
             </Flex>
 
-            <Flex align="center" className="!space-x-4">
-                <Text as="span" size="sm" color="#364153" fontWeight="semibold" className="!bg-gray-200 !hover:bg-gray-300 !rounded-md cursor-pointer" titleText="Admin" padding={[8, 12, 8, 12]} />
+            <Flex align="center" className="space-x-4!">
+                <Text as="span" size="sm" color="#364153" fontWeight="semibold" className="bg-gray-200! hover!:bg-gray-300 rounded-md! cursor-pointer" titleText="Admin" padding={[8, 12, 8, 12]} />
                 <BaseButton
                     className="relative overflow-hidden logout-button-underline transition-colors duration-300"
                     displayText="Đăng xuất"
@@ -92,7 +92,7 @@ const Sidebar: React.FunctionComponent<{ toggleSidebar: () => void }> = ({ toggl
     return (
         <Box padding={[16, 16, 16, 16]} className="relative">
             <BaseButton
-                className="block md:!hidden absolute top-2 right-2"
+                className="block md:hidden! absolute top-2 right-2"
                 padding={[8, 8, 8, 8]}
                 colors={{
                     normal: {
@@ -106,18 +106,18 @@ const Sidebar: React.FunctionComponent<{ toggleSidebar: () => void }> = ({ toggl
                 }}
                 onClick={toggleSidebar}
                 displayText={
-                    <svg className="!h-6 !w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="h-6! w-6!" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
                     </svg>
                 }
             />
-            <Box className="!space-y-2 md:!mt-0" margin={[32, 0, 0, 0]}>
+            <Box className="space-y-2! md:mt-0!" margin={[32, 0, 0, 0]}>
                 {adminSidebarMenu.map((item) => (
                     <NavLink
                         key={item.path}
                         to={item.path}
                         className={({ isActive }) =>
-                            `flex items-center !p-2 !rounded-md cursor-pointer ${isActive ? "!bg-gray-700 !text-white" : "!text-gray-900 hover:!bg-gray-700 hover:!text-white"}`
+                            `flex items-center p-2! rounded-md! cursor-pointer ${isActive ? "bg-gray-700! text-white!" : "text-gray-900! hover:bg-gray-700! hover:text-white!"}`
                         }
                         onClick={toggleSidebar}
                     >
@@ -139,15 +139,15 @@ const AdminLayout: React.FunctionComponent = () => {
 
     return (
         <Flex vertical className="h-screen bg-[#e7e7e3]">
-            <Flex align="center" justify="space-between" className="w-full h-16 flex-shrink-0 !px-4 md:!px-6 bg-white shadow-md z-10">
+            <Flex align="center" justify="space-between" className="w-full h-16 flex-shrink-0 px-4! md:px-6! bg-white shadow-md z-10">
                 <Navbar toggleSidebar={toggleSidebar} />
             </Flex>
 
-            <Flex className="flex-1 !overflow-hidden">
+            <Flex className="flex-1 overflow-hidden!">
                 <Container
                     bgColor="white"
                     className={classNames(
-                        "h-screen !w-64 fixed top-0 left-0 overflow-y-auto transition-transform duration-300 z-50 md:h-auto md:!w-64 md:flex-shrink-0 md:block md:static md:translate-x-0 md:z-auto ",
+                        "h-screen w-64! fixed top-0 left-0 overflow-y-auto transition-transform duration-300 z-50 md:h-auto md:w-64! md:flex-shrink-0 md:block md:static md:translate-x-0 md:z-auto ",
                         {
                             "translate-x-0": sidebarVisible,
                         },
@@ -159,9 +159,9 @@ const AdminLayout: React.FunctionComponent = () => {
                     <Sidebar toggleSidebar={toggleSidebar} />
                 </Container>
 
-                {sidebarVisible && <Box className="!block md:!hidden !fixed !inset-0 !z-40" onClick={toggleSidebar} />}
+                {sidebarVisible && <Box className="block! md:hidden! fixed! inset-0! z-40!" onClick={toggleSidebar} />}
 
-                <Container bgColor="transparent" padding={[24, 24, 24, 24]} className="flex-1 relative overflow-y-auto md:!p-8">
+                <Container bgColor="transparent" padding={[24, 24, 24, 24]} className="flex-1 relative overflow-y-auto md:p-8!">
                     <Outlet />
                 </Container>
             </Flex>

@@ -136,7 +136,7 @@ const SearchBox: React.FC<ISearchBoxProps> = (props) => {
                     }
                 }}
                 placeholder="Tìm sản phẩm..."
-                className="flex-1 !px-3"
+                className="flex-1 px-3!"
             />
             <Box onClick={() => handleSearch(searchValue)} className="relative group/search-button w-10 overflow-hidden">
                 <Box
@@ -152,8 +152,8 @@ const SearchBox: React.FC<ISearchBoxProps> = (props) => {
 
             <Box
                 ref={contentRef}
-                className={classNames("absolute top-full left-0 w-full min-h-[50px] !px-3 !pb-3 bg-white shadow-primary z-50 hidden group-focus-within:!block", {
-                    "!block": isFocusedInput || isFocusedContent,
+                className={classNames("absolute top-full left-0 w-full min-h-[50px] px-3! pb-3! bg-white shadow-primary z-50 hidden group-focus-within:block!", {
+                    "block!": isFocusedInput || isFocusedContent,
                 })}
             >
                 {isLoading ? (
@@ -164,11 +164,11 @@ const SearchBox: React.FC<ISearchBoxProps> = (props) => {
                     <React.Fragment>
                         {recentSearchList.length > 0 && (
                             <React.Fragment>
-                                <Flex align="center" justify="flex-start" gap={4} className="w-full !py-2 !text-[#333] gap-1 !border-b !border-gray-200">
+                                <Flex align="center" justify="flex-start" gap={4} className="w-full py-2! text-[#333]! gap-1 border-b! border-gray-200!">
                                     <GoClock className="text-xl" />
                                     <Text as="span" size="sm" textTransform="uppercase" fontWeight="semibold" titleText="Tìm kiếm gần đây" />
                                 </Flex>
-                                <Flex align="center" justify="flex-start" wrap gap={8} className="w-full !pt-4 !pb-2 !pr-10">
+                                <Flex align="center" justify="flex-start" wrap gap={8} className="w-full pt-4! pb-2! pr-10!">
                                     {recentSearchList.map((item) => (
                                         <Flex
                                             key={item._id}
@@ -179,11 +179,11 @@ const SearchBox: React.FC<ISearchBoxProps> = (props) => {
                                                 setSearchValue(item.searchValue);
                                                 handleSearch(item.searchValue);
                                             }}
-                                            className="!pr-1 !pl-2 !py-0.5 bg-gray-200 hover:!bg-[#1c2635] text-[#333] group/search-item cursor-pointer"
+                                            className="pr-1! pl-2! py-0.5! bg-gray-200 hover:bg-[#1c2635]! text-[#333] group/search-item cursor-pointer"
                                         >
-                                            <Text as="span" size="sm" className="text-[#333] group-hover/search-item:!text-white" titleText={item.searchValue} />
+                                            <Text as="span" size="sm" className="text-[#333] group-hover/search-item:text-white!" titleText={item.searchValue} />
                                             <IoIosCloseCircleOutline
-                                                className="text-lg text-[#333] group-hover/search-item:!text-white hover:!text-red-500 cursor-pointer"
+                                                className="text-lg text-[#333] group-hover/search-item:text-white! hover:text-red-500! cursor-pointer"
                                                 onClick={(e) => {
                                                     e.stopPropagation();
                                                     removeSearchHistory(item.searchValue);
@@ -196,16 +196,16 @@ const SearchBox: React.FC<ISearchBoxProps> = (props) => {
                         )}
                         {topSearchList.length > 0 && (
                             <React.Fragment>
-                                <Flex align="center" justify="flex-start" gap={4} className="w-full !py-2 !text-[#333] gap-1 !border-b !border-gray-200">
+                                <Flex align="center" justify="flex-start" gap={4} className="w-full py-2! text-[#333]! gap-1 border-b! border-gray-200!">
                                     <IoIosTrendingUp className="text-xl" />
                                     <Text as="span" size="sm" textTransform="uppercase" fontWeight="semibold" titleText="Đề xuất phổ biến" />
                                 </Flex>
-                                <Flex align="center" justify="flex-start" wrap gap={8} className="w-full !pt-4 !pb-2 !pr-10">
+                                <Flex align="center" justify="flex-start" wrap gap={8} className="w-full pt-4! pb-2! pr-10!">
                                     {topSearchList.map((item, key) => (
                                         <Box
                                             key={key}
                                             padding={[2, 8, 2, 8]}
-                                            className="bg-gray-200 hover:!bg-[#1c2635] text-[#333] hover:!text-white text-center cursor-pointer"
+                                            className="bg-gray-200 hover:bg-[#1c2635]! text-[#333] hover:text-white! text-center cursor-pointer"
                                             onClick={() => {
                                                 setSearchValue(item.searchValue);
                                                 handleSearch(item.searchValue);

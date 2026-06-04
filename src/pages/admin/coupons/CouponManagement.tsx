@@ -266,7 +266,7 @@ const CouponManagement: React.FunctionComponent = () => {
             showSorterTooltip: false,
             render: (text: string) => (
                 <Tooltip title={text} placement="topLeft">
-                    <Text ellipsis={true} className="!font-mono !text-gray-700" style={{ maxWidth: 120 }}>
+                    <Text ellipsis={true} className="font-mono! text-gray-700!" style={{ maxWidth: 120 }}>
                         {text}
                     </Text>
                 </Tooltip>
@@ -277,7 +277,7 @@ const CouponManagement: React.FunctionComponent = () => {
             key: "value",
             width: 100,
             render: (_, record: ICouponData) => (
-                <TextBase fontWeight="semibold" className="!text-gray-900">
+                <TextBase fontWeight="semibold" className="text-gray-900!">
                     {record.valueType === CouponValueType.Percent ? `${record.value}%` : `${record.value}₫`}
                 </TextBase>
             ),
@@ -289,7 +289,7 @@ const CouponManagement: React.FunctionComponent = () => {
             render: (_, record: ICouponData) => {
                 const status = renderStatus(record.couponStatus);
                 return (
-                    <Tag color={getStatusColor(record.couponStatus)} className="!px-3 !py-1 !rounded-full text-xs font-medium">
+                    <Tag color={getStatusColor(record.couponStatus)} className="px-3! py-1! rounded-full! text-xs font-medium">
                         {status}
                     </Tag>
                 );
@@ -300,21 +300,21 @@ const CouponManagement: React.FunctionComponent = () => {
             dataIndex: "startDate",
             key: "startDate",
             width: 120,
-            render: (text: string) => <TextBase className="!text-gray-600">{dayjs(text).format("DD-MM-YYYY")}</TextBase>,
+            render: (text: string) => <TextBase className="text-gray-600!">{dayjs(text).format("DD-MM-YYYY")}</TextBase>,
         },
         {
             title: "Kết thúc",
             dataIndex: "endDate",
             key: "endDate",
             width: 120,
-            render: (text: string) => <TextBase className="!text-gray-600">{dayjs(text).format("DD-MM-YYYY")}</TextBase>,
+            render: (text: string) => <TextBase className="text-gray-600!">{dayjs(text).format("DD-MM-YYYY")}</TextBase>,
         },
         {
             title: "Số lượt sử dụng",
             key: "used",
             width: 130,
             render: (_: any, record: ICouponData) => (
-                <TextBase className="!text-gray-600">
+                <TextBase className="text-gray-600!">
                     {record.usedQuantity} / {record.couponQuantity}
                 </TextBase>
             ),
@@ -324,7 +324,7 @@ const CouponManagement: React.FunctionComponent = () => {
             key: "action",
             width: 100,
             render: (_, record: ICouponData) => (
-                <Flex className="!space-x-2">
+                <Flex className="space-x-2!">
                     <Tooltip title="Chỉnh sửa">
                         <Button type="text" icon={<EditOutlined />} size="small" onClick={() => handleOpenEditDialog(record)} disabled={isLoading} />
                     </Tooltip>
@@ -339,18 +339,18 @@ const CouponManagement: React.FunctionComponent = () => {
     return (
         <Flex vertical className="bg-transparent flex-grow min-h-full">
             <Box margin={[0, 0, 24, 0]}>
-                <TextBase className="!text-gray-900" size="2xl" fontWeight="bold" titleText="Quản lý mã giảm giá" margin={[0, 0, 16, 0]} />
+                <TextBase className="text-gray-900!" size="2xl" fontWeight="bold" titleText="Quản lý mã giảm giá" margin={[0, 0, 16, 0]} />
             </Box>
 
-            <Container bgColor="white" className="flex-grow !rounded-lg !shadow-sm" padding={[24, 24, 24, 24]}>
-                <Flex align="center" justify="space-between" wrap="wrap" gap="middle" className="!mb-6">
+            <Container bgColor="white" className="flex-grow rounded-lg! shadow-xs!" padding={[24, 24, 24, 24]}>
+                <Flex align="center" justify="space-between" wrap="wrap" gap="middle" className="mb-6!">
                     <Input.Search
                         placeholder="Tìm kiếm theo tên hoặc mã phiếu"
                         allowClear
                         onSearch={handleSearch}
                         value={searchText}
                         onChange={(e) => setState({ searchText: e.target.value })}
-                        className="!w-full max-w-[300px]"
+                        className="w-full! max-w-[300px]"
                         size="middle"
                         disabled={isLoading}
                     />
@@ -361,7 +361,7 @@ const CouponManagement: React.FunctionComponent = () => {
                             padding={[6, 16, 6, 16]}
                             radius="md"
                             onClick={handleAddClick}
-                            className="disabled:!bg-gray-400"
+                            className="disabled:bg-gray-400!"
                             disabled={isLoading}
                             displayText={
                                 <React.Fragment>
@@ -384,7 +384,7 @@ const CouponManagement: React.FunctionComponent = () => {
                             dataSource={coupons.map((c) => ({ ...c, key: c.id }))}
                             rowKey="id"
                             pagination={false}
-                            className="w-full !mb-8"
+                            className="w-full mb-8!"
                             scroll={{ x: coupons.length > 0 ? "max-content" : undefined }}
                             locale={{ emptyText: <Empty description="Không có mã giảm giá nào." /> }}
                         />
@@ -409,7 +409,7 @@ const CouponManagement: React.FunctionComponent = () => {
                 <Modal
                     title={
                         <React.Fragment>
-                            <TagsOutlined className="!mr-2" />
+                            <TagsOutlined className="mr-2!" />
                             {editingCoupon ? "Chỉnh sửa phiếu giảm giá" : "Thêm phiếu giảm giá mới"}
                         </React.Fragment>
                     }
@@ -419,7 +419,7 @@ const CouponManagement: React.FunctionComponent = () => {
                     width={500}
                     destroyOnHidden={true}
                 >
-                    <Container margin={[16, 0, 0, 0]} className="!space-y-4">
+                    <Container margin={[16, 0, 0, 0]} className="space-y-4!">
                         <Box>
                             <TextBase as="label" margin={[0, 0, 8, 0]} fontWeight="medium" className="block" titleText="Mã phiếu giảm giá" />
                             <Input
@@ -434,7 +434,7 @@ const CouponManagement: React.FunctionComponent = () => {
                         <Box>
                             <TextBase as="label" margin={[0, 0, 8, 0]} fontWeight="medium" className="block" titleText="Giá trị giảm giá" />
                             <Flex gap="small">
-                                <Select<CouponValueType> value={discountType} onChange={(value: CouponValueType) => setState({ discountType: value, discountValue: null })} className="!w-2/5">
+                                <Select<CouponValueType> value={discountType} onChange={(value: CouponValueType) => setState({ discountType: value, discountValue: null })} className="w-2/5!">
                                     <Option value={CouponValueType.Percent}>Phần trăm</Option>
                                     <Option value={CouponValueType.FixedAmount}>Số tiền cố định</Option>
                                 </Select>
@@ -452,7 +452,7 @@ const CouponManagement: React.FunctionComponent = () => {
                                             setState({ discountValue: null });
                                         }
                                     }}
-                                    className="!w-3/5"
+                                    className="w-3/5!"
                                     suffix={discountType === CouponValueType.Percent ? "%" : "VNĐ"}
                                     max={discountValue === CouponValueType.Percent ? 100 : undefined}
                                     min={0}
@@ -479,7 +479,7 @@ const CouponManagement: React.FunctionComponent = () => {
                                             setState({ maxValue: null });
                                         }
                                     }}
-                                    className="!w-full"
+                                    className="w-full!"
                                     suffix="VNĐ"
                                     min={0}
                                     placeholder="Nhập số tiền tối đa có thể giảm (không yêu cầu)"
@@ -499,7 +499,7 @@ const CouponManagement: React.FunctionComponent = () => {
                                 onChange={(dates: [Dayjs | null, Dayjs | null] | null) => {
                                     setState({ startDate: dates?.[0], endDate: dates?.[1] });
                                 }}
-                                className="!w-full"
+                                className="w-full!"
                                 format="DD-MM-YYYY"
                             />
                         </Box>
@@ -516,16 +516,16 @@ const CouponManagement: React.FunctionComponent = () => {
                                         setState({ couponQuantity: null });
                                     }
                                 }}
-                                className="!w-full"
+                                className="w-full!"
                                 min={1}
                                 placeholder="Nhập số lượt sử dụng tối đa"
                             />
                         </Box>
-                        <Flex justify="flex-end" className="!space-x-2">
-                            <Button onClick={handleCancelAddEditDialog} disabled={isAddingCoupon} className="!px-4 !py-2">
+                        <Flex justify="flex-end" className="space-x-2!">
+                            <Button onClick={handleCancelAddEditDialog} disabled={isAddingCoupon} className="px-4! py-2!">
                                 Hủy
                             </Button>
-                            <Button type="primary" loading={isAddingCoupon} onClick={handleAddUpdateCoupon} className="!bg-[#002d3a] hover:!bg-[#a2ff00] hover:!text-[#333] !px-4 !py-2">
+                            <Button type="primary" loading={isAddingCoupon} onClick={handleAddUpdateCoupon} className="bg-[#002d3a]! hover:bg-[#a2ff00]! hover:text-[#333]! px-4! py-2!">
                                 {editingCoupon ? "Cập nhật" : "Thêm"}
                             </Button>
                         </Flex>
@@ -547,11 +547,11 @@ const CouponManagement: React.FunctionComponent = () => {
                             <TextBase size="sm" className="text-gray-500" titleText="Hành động này không thể hoàn tác." />
                         </Box>
 
-                        <Flex justify="flex-end" className="!space-x-2">
-                            <Button onClick={handleCancelDeleteDialog} disabled={isDeletingCoupon} className="!px-4 !py-2">
+                        <Flex justify="flex-end" className="space-x-2!">
+                            <Button onClick={handleCancelDeleteDialog} disabled={isDeletingCoupon} className="px-4! py-2!">
                                 Hủy
                             </Button>
-                            <Button type="primary" loading={isDeletingCoupon} onClick={handleDeleteCoupon} className="!bg-red-600 !border-red-600 hover:!bg-red-700 !px-4 !py-2">
+                            <Button type="primary" loading={isDeletingCoupon} onClick={handleDeleteCoupon} className="bg-red-600! border-red-600! hover:bg-red-700! px-4! py-2!">
                                 Xóa
                             </Button>
                         </Flex>

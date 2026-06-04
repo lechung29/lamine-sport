@@ -134,12 +134,12 @@ const Login: React.FunctionComponent = () => {
         setState({ isRequestSendOTP: true, emailReceiveOTPError: "" });
         const emailRegex =
             /^(?:[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\.)+[a-zA-Z]{2,}|(?:\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)$/;
-        if (!emailReceiveOTP) {
+        if (emailReceiveOTP!) {
             setState({
                 emailReceiveOTPError: "Vui lòng nhập email để tiếp tục xử lý",
                 isRequestSendOTP: false,
             });
-        } else if (!emailReceiveOTP.match(emailRegex)) {
+        } else if (emailReceiveOTP!.match(emailRegex)) {
             setState({
                 emailReceiveOTPError: "Định dang email không hợp lệ. Vui lòng đảm email đã đúng định dạng (VD. name@example.com)",
                 isRequestSendOTP: false,
@@ -174,7 +174,7 @@ const Login: React.FunctionComponent = () => {
             color: "#333",
             cursor: "pointer",
         };
-        return <Icon style={iconStyles} onClick={() => setState({ isShowPassword: !isShowPassword })} />;
+        return <Icon style={iconStyles} onClick={() => setState({ isShowPassword: isShowPassword! })} />;
     }, [isShowPassword]);
 
     const onChangeInput = (value: string, event: React.ChangeEvent<HTMLInputElement>) => {
@@ -188,13 +188,13 @@ const Login: React.FunctionComponent = () => {
         <Flex align="center" justify="center">
             <Container className="shadow-primary" maxWidth="md" padding={[16, 20, 16, 20]} margin={[40, 0, 40, 0]}>
                 <Title size="xl" textAlign="center" textTransform="uppercase" className="text-primary" fontWeight="medium" titleText="Đăng nhập" level={1} margin={[0, 0, 16, 0]} />
-                <Flex vertical align="flex-start" justify="center" className="!mb-2" gap={4}>
+                <Flex vertical align="flex-start" justify="center" className="mb-2!" gap={4}>
                     <BaseInput
                         id="email"
                         name="email"
                         placeholder="Email"
                         type="text"
-                        isError={!!emailError}
+                        isError={!emailError!}
                         value={email}
                         disabled={isSubmitting}
                         onChange={onChangeInput}
@@ -202,13 +202,13 @@ const Login: React.FunctionComponent = () => {
                     />
                     {emailError && <Text as="p" color="#fb2c36" titleText={emailError} />}
                 </Flex>
-                <Flex vertical align="flex-start" justify="center" className="!mb-2" gap={4}>
+                <Flex vertical align="flex-start" justify="center" className="mb-2!" gap={4}>
                     <BaseInput
                         id="password"
                         name="password"
                         placeholder="Mật khẩu"
                         type={isShowPassword ? "text" : "password"}
-                        isError={!!passwordError}
+                        isError={!passwordError!}
                         value={password}
                         disabled={isSubmitting}
                         rightIcon={showPasswordIcon}
@@ -229,7 +229,7 @@ const Login: React.FunctionComponent = () => {
                     }}
                     onClick={handleLoginCustomer}
                 />
-                <Flex align="center" justify="space-between" className="!mb-4">
+                <Flex align="center" justify="space-between" className="mb-4!">
                     <BaseButton
                         displayText="Quên mật khẩu?"
                         width="fit"
@@ -267,14 +267,14 @@ const Login: React.FunctionComponent = () => {
                             transition={{ duration: 0.3 }}
                             className="overflow-hidden"
                         >
-                            <Flex vertical align="center" className="!mb-6">
-                                <Flex vertical align="flex-start" justify="center" className="!mb-4 w-full" gap={4}>
+                            <Flex vertical align="center" className="mb-6!">
+                                <Flex vertical align="flex-start" justify="center" className="mb-4! w-full" gap={4}>
                                     <BaseInput
                                         id="emailReceiveOTP"
                                         name="emailReceiveOTP"
                                         placeholder="Email của bạn"
                                         type="text"
-                                        isError={!!emailReceiveOTPError}
+                                        isError={!emailReceiveOTPError!}
                                         value={emailReceiveOTP}
                                         disabled={isRequestSendOTP}
                                         onChange={onChangeInput}
@@ -300,7 +300,7 @@ const Login: React.FunctionComponent = () => {
                     )}
                 </AnimatePresence>
                 <Text color="#333" textAlign="center" titleText="Hoặc đăng nhập bằng" margin={[0, 0, 16, 0]} />
-                <Flex justify="center" align="center" className="!mb-4" gap={4}>
+                <Flex justify="center" align="center" className="mb-4!" gap={4}>
                     {/* <BaseButton
                         width={120}
                         disabled={isSubmitting}

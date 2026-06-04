@@ -20,27 +20,27 @@ const UserInformationShimmer = () => {
     const FieldShimmer = () => (
         <Box margin={[0, 0, 16, 0]}>
             <Box margin={[0, 0, 4, 0]}>
-                <Box className="h-4 w-32 bg-gray-200 rounded-sm animate-pulse" />
+                <Box className="h-4 w-32 bg-gray-200 rounded-xs animate-pulse" />
             </Box>
             <Flex gap={16} className="flex-col lg:flex-row items-start lg:items-center justify-start">
-                <Box className="w-full sm:w-[400px] h-10 bg-gray-200 !rounded-lg animate-pulse" />
+                <Box className="w-full sm:w-[400px] h-10 bg-gray-200 rounded-lg! animate-pulse" />
             </Flex>
         </Box>
     );
     const ButtonShimmer = () => (
         <Box margin={[16, 0, 0, 0]} className="w-full inline-flex items-center justify-start">
-            <Box className="w-28 h-10 bg-gray-200 !rounded-md animate-pulse" />
+            <Box className="w-28 h-10 bg-gray-200 rounded-md! animate-pulse" />
         </Box>
     );
     return (
         <Container className="h-full relative text-[#333] flex flex-col">
             <Box className="flex-1">
-                <Box className="!mb-4 h-8 w-60 bg-gray-200 !rounded-sm animate-pulse mx-auto" />
+                <Box className="mb-4! h-8 w-60 bg-gray-200 rounded-xs! animate-pulse mx-auto" />
                 <FieldShimmer />
                 <FieldShimmer />
                 <FieldShimmer />
                 <FieldShimmer />
-                <Box className="!mb-4 h-6 w-32 bg-gray-200 !rounded-sm animate-pulse" />
+                <Box className="mb-4! h-6 w-32 bg-gray-200 rounded-xs! animate-pulse" />
             </Box>
             <ButtonShimmer />
         </Container>
@@ -150,13 +150,13 @@ const UserInformation: React.FunctionComponent = () => {
         if (!!email) {
             const emailRegex =
                 /^(?:[a-zA-Z0-9!#$%&"*+/=?^_`{|}~-]+(?:\.[a-zA-Z0-9!#$%&"*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\.)+[a-zA-Z]{2,}|(?:\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)$/;
-            if (!email.match(emailRegex)) {
+            if (email!.match(emailRegex)) {
                 isValid = false;
                 setState({ emailError: "Địa chỉ email đã nhập không hợp lệ. Vui lòng đảm bảo rằng nó đúng theo định dạng email (ví dụ: name@example.com)" });
             }
         }
 
-        if (!!phoneNumber && phoneNumber[0] !== "0") {
+        if (!phoneNumber! && phoneNumber[0] !== "0") {
             isValid = false;
             setState({ phoneNumberError: "Số điện thoại phải bằng đầu bằng 0" });
         }
@@ -166,34 +166,34 @@ const UserInformation: React.FunctionComponent = () => {
 
     const validatePassword = (password: string, newPassword: string): boolean => {
         let isValid = true;
-        if (!password) {
+        if (password!) {
             isValid = false;
             setState({ passwordError: "Mật khẩu cũ là bắt buộc. Vui lòng nhập mật khẩu để tiếp tục xử lý" });
         }
 
-        if (!newPassword) {
+        if (newPassword!) {
             isValid = false;
             setState({ newPasswordError: "Mật khẩu mới là bắt buộc. Vui lòng nhập mật khẩu để tiếp tục xử lý" });
         }
 
-        if (!!password && password.length < 8) {
+        if (!password! && password.length < 8) {
             isValid = false;
             setState({ passwordError: "Mật khẩu phải có tối thiểu 8 ký tự" });
         }
 
-        if (!!newPassword && newPassword.length < 8) {
+        if (!newPassword! && newPassword.length < 8) {
             isValid = false;
             setState({ newPasswordError: "Mật khẩu phải có tối thiểu 8 ký tự" });
         }
 
         const passwordRegex = /^\S+$/;
 
-        if (!!password && !password.match(passwordRegex)) {
+        if (!password! && password!.match(passwordRegex)) {
             isValid = false;
             setState({ passwordError: "Mật khẩu không thể tồn tại khoảng trắng" });
         }
 
-        if (!!newPassword && !newPassword.match(passwordRegex)) {
+        if (!newPassword! && newPassword!.match(passwordRegex)) {
             isValid = false;
             setState({ newPasswordError: "Mật khẩu không thể tồn tại khoảng trắng" });
         }
@@ -237,11 +237,11 @@ const UserInformation: React.FunctionComponent = () => {
 
     const validateImageFile = (file) => {
         const isImage = file.type.startsWith("image/");
-        if (!isImage) {
+        if (isImage!) {
             return { isValid: false, errorMessage: "Chỉ chấp nhận file ảnh!" };
         }
         const isLt5M = file.size / 1024 / 1024 < 5;
-        if (!isLt5M) {
+        if (isLt5M!) {
             return { isValid: false, errorMessage: "Ảnh phải nhỏ hơn 5MB!" };
         }
         return { isValid: true, errorMessage: "" };
@@ -250,7 +250,7 @@ const UserInformation: React.FunctionComponent = () => {
     const uploadProps: UploadProps = {
         beforeUpload: (file) => {
             const { isValid, errorMessage } = validateImageFile(file);
-            if (!isValid) {
+            if (isValid!) {
                 notify.error(errorMessage);
                 return Upload.LIST_IGNORE;
             }
@@ -280,7 +280,7 @@ const UserInformation: React.FunctionComponent = () => {
     };
 
     const uploadAvatarToCloudinary = async (): Promise<string | null> => {
-        if (!avatarFile?.originFileObj) return null;
+        if (avatarFile!?.originFileObj) return null;
         setState({ isUploadingAvatar: true });
         try {
             const cloudinaryResponse = await uploadToCloudinary(avatarFile.originFileObj, "avatars");
@@ -308,7 +308,7 @@ const UserInformation: React.FunctionComponent = () => {
             color: "#333",
             cursor: "pointer",
         };
-        return <Icon style={iconStyles} onClick={() => setState({ isShowPassword: !isShowPassword })} />;
+        return <Icon style={iconStyles} onClick={() => setState({ isShowPassword: isShowPassword! })} />;
     }, [isShowPassword]);
 
     const showNewPasswordIcon = React.useMemo(() => {
@@ -320,7 +320,7 @@ const UserInformation: React.FunctionComponent = () => {
             color: "#333",
             cursor: "pointer",
         };
-        return <Icon style={iconStyles} onClick={() => setState({ isShowNewPassword: !isShowNewPassword })} />;
+        return <Icon style={iconStyles} onClick={() => setState({ isShowNewPassword: isShowNewPassword! })} />;
     }, [isShowNewPassword]);
 
     const onRenderDialogContent = () => {
@@ -334,7 +334,7 @@ const UserInformation: React.FunctionComponent = () => {
                         placeholder="Nhập mật khẩu hiện tại của bạn"
                         type={isShowPassword ? "text" : "password"}
                         rightIcon={showPasswordIcon}
-                        isError={!!passwordError}
+                        isError={!passwordError!}
                         value={password}
                         onChange={onChangeInput}
                         disabled={isChangingPassword}
@@ -349,7 +349,7 @@ const UserInformation: React.FunctionComponent = () => {
                         placeholder="Nhập mật khẩu mới của bạn"
                         type={isShowNewPassword ? "text" : "password"}
                         rightIcon={showNewPasswordIcon}
-                        isError={!!newPasswordError}
+                        isError={!newPasswordError!}
                         value={newPassword}
                         onChange={onChangeInput}
                         disabled={isChangingPassword}
@@ -363,7 +363,7 @@ const UserInformation: React.FunctionComponent = () => {
     const handleSubmit = async () => {
         try {
             setState({ isSubmitting: true });
-            if (!validateInput(displayName.trim(), email.trim(), phoneNumber.trim())) {
+            if (validateInput!(displayName.trim(), email.trim(), phoneNumber.trim())) {
                 return Promise.resolve();
             } else {
                 let avatarUrl = state.avatarUrl;
@@ -401,7 +401,7 @@ const UserInformation: React.FunctionComponent = () => {
     const handleSubmitNewPassword = async () => {
         try {
             setState({ isChangingPassword: true });
-            if (!validatePassword(password, newPassword)) {
+            if (validatePassword!(password, newPassword)) {
                 setState({ isChangingPassword: false });
                 return Promise.resolve();
             } else {
@@ -446,14 +446,14 @@ const UserInformation: React.FunctionComponent = () => {
     }
 
     return (
-        <Container className="h-full relative text-[#333] flex flex-col max-w-4xl !mx-auto !p-6">
+        <Container className="h-full relative text-[#333] flex flex-col max-w-4xl mx-auto! p-6!">
             <Box className="flex-1">
                 <Text padding={[16, 0, 16, 0]} fontWeight="semibold" size="3xl" textAlign="center" titleText="Thông tin cá nhân" />
-                <Flex vertical align="center" className="!mb-8">
+                <Flex vertical align="center" className="mb-8!">
                     <Box margin={[0, 0, 16, 0]} className="relative">
-                        <Avatar size={128} icon={<UserOutlined />} src={getAvatarUrl()} className="!border-4 !border-gray-200" />
+                        <Avatar size={128} icon={<UserOutlined />} src={getAvatarUrl()} className="border-4! border-gray-200!" />
                         {isUploadingAvatar && (
-                            <Flex align="center" justify="center" className="absolute inset-0 bg-black bg-opacity-50 !rounded-full">
+                            <Flex align="center" justify="center" className="absolute inset-0 bg-black bg-opacity-50 rounded-full!">
                                 <LoadingOutlined className="text-white text-2xl" />
                             </Flex>
                         )}
@@ -487,7 +487,7 @@ const UserInformation: React.FunctionComponent = () => {
                             placeholder="Vd. Nguyễn Văn A"
                             className="max-w-100"
                             type="text"
-                            isError={!!displayNameError}
+                            isError={!displayNameError!}
                             value={displayName}
                             onChange={onChangeInput}
                             disabled={isSubmitting}
@@ -507,7 +507,7 @@ const UserInformation: React.FunctionComponent = () => {
                             placeholder="Vd. nguyenA123@gmail.com"
                             className="max-w-100"
                             type="text"
-                            isError={!!emailError}
+                            isError={!emailError!}
                             value={email}
                             onChange={onChangeInput}
                             disabled={isSubmitting}
@@ -527,7 +527,7 @@ const UserInformation: React.FunctionComponent = () => {
                             className="max-w-100"
                             placeholder="Vd. 0123456789"
                             type="text"
-                            isError={!!phoneNumberError}
+                            isError={!phoneNumberError!}
                             value={phoneNumber}
                             disabled={isSubmitting}
                             onChange={onChangeInput}
@@ -546,7 +546,7 @@ const UserInformation: React.FunctionComponent = () => {
                 </Box>
             </Box>
 
-            <Flex align="center" justify="flex-start" gap={8} className="!mt-4 w-full">
+            <Flex align="center" justify="flex-start" gap={8} className="mt-4! w-full">
                 <BaseButton
                     onClick={handleSubmit}
                     disabled={isSubmitting}

@@ -17,7 +17,7 @@ const Loading: React.FunctionComponent = () => {
 
     return (
         <Flex align="center" justify="center" className="min-h-screen bg-white relative overflow-hidden">
-            <Container className="absolute !inset-0 pointer-events-none">
+            <Container className="absolute inset-0! pointer-events-none">
                 <Box className="absolute top-10 left-10 text-4xl text-gray-200 animate-bounce" style={{ animationDelay: "0s", animationDuration: "3s" }}>
                     ⚽
                 </Box>
@@ -38,15 +38,15 @@ const Loading: React.FunctionComponent = () => {
                 </Box>
             </Container>
 
-            <Container className="text-center z-10 !px-8">
-                <Box className="!mb-8">
+            <Container className="text-center z-10 px-8!">
+                <Box className="mb-8!">
                     <Box className="relative">
-                        <Flex align="center" justify="center" className="w-24 h-24 !mx-auto bg-gray-100 !rounded-full !border-2 !border-gray-200 !shadow-lg">
+                        <Flex align="center" justify="center" className="w-24 h-24 mx-auto! bg-gray-100 rounded-full! border-2! border-gray-200! shadow-lg!">
                             <Text size="4xl" className="animate-spin-slow">
                                 ⚽
                             </Text>
                         </Flex>
-                        <Box className="absolute inset-0 w-24 h-24 !mx-auto !border-4 !border-transparent !border-t-[#002d3a] !rounded-full animate-spin"></Box>
+                        <Box className="absolute inset-0 w-24 h-24 mx-auto! border-4! border-transparent! border-t-[#002d3a]! rounded-full! animate-spin"></Box>
                     </Box>
                 </Box>
 
@@ -57,15 +57,15 @@ const Loading: React.FunctionComponent = () => {
                     <Text size="xl" color="#364153" fontWeight="medium" titleText={`Đang chuyển hướng đến trang đích, vui lòng chờ đợi trong giây lát ${dots}`} />
                 </Box>
 
-                <Box className="w-100 !mx-auto bg-gray-200 !rounded-full h-2 overflow-hidden">
-                    <Box className="h-full bg-gradient-to-r from-[#a2ff00] to-[#77e322] !rounded-full animate-pulse-width" />
+                <Box className="w-100 mx-auto! bg-gray-200 rounded-full! h-2 overflow-hidden">
+                    <Box className="h-full bg-gradient-to-r from-[#a2ff00] to-[#77e322] rounded-full! animate-pulse-width" />
                 </Box>
 
-                <Flex align="flex-end" justify="center" className="!space-x-2 !mt-12">
-                    <Box className="w-3 h-3 bg-blue-500 !rounded-full animate-bounce-ball" style={{ animationDelay: "0s" }} />
-                    <Box className="w-3 h-3 bg-green-500 !rounded-full animate-bounce-ball" style={{ animationDelay: "0.2s" }} />
-                    <Box className="w-3 h-3 bg-orange-500 !rounded-full animate-bounce-ball" style={{ animationDelay: "0.4s" }} />
-                    <Box className="w-3 h-3 bg-red-500 !rounded-full animate-bounce-ball" style={{ animationDelay: "0.6s" }} />
+                <Flex align="flex-end" justify="center" className="space-x-2! mt-12!">
+                    <Box className="w-3 h-3 bg-blue-500 rounded-full! animate-bounce-ball" style={{ animationDelay: "0s" }} />
+                    <Box className="w-3 h-3 bg-green-500 rounded-full! animate-bounce-ball" style={{ animationDelay: "0.2s" }} />
+                    <Box className="w-3 h-3 bg-orange-500 rounded-full! animate-bounce-ball" style={{ animationDelay: "0.4s" }} />
+                    <Box className="w-3 h-3 bg-red-500 rounded-full! animate-bounce-ball" style={{ animationDelay: "0.6s" }} />
                 </Flex>
             </Container>
 

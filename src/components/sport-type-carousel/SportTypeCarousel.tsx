@@ -85,25 +85,25 @@ const SportTypeCarousel: React.FunctionComponent = () => {
 
     return (
         <Container className="w-full">
-            <Flex className="w-full !mb-6" align="center" justify="space-between">
+            <Flex className="w-full mb-6!" align="center" justify="space-between">
                 <Box bgColor="#a2ff00" className="h-1 w-22 [clip-path:polygon(0%_0%,100%_0%,95%_100%,0%_100%)]" />
                 <Flex align="center" justify="center" gap={8}>
                     <BaseButton
-                        className={classNames("!bg-white !py-1.5 !px-1 !text-center hover:!bg-[#77e322] !border-[1.5px] !border-[#333] cursor-pointer transition-all duration-200", {
-                            "!opacity-30 hover:!bg-transparent !cursor-not-allowed": isStart,
+                        className={classNames("bg-white! py-1.5! px-1! text-center! hover:bg-[#77e322]! border-[1.5px]! border-[#333]! cursor-pointer transition-all duration-200", {
+                            "opacity-30! hover:bg-transparent! cursor-not-allowed!": isStart,
                         })}
                         onClick={onPreviousItemClick}
                         disabled={isStart}
-                        displayText={<IoIosArrowBack className="max-sm:text-lg text-2xl text-[#333] !drop-shadow-md" />}
+                        displayText={<IoIosArrowBack className="max-sm:text-lg text-2xl text-[#333] drop-shadow-md!" />}
                     />
 
                     <BaseButton
-                        className={classNames("!bg-white !p-1.5 !px-1 !text-center hover:!bg-[#77e322] !border-[1.5px] !border-[#333] cursor-pointer transition-all duration-200", {
-                            "!opacity-30 hover:!bg-transparent !cursor-not-allowed": isEnd,
+                        className={classNames("bg-white! p-1.5! px-1! text-center! hover:bg-[#77e322]! border-[1.5px]! border-[#333]! cursor-pointer transition-all duration-200", {
+                            "opacity-30! hover:bg-transparent! cursor-not-allowed!": isEnd,
                         })}
                         onClick={onNextItemClick}
                         disabled={isEnd}
-                        displayText={<IoIosArrowForward className="max-sm:text-lg text-2xl text-[#333] !drop-shadow-md" />}
+                        displayText={<IoIosArrowForward className="max-sm:text-lg text-2xl text-[#333] drop-shadow-md!" />}
                     />
                 </Flex>
             </Flex>

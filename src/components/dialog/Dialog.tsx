@@ -63,14 +63,14 @@ const Dialog: React.FC<ICommonDialogProps> = (props) => {
     };
 
     const getConfirmButtonClassName = () => {
-        const baseStyle = "w-auto flex items-center justify-center gap-1 !px-4 !py-2 transition-colors duration-300 font-medium cursor-pointer";
+        const baseStyle = "w-auto flex items-center justify-center gap-1 px-4! py-2! transition-colors duration-300 font-medium cursor-pointer";
         if (isLoading) {
-            return `${baseStyle} !bg-gray-400 !text-white !cursor-not-allowed`;
+            return `${baseStyle} bg-gray-400! text-white! cursor-not-allowed!`;
         }
         if (confirmButtonStyle === "danger") {
-            return `${baseStyle} !bg-red-500 hover:!bg-red-600 !text-white hover:!text-white`;
+            return `${baseStyle} bg-red-500! hover:bg-red-600! text-white! hover:text-white!`;
         }
-        return `${baseStyle} !bg-[#002932] hover:!bg-[#a2ff00] !text-white hover:!text-[#333]`;
+        return `${baseStyle} bg-[#002932]! hover:bg-[#a2ff00]! text-white! hover:text-[#333]!`;
     };
 
     const onRenderDialogFooter = (): React.JSX.Element => {

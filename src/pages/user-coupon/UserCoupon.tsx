@@ -109,7 +109,7 @@ const UserCoupon: React.FunctionComponent = () => {
             {contextHolder}
             <Text padding={[16, 0, 16, 0]} fontWeight="semibold" size="3xl" textAlign="center" titleText="Mã giảm giá" />
 
-            <Box margin={[0, 12, 24, 12]} padding={[16, 16, 16, 16]} bgColor="#f0f0f0" className="!rounded-xl">
+            <Box margin={[0, 12, 24, 12]} padding={[16, 16, 16, 16]} bgColor="#f0f0f0" className="rounded-xl!">
                 <Text padding={[0, 0, 8, 0]} size="sm" fontWeight="semibold" titleText="Nhập mã giảm giá" />
                 <Flex align="center" gap={8} className="flex-col sm:flex-row">
                     <Input
@@ -124,7 +124,7 @@ const UserCoupon: React.FunctionComponent = () => {
                     />
                     <BaseButton
                         padding={[10, 24, 10, 24]}
-                        className="!w-full sm:!w-auto !rounded-lg flex-shrink-0 disabled:!bg-gray-500 disabled:!text-gray-200"
+                        className="w-full! sm:w-auto! rounded-lg! flex-shrink-0 disabled:bg-gray-500! disabled:text-gray-200!"
                         disabled={isLoading}
                         onClick={async () => {
                             setState({ searchValue: searchText });
@@ -137,11 +137,11 @@ const UserCoupon: React.FunctionComponent = () => {
                 </Flex>
             </Box>
 
-            <Flex align="center" gap={16} className="!mb-6 !mx-3 justify-center sm:justify-start">
+            <Flex align="center" gap={16} className="mb-6! mx-3! justify-center sm:justify-start">
                 <Box
                     role="button"
-                    className={`!py-2 !px-4 cursor-pointer font-medium !border-b-2 transition-colors duration-200 ${isLoading && "!cursor-not-allowed"} ${
-                        currentTab === CouponStatus.Active ? "!border-[#01112f] text-[#01112f]" : "!border-transparent text-gray-500 hover:text-[#01112f]"
+                    className={`py-2! px-4! cursor-pointer font-medium border-b-2! transition-colors duration-200 ${isLoading && "cursor-not-allowed!"} ${
+                        currentTab === CouponStatus.Active ? "border-[#01112f]! text-[#01112f]" : "border-transparent! text-gray-500 hover:text-[#01112f]"
                     }`}
                     onClick={() => handleTabChange(CouponStatus.Active)}
                 >
@@ -149,8 +149,8 @@ const UserCoupon: React.FunctionComponent = () => {
                 </Box>
                 <Box
                     role="button"
-                    className={`!py-2 !px-4 cursor-pointer font-medium !border-b-2 transition-colors duration-200 ${isLoading && "!cursor-not-allowed"} ${
-                        currentTab === CouponStatus.Expired ? "!border-[#01112f] text-[#01112f]" : "!border-transparent text-gray-500 hover:text-[#01112f]"
+                    className={`py-2! px-4! cursor-pointer font-medium border-b-2! transition-colors duration-200 ${isLoading && "cursor-not-allowed!"} ${
+                        currentTab === CouponStatus.Expired ? "border-[#01112f]! text-[#01112f]" : "border-transparent! text-gray-500 hover:text-[#01112f]"
                     }`}
                     onClick={() => handleTabChange(CouponStatus.Expired)}
                 >
@@ -161,7 +161,7 @@ const UserCoupon: React.FunctionComponent = () => {
             {isLoading ? (
                 <Box margin={[0, 12, 0, 12]} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                     {Array.from({ length: pageSize }).map((_, index) => (
-                        <Skeleton key={index} active paragraph={{ rows: 3 }} className="!p-4 !bg-[#fff] !rounded-xl border border-gray-200 shadow-sm" />
+                        <Skeleton key={index} active paragraph={{ rows: 3 }} className="p-4! bg-[#fff]! rounded-xl! border border-gray-200 shadow-xs" />
                     ))}
                 </Box>
             ) : (
@@ -169,8 +169,8 @@ const UserCoupon: React.FunctionComponent = () => {
                     <Box margin={[0, 12, 24, 12]} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                         {couponList.length > 0 ? (
                             couponList.map((coupon) => (
-                                <Box key={coupon.id} padding={[16, 16, 16, 16]} bgColor="white" className="!rounded-xl !border !border-gray-200 !shadow-sm">
-                                    <Flex align="center" justify="space-between" className="!mb-2">
+                                <Box key={coupon.id} padding={[16, 16, 16, 16]} bgColor="white" className="rounded-xl! border! border-gray-200! shadow-xs!">
+                                    <Flex align="center" justify="space-between" className="mb-2!">
                                         <Text
                                             fontWeight="bold"
                                             size="xl"
@@ -183,7 +183,7 @@ const UserCoupon: React.FunctionComponent = () => {
                                         )}
                                     </Flex>
                                     <Text size="sm" margin={[0, 0, 16, 0]} className="text-gray-500" titleText={`Hết hạn: ${dayjs(coupon.endDate).format("DD/MM/YYYY")}`} />
-                                    <Flex about="center" justify="space-between" className="!p-3 !bg-gray-100 !rounded-lg !mb-3">
+                                    <Flex about="center" justify="space-between" className="p-3! bg-gray-100! rounded-lg! mb-3!">
                                         <Text as="span" fontWeight="medium" className="font-mono" titleText={coupon.couponCode} />
                                         <Box className="text-gray-500 hover:text-[#01112f] transition-colors cursor-pointer" onClick={() => copyCode(coupon.couponCode)}>
                                             <FaCopy />
@@ -200,7 +200,7 @@ const UserCoupon: React.FunctionComponent = () => {
                     </Box>
 
                     {couponList.length > 0 && (
-                        <Flex justify="center" className="!mx-3 !mb-4">
+                        <Flex justify="center" className="mx-3! mb-4!">
                             <Pagination
                                 current={currentPage}
                                 total={couponCount}

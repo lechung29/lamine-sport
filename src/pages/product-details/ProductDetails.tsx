@@ -56,17 +56,17 @@ const ProductDetails: React.FunctionComponent = () => {
     ) : product ? (
         <Container>
             <Breadcrumbs />
-            <Box className="h-auto !px-4 sm:!px-8 lg:!px-[45px]">
-                <Flex wrap className="!mb-10 max-md:gap-8">
-                    <Box className="w-full md:!pr-4 md:!w-1/2 lg:!w-3/8">
+            <Box className="h-auto px-4! sm:px-8! lg:px-[45px]!">
+                <Flex wrap className="mb-10! max-md:gap-8">
+                    <Box className="w-full md:pr-4! md:w-1/2! lg:w-3/8!">
                         <ProductPhotoView photoList={getImageList()} />
                     </Box>
 
-                    <Box className="w-full lg:!px-4 md:!pl-4 md:w-1/2 lg:w-3/8">
+                    <Box className="w-full lg:px-4! md:pl-4! md:w-1/2 lg:w-3/8">
                         <ProductBasicInfo productItem={product} />
                     </Box>
 
-                    <Box className="w-ful !pl-4 lg:w-1/4">
+                    <Box className="w-ful pl-4! lg:w-1/4">
                         <Flex vertical>
                             <ProductFeatures items={features} />
                         </Flex>

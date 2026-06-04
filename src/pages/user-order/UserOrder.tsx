@@ -149,13 +149,13 @@ const UserOrders: React.FunctionComponent = () => {
             key: "action",
             width: 80,
             render: (_, record) => (
-                <Flex className="!space-x-2">
+                <Flex className="space-x-2!">
                     <Tooltip title="Xem chi tiết">
-                        <Button icon={<FaEye />} onClick={() => showOrderDetails(record.orderCode)} className="flex items-center justify-center !p-2" />
+                        <Button icon={<FaEye />} onClick={() => showOrderDetails(record.orderCode)} className="flex items-center justify-center p-2!" />
                     </Tooltip>
                     {record.orderStatus === OrderStatus.WaitingConfirm && (
                         <Tooltip title="Hủy đơn hàng">
-                            <Button icon={<FaXmark />} onClick={() => handleOpenCancelModal(record._id)} className="!p-2 !bg-red-100 !text-red-500 !border-none hover:!bg-red-200" />
+                            <Button icon={<FaXmark />} onClick={() => handleOpenCancelModal(record._id)} className="p-2! bg-red-100! text-red-500! border-none! hover:bg-red-200!" />
                         </Tooltip>
                     )}
                 </Flex>
@@ -185,7 +185,7 @@ const UserOrders: React.FunctionComponent = () => {
     return (
         <Container className="h-full relative text-[#333]">
             <Text padding={[16, 0, 16, 0]} fontWeight="semibold" size="3xl" textAlign="center" titleText="Đơn hàng của bạn" />
-            <Box bgColor="#fff" padding={[16, 16, 16, 16]} className="!rounded-xl !border !border-gray-200 !shadow-sm !overflow-x-auto custom-scrollbar">
+            <Box bgColor="#fff" padding={[16, 16, 16, 16]} className="rounded-xl! border! border-gray-200! shadow-xs! overflow-x-auto! custom-scrollbar">
                 {isLoading ? (
                     <Box className="w-full">
                         <table className="min-w-full">
@@ -199,7 +199,7 @@ const UserOrders: React.FunctionComponent = () => {
                         dataSource={orders}
                         rowKey="orderCode"
                         pagination={{ pageSize: 5 }}
-                        className="!border-none"
+                        className="border-none!"
                         locale={{ emptyText: <Empty description="Không có đơn hàng nào." /> }}
                     />
                 )}
@@ -225,7 +225,7 @@ const UserOrders: React.FunctionComponent = () => {
 
             <Dialog title={`Chi tiết đơn hàng: ${selectedOrder?.orderCode}`} isOpen={isOrderDetailsOpen} onClose={handleCloseDetailsModal} withoutFooter>
                 {selectedOrder && (
-                    <Box className="!space-y-4">
+                    <Box className="space-y-4!">
                         <Flex align="center" justify="space-between">
                             <Box>
                                 <Text margin={[0, 0, 8, 0]} fontWeight="semibold" color="#6a7282" titleText="Ngày đặt hàng" />
@@ -234,7 +234,7 @@ const UserOrders: React.FunctionComponent = () => {
                                     size="sm"
                                     color="#1e2939"
                                     padding={[4, 8, 4, 8]}
-                                    className="inline-block bg-gray-200 !rounded-md"
+                                    className="inline-block bg-gray-200 rounded-md!"
                                     titleText={formatDate(selectedOrder?.createdAt)}
                                 />
                             </Box>
@@ -250,15 +250,15 @@ const UserOrders: React.FunctionComponent = () => {
                             </Box>
                             {selectedOrder.qrUrl && <BaseButton className="w-32.5" displayText="Thanh toán" onClick={() => setState({ isOpenPaymentModal: true })} />}
                         </Flex>
-                        <Box className="!space-y-3 max-h-[300px] overflow-y-auto custom-scrollbar">
+                        <Box className="space-y-3! max-h-[300px] overflow-y-auto custom-scrollbar">
                             <Text margin={[0, 0, 8, 0]} fontWeight="semibold" color="#6a7282" titleText="Các sản phẩm" />
                             {productsToDisplay?.map((item) => (
                                 <Box
                                     key={item.product._id}
                                     padding={[12, 12, 12, 12]}
-                                    className="flex flex-col !space-y-3 bg-gray-50 !rounded-md min-[500px]:flex-row min-[500px]:justify-between min-[500px]:items-center"
+                                    className="flex flex-col space-y-3! bg-gray-50 rounded-md! min-[500px]:flex-row min-[500px]:justify-between min-[500px]:items-center"
                                 >
-                                    <Flex align="flex-start" className="!space-x-4 w-full min-[500px]:w-1/2">
+                                    <Flex align="flex-start" className="space-x-4! w-full min-[500px]:w-1/2">
                                         <Image
                                             src={item.product.productColors.find((color) => color.value === item.selectedColor)?.images[0].url}
                                             alt={item.product.productName}
@@ -274,23 +274,23 @@ const UserOrders: React.FunctionComponent = () => {
                                         </Box>
                                     </Flex>
                                     <Flex justify="space-between" className="w-full min-[500px]:w-1/2">
-                                        <Box className="text-left min-[500px]:!text-center min-[500px]:w-1/2">
+                                        <Box className="text-left min-[500px]:text-center! min-[500px]:w-1/2">
                                             <Text color="#6a7282" size="base" titleText={`Số lượng: ${item.quantity}`} />
                                         </Box>
-                                        <Box className="text-right min-[500px]:!text-center min-[500px]:w-1/2">
+                                        <Box className="text-right min-[500px]:text-center! min-[500px]:w-1/2">
                                             <Text fontWeight="bold" color="#fb2c36" size="base" titleText={formatCurrency(item.quantity * item.unitPrice)} />
                                         </Box>
                                     </Flex>
                                 </Box>
                             ))}
                             {selectedOrder.orderItems.length > 3 && (
-                                <Button type="link" onClick={() => setState({ isCollapsed: !isCollapsed })} className="w-full !p-0 text-sm !font-semibold !text-[#002d3a]">
+                                <Button type="link" onClick={() => setState({ isCollapsed: !isCollapsed })} className="w-full p-0! text-sm font-semibold! text-[#002d3a]!">
                                     {isCollapsed ? `Xem thêm ${selectedOrder.orderItems.length - 3} sản phẩm` : "Thu gọn"}
                                 </Button>
                             )}
                         </Box>
 
-                        <Box margin={[16, 0, 0, 0]} padding={[16, 0, 0, 0]} className="!border-t !border-gray-200">
+                        <Box margin={[16, 0, 0, 0]} padding={[16, 0, 0, 0]} className="border-t! border-gray-200!">
                             <Flex align="center" justify="space-between">
                                 <Text fontWeight="semibold" color="#6a7282" size="sm" titleText="Tạm tính" />
                                 <Text fontWeight="bold" color="gray" size="base" titleText={formatCurrency(selectedOrder.productsFees)} />

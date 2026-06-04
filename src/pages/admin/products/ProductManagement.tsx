@@ -111,10 +111,10 @@ const ProductManagement: React.FunctionComponent = () => {
     return (
         <Container bgColor="transparent">
             <Box margin={[0, 0, 24, 0]}>
-                <Text className="!text-gray-900" size="2xl" fontWeight="bold" titleText="Tất cả sản phẩm" padding={[0, 0, 16, 0]} />
+                <Text className="text-gray-900!" size="2xl" fontWeight="bold" titleText="Tất cả sản phẩm" padding={[0, 0, 16, 0]} />
             </Box>
 
-            <Container className="!rounded-lg !shadow-sm" padding={[24, 24, 24, 24]} margin={[0, 0, 32, 0]}>
+            <Container className="rounded-lg! shadow-xs!" padding={[24, 24, 24, 24]} margin={[0, 0, 32, 0]}>
                 <Flex align="center" justify="space-between" wrap="wrap" gap="middle">
                     <Input.Search
                         placeholder="Tìm kiếm sản phẩm..."
@@ -132,7 +132,7 @@ const ProductManagement: React.FunctionComponent = () => {
                             padding={[6, 16, 6, 16]}
                             radius="md"
                             onClick={() => navigate("/admin/products/product-details")}
-                            className="disabled:!bg-gray-400"
+                            className="disabled:bg-gray-400!"
                             disabled={isLoading}
                             displayText={
                                 <React.Fragment>
@@ -152,7 +152,7 @@ const ProductManagement: React.FunctionComponent = () => {
             ) : (
                 <>
                     <Container
-                        className="min-h-[300px] grid grid-cols-1 min-[500px]:grid-cols-2 min-[700px]:grid-cols-3 md:grid-cols-2 lg:grid-cols-3 !gap-6 !rounded-lg"
+                        className="min-h-[300px] grid grid-cols-1 min-[500px]:grid-cols-2 min-[700px]:grid-cols-3 md:grid-cols-2 lg:grid-cols-3 gap-6! rounded-lg!"
                         margin={[0, 0, 32, 0]}
                         padding={[16, 16, 16, 16]}
                     >
@@ -161,15 +161,15 @@ const ProductManagement: React.FunctionComponent = () => {
                             : !isLoading && <Text textAlign="center" padding={[40, 0, 40, 0]} className="col-span-full text-gray-500" titleText="Không tìm thấy sản phẩm nào phù hợp" />}
                     </Container>
                     {isOpenDeleteProductDialog && (
-                        <Modal title="Xóa sản phẩm" open={isOpenDeleteProductDialog} onCancel={() => setState({ isOpenDeleteProductDialog: false })} footer={null} centered className="!rounded-lg">
+                        <Modal title="Xóa sản phẩm" open={isOpenDeleteProductDialog} onCancel={() => setState({ isOpenDeleteProductDialog: false })} footer={null} centered className="rounded-lg!">
                             <Container margin={[16, 0, 0, 0]}>
                                 <Text className="text-gray-800 block" titleText="Bạn có chắc chắn muốn xóa sản phẩm này?" margin={[0, 0, 4, 0]} />
 
-                                <Flex justify="flex-end" className="!space-x-2">
-                                    <Button onClick={() => setState({ isOpenDeleteProductDialog: false })} className="!px-4 !py-2">
+                                <Flex justify="flex-end" className="space-x-2!">
+                                    <Button onClick={() => setState({ isOpenDeleteProductDialog: false })} className="px-4! py-2!">
                                         Hủy
                                     </Button>
-                                    <Button type="primary" onClick={() => handleDeleteProduct(productDeleteId)} className="!bg-red-600 !border-red-600 hover:!bg-red-700 !px-4 !py-2">
+                                    <Button type="primary" onClick={() => handleDeleteProduct(productDeleteId)} className="bg-red-600! border-red-600! hover:bg-red-700! px-4! py-2!">
                                         Xóa
                                     </Button>
                                 </Flex>

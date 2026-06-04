@@ -19,7 +19,7 @@ const ProductSortMenu: React.FunctionComponent<IProductSortMenuProps> = (props) 
                     key={option.value}
                     bgColor="white"
                     padding={[6, 8, 6, 8]}
-                    className="cursor-pointer text-[#333] hover:!bg-[#1c2635] hover:text-white transition-all duration-300"
+                    className="cursor-pointer text-[#333] hover:bg-[#1c2635]! hover:text-white transition-all duration-300"
                     onClick={() => onSortChange(option.value)}
                 >
                     <Text padding={[0, 8, 0, 0]} as="span" size="sm" titleText={option.label} />

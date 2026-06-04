@@ -39,10 +39,10 @@ const ProductCard: React.FunctionComponent<IProductCardProps> = (props) => {
     const remainingPercent = (stockQuantity / (stockQuantity + saleQuantity)) * 100;
 
     return (
-        <Card className="bg-white rounded-lg! shadow-sm! border! border-gray-200!" styles={{ body: { display: "flex", flexDirection: "column", height: "100%", padding: "16px" } }}>
+        <Card className="bg-white rounded-lg! shadow-xs! border! border-gray-200!" styles={{ body: { display: "flex", flexDirection: "column", height: "100%", padding: "16px" } }}>
             <Flex align="start" justify="space-between" className="mb-3!">
                 <Flex align="center" className="space-x-3!">
-                    <Image width={48} height={48} objectFit="cover" src={product.primaryImage.url} alt={product.productName} className="rounded!" />
+                    <Image width={48} height={48} objectFit="cover" src={product.primaryImage.url} alt={product.productName} className="rounded-sm!" />
                     <Box>
                         <TooltipLabel width="full" className="text-sm font-medium text-gray-800 mb-1!" text={product.productName} />
                         <Text size="xs" className="text-gray-500" titleText={getProductType(product.productType)} />

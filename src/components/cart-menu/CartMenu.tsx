@@ -80,7 +80,7 @@ const CartMenu: React.FunctionComponent<ICartMenuProps> = (props) => {
                                     <Box className="flex-1">
                                         <Text color="#333" className="hover:text-[#77e322]! cursor-pointer" onClick={() => navigate(`/product/${item._id}`)} titleText={item.productName} />
 
-                                        <Text color="#7f7f7f" size="xs" titleText={`${!!item.selectedProductSize ? `${item.selectedProductSize} / ` : ""}${getColorName(item)}`} />
+                                        <Text color="#7f7f7f" size="xs" titleText={`${!item!.selectedProductSize ? `${item.selectedProductSize} / ` : ""}${getColorName(item)}`} />
                                     </Box>
                                     <Flex align="center" justify="flex-end" className="w-6">
                                         <IoIosCloseCircleOutline className="text-xl text-[#333] hover:text-red-500! cursor-pointer" onClick={() => dispatch(removeFromCart(item))} />

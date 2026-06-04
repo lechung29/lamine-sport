@@ -287,13 +287,13 @@ const CreateProduct: React.FunctionComponent = () => {
     }, [productColors, primaryImageUid, memoizedAllProductImagesGallery]);
 
     const getInputClassName = (fieldName: string) => {
-        const baseClass = "w-full !px-3 !py-2 !border !border-gray-300 !rounded-md focus:!outline-none focus:!ring-2 focus:!ring-blue-500 focus:!border-transparent";
-        return basicFormError[fieldName] ? `${baseClass} !border-red-500 focus:!ring-red-500` : baseClass;
+        const baseClass = "w-full px-3! py-2! border! border-gray-300! rounded-md! focus:outline-none! focus:ring-2! focus:ring-blue-500! focus:border-transparent!";
+        return basicFormError[fieldName] ? `${baseClass} border-red-500! focus:ring-red-500!` : baseClass;
     };
 
     const getModalInputClassName = (fieldName: string) => {
-        const baseClass = "!w-full !px-3 !py-2 !border !border-gray-300 !rounded-md focus:!outline-none focus:!ring-2 focus:!ring-blue-500 focus:!border-transparent";
-        return colorModalErrors[fieldName] ? `${baseClass} !border-red-500 focus:!ring-red-500` : baseClass;
+        const baseClass = "w-full! px-3! py-2! border! border-gray-300! rounded-md! focus:outline-none! focus:ring-2! focus:ring-blue-500! focus:border-transparent!";
+        return colorModalErrors[fieldName] ? `${baseClass} border-red-500! focus:ring-red-500!` : baseClass;
     };
 
     const showModal = () => setState({ isOpenAddColorDialog: true });
@@ -677,19 +677,19 @@ const CreateProduct: React.FunctionComponent = () => {
 
     const renderImageGallery = () => {
         return (
-            <Flex wrap="nowrap" className="overflow-x-auto gap-4 !pb-2 custom-scrollbar">
+            <Flex wrap="nowrap" className="overflow-x-auto gap-4 pb-2! custom-scrollbar">
                 {memoizedAllProductImagesGallery.map((file) => {
                     const imageUrl = getImageUrl(file);
                     return (
                         <Box
                             key={file.uid}
                             className={classNames(
-                                "relative flex-shrink-0 w-40 h-32 !rounded-lg overflow-hidden cursor-pointer !border-2 hover:!border-blue-400 !transition-all",
+                                "relative flex-shrink-0 w-40 h-32 rounded-lg! overflow-hidden cursor-pointer border-2! hover:border-blue-400! transition-all!",
                                 {
-                                    "!border-blue-500 !shadow-lg": file.uid === primaryImageUid,
+                                    "border-blue-500! shadow-lg!": file.uid === primaryImageUid,
                                 },
                                 {
-                                    "!border-gray-300": file.uid !== primaryImageUid,
+                                    "border-gray-300!": file.uid !== primaryImageUid,
                                 }
                             )}
                             onClick={() => onSelectPrimaryImage(file.uid)}
@@ -717,12 +717,12 @@ const CreateProduct: React.FunctionComponent = () => {
                                 </Flex>
                             ) : (
                                 <Flex align="center" justify="center" className="w-full h-full bg-gray-200">
-                                    <FileOutlined className="!text-3xl !text-gray-500" />
+                                    <FileOutlined className="text-3xl! text-gray-500!" />
                                 </Flex>
                             )}
                             {file.uid === primaryImageUid && (
-                                <Box className="!absolute !top-1 !right-1 !bg-blue-500 !text-white !rounded-full !p-1 !flex !items-center !justify-center">
-                                    <StarFilled className="!text-sm" />
+                                <Box className="absolute! top-1! right-1! bg-blue-500! text-white! rounded-full! p-1! flex! items-center! justify-center!">
+                                    <StarFilled className="text-sm!" />
                                 </Box>
                             )}
                             <Box padding={[4, 4, 4, 4]} className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 text-white text-xs truncate">
@@ -741,7 +741,7 @@ const CreateProduct: React.FunctionComponent = () => {
                 {images.map((image) => {
                     const imageUrl = getImageUrl(image);
                     return (
-                        <Box key={image.uid} className="relative w-20 h-20 !rounded-md overflow-hidden !border !border-gray-300">
+                        <Box key={image.uid} className="relative w-20 h-20 rounded-md! overflow-hidden border! border-gray-300!">
                             {image.type?.startsWith("image/") ? (
                                 imageUrl ? (
                                     <Image
@@ -778,9 +778,9 @@ const CreateProduct: React.FunctionComponent = () => {
     return (
         <Container bgColor="transparent flex-grow min-h-full">
             <Box margin={[0, 0, 24, 0]}>
-                <Text className="!text-gray-900" size="2xl" fontWeight="bold" titleText={productId ? "Cập nhật sản phẩm" : "Tạo sản phẩm"} padding={[0, 0, 16, 0]} />
+                <Text className="text-gray-900!" size="2xl" fontWeight="bold" titleText={productId ? "Cập nhật sản phẩm" : "Tạo sản phẩm"} padding={[0, 0, 16, 0]} />
             </Box>
-            <Container className="!rounded-lg !shadow-sm" bgColor="white" padding={[24, 24, 24, 24]} margin={[0, 0, 32, 0]}>
+            <Container className="rounded-lg! shadow-xs!" bgColor="white" padding={[24, 24, 24, 24]} margin={[0, 0, 32, 0]}>
                 {isLoadingProduct ? (
                     <Flex align="center" justify="center" className="min-h-100">
                         <Spin indicator={<LoadingOutlined style={{ fontSize: 48 }} spin />} />
@@ -790,7 +790,7 @@ const CreateProduct: React.FunctionComponent = () => {
                         <Container margin={[0, 0, 32, 0]} className="space-y-4">
                             <Container className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <Box margin={[0, 0, 0, 0]}>
-                                    <Text as="label" size="base" fontWeight="semibold" className="!text-gray-800 block" titleText="Tên sản phẩm" margin={[0, 0, 4, 0]} />
+                                    <Text as="label" size="base" fontWeight="semibold" className="text-gray-800! block" titleText="Tên sản phẩm" margin={[0, 0, 4, 0]} />
                                     <Input
                                         name="productName"
                                         placeholder="Nhập tên sản phẩm"
@@ -806,7 +806,7 @@ const CreateProduct: React.FunctionComponent = () => {
                                 </Box>
 
                                 <Box margin={[0, 0, 0, 0]}>
-                                    <Text as="label" size="base" fontWeight="semibold" className="!text-gray-800 block" titleText="Thương hiệu" margin={[0, 0, 4, 0]} />
+                                    <Text as="label" size="base" fontWeight="semibold" className="text-gray-800! block" titleText="Thương hiệu" margin={[0, 0, 4, 0]} />
                                     <Input
                                         name="brandName"
                                         placeholder="Nhập tên thương hiệu"
@@ -818,7 +818,7 @@ const CreateProduct: React.FunctionComponent = () => {
                                 </Box>
 
                                 <Box margin={[0, 0, 0, 0]} className="md:col-span-2">
-                                    <Text as="label" size="base" fontWeight="semibold" className="!text-gray-800 block" titleText="Mô tả chung" margin={[0, 0, 4, 0]} />
+                                    <Text as="label" size="base" fontWeight="semibold" className="text-gray-800! block" titleText="Mô tả chung" margin={[0, 0, 4, 0]} />
                                     <TextArea
                                         name="description"
                                         rows={4}
@@ -835,7 +835,7 @@ const CreateProduct: React.FunctionComponent = () => {
                                 </Box>
 
                                 <Box margin={[0, 0, 0, 0]}>
-                                    <Text as="label" size="base" fontWeight="semibold" className="!text-gray-800 block" titleText="Loại sản phẩm" margin={[0, 0, 4, 0]} />
+                                    <Text as="label" size="base" fontWeight="semibold" className="text-gray-800! block" titleText="Loại sản phẩm" margin={[0, 0, 4, 0]} />
                                     <Select
                                         placeholder="Chọn loại sản phẩm"
                                         value={productType}
@@ -857,7 +857,7 @@ const CreateProduct: React.FunctionComponent = () => {
                                 </Box>
 
                                 <Box margin={[0, 0, 0, 0]}>
-                                    <Text as="label" size="base" fontWeight="semibold" className="!text-gray-800 block" titleText="Môn thể thao" margin={[0, 0, 4, 0]} />
+                                    <Text as="label" size="base" fontWeight="semibold" className="text-gray-800! block" titleText="Môn thể thao" margin={[0, 0, 4, 0]} />
                                     <Select
                                         placeholder="Chọn môn thể thao"
                                         mode="multiple"
@@ -880,7 +880,7 @@ const CreateProduct: React.FunctionComponent = () => {
                                 </Box>
 
                                 <Box margin={[0, 0, 0, 0]}>
-                                    <Text as="label" size="base" fontWeight="semibold" className="!text-gray-800 block" titleText="Giới tính" margin={[0, 0, 4, 0]} />
+                                    <Text as="label" size="base" fontWeight="semibold" className="text-gray-800! block" titleText="Giới tính" margin={[0, 0, 4, 0]} />
                                     <Select
                                         placeholder="Chọn giới tính"
                                         value={productGender}
@@ -903,7 +903,7 @@ const CreateProduct: React.FunctionComponent = () => {
 
                                 {(productType === ProductType.Shoes || productType === ProductType.TShirt || productType === ProductType.Shorts || productType === ProductType.Skirt) && (
                                     <Box margin={[0, 0, 0, 0]}>
-                                        <Text as="label" size="base" fontWeight="semibold" className="!text-gray-800 block" titleText="Kích thước" margin={[0, 0, 4, 0]} />
+                                        <Text as="label" size="base" fontWeight="semibold" className="text-gray-800! block" titleText="Kích thước" margin={[0, 0, 4, 0]} />
                                         <Select
                                             placeholder="Chọn kích thước"
                                             mode="multiple"
@@ -933,7 +933,7 @@ const CreateProduct: React.FunctionComponent = () => {
                                 )}
 
                                 <Box margin={[0, 0, 0, 0]}>
-                                    <Text as="label" size="base" fontWeight="semibold" className="!text-gray-800 block" titleText="Hiển thị" margin={[0, 0, 4, 0]} />
+                                    <Text as="label" size="base" fontWeight="semibold" className="text-gray-800! block" titleText="Hiển thị" margin={[0, 0, 4, 0]} />
                                     <Select
                                         placeholder="Chọn chế độ hiển thị sản phẩm"
                                         value={productVisibility}
@@ -941,7 +941,7 @@ const CreateProduct: React.FunctionComponent = () => {
                                             setState({ productVisibility: value });
                                             setBasicFormError({ productVisibility: "" });
                                         }}
-                                        className="!w-full"
+                                        className="w-full!"
                                         status={basicFormError.productVisibility ? "error" : undefined}
                                         disabled={isUploadingImages || isSubmitting}
                                     >
@@ -954,7 +954,7 @@ const CreateProduct: React.FunctionComponent = () => {
 
                                 <Container className="grid grid-cols-2 gap-4 col-span-full">
                                     <Box margin={[0, 0, 0, 0]}>
-                                        <Text as="label" size="base" fontWeight="semibold" className="!text-gray-800 block" titleText="Giá gốc" margin={[0, 0, 4, 0]} />
+                                        <Text as="label" size="base" fontWeight="semibold" className="text-gray-800! block" titleText="Giá gốc" margin={[0, 0, 4, 0]} />
                                         <Input
                                             name="originalPrice"
                                             placeholder="Nhập giá gốc sản phẩm"
@@ -978,7 +978,7 @@ const CreateProduct: React.FunctionComponent = () => {
                                         {basicFormError.originalPrice && <Text as="p" size="xs" margin={[4, 0, 0, 0]} className="text-red-500" titleText={basicFormError.originalPrice} />}
                                     </Box>
                                     <Box margin={[0, 0, 0, 0]}>
-                                        <Text as="label" size="base" fontWeight="semibold" className="!text-gray-800 block" titleText="Giá khuyến mãi" margin={[0, 0, 4, 0]} />
+                                        <Text as="label" size="base" fontWeight="semibold" className="text-gray-800! block" titleText="Giá khuyến mãi" margin={[0, 0, 4, 0]} />
                                         <Input
                                             name="salePrice"
                                             placeholder="Nhập giá khuyến mãi"
@@ -1006,7 +1006,7 @@ const CreateProduct: React.FunctionComponent = () => {
                         </Container>
 
                         <Container margin={[0, 0, 32, 0]}>
-                            <Flex align="center" justify="space-between" className="!mb-6 gap-2 max-[470px]:flex-col max-[470px]:!items-start">
+                            <Flex align="center" justify="space-between" className="mb-6! gap-2 max-[470px]:flex-col max-[470px]:items-start!">
                                 <Text size="base" fontWeight="semibold" className="text-gray-800" titleText="Thư viện ảnh sản phẩm" />
                                 {memoizedAllProductImagesGallery.length > 0 && (
                                     <BaseButton radius="md" displayText={primaryImageUid ? "Thay Đổi Ảnh Sản Phẩm Chính" : "Chọn Ảnh Sản Phẩm Chính"} onClick={onShowPrimaryImageModal} />
@@ -1014,13 +1014,13 @@ const CreateProduct: React.FunctionComponent = () => {
                             </Flex>
 
                             {isUploadingImages && (
-                                <Container margin={[0, 0, 16, 0]} padding={[16, 16, 16, 16]} className="text-center bg-blue-50 !rounded-md">
+                                <Container margin={[0, 0, 16, 0]} padding={[16, 16, 16, 16]} className="text-center bg-blue-50 rounded-md!">
                                     <Text titleText="Đang tải ảnh lên Cloudinary..." className="text-blue-600" />
                                 </Container>
                             )}
 
                             {memoizedAllProductImagesGallery.length === 0 ? (
-                                <Container padding={[32, 32, 32, 32]} className="text-center text-gray-500 !border !border-dashed !border-gray-300 !rounded-md">
+                                <Container padding={[32, 32, 32, 32]} className="text-center text-gray-500 border! border-dashed! border-gray-300! rounded-md!">
                                     <Text as="p" titleText="Chưa có hình ảnh nào trong thư viện." />
                                     <Text size="sm" titleText="Vui lòng thêm màu sắc sản phẩm và tải ảnh lên." />
                                 </Container>
@@ -1037,7 +1037,7 @@ const CreateProduct: React.FunctionComponent = () => {
                                     onCancel={() => setState({ isOpenPrimaryImageDialog: false })}
                                     footer={null}
                                     width={800}
-                                    className="!rounded-lg"
+                                    className="rounded-lg!"
                                 >
                                     <Container padding={[16, 16, 16, 16]} className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 max-h-[60vh] overflow-y-auto">
                                         {memoizedAllProductImagesGallery.length > 0 ? (
@@ -1047,12 +1047,12 @@ const CreateProduct: React.FunctionComponent = () => {
                                                     <Box
                                                         key={file.uid}
                                                         className={classNames(
-                                                            "relative flex-shrink-0 w-32 h-32 !rounded-lg overflow-hidden cursor-pointer !border-2 hover:!border-blue-400 transition-all",
+                                                            "relative flex-shrink-0 w-32 h-32 rounded-lg! overflow-hidden cursor-pointer border-2! hover:border-blue-400! transition-all",
                                                             {
-                                                                "!border-blue-500 !shadow-lg": file.uid === primaryImageUid,
+                                                                "border-blue-500! shadow-lg!": file.uid === primaryImageUid,
                                                             },
                                                             {
-                                                                "!border-gray-300": file.uid !== primaryImageUid,
+                                                                "border-gray-300!": file.uid !== primaryImageUid,
                                                             }
                                                         )}
                                                         onClick={() => onSelectPrimaryImage(file.uid)}
@@ -1080,12 +1080,12 @@ const CreateProduct: React.FunctionComponent = () => {
                                                             </Flex>
                                                         ) : (
                                                             <Flex align="center" justify="center" className="w-full h-full bg-gray-200">
-                                                                <FileOutlined className="!text-3xl !text-gray-500" />
+                                                                <FileOutlined className="text-3xl! text-gray-500!" />
                                                             </Flex>
                                                         )}
                                                         {file.uid === primaryImageUid && (
-                                                            <Box className="!absolute !top-1 !right-1 !bg-blue-500 !text-white !rounded-full !p-1 !flex !items-center !justify-center">
-                                                                <StarFilled className="!text-sm" />
+                                                            <Box className="absolute! top-1! right-1! bg-blue-500! text-white! rounded-full! p-1! flex! items-center! justify-center!">
+                                                                <StarFilled className="text-sm!" />
                                                             </Box>
                                                         )}
                                                         <Box padding={[4, 4, 4, 4]} className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 text-white text-xs truncate">
@@ -1103,7 +1103,7 @@ const CreateProduct: React.FunctionComponent = () => {
                         </Container>
 
                         <Container margin={[0, 0, 32, 0]}>
-                            <Flex align="center" justify="space-between" className="!mb-6 gap-2 max-[470px]:flex-col max-[470px]:!items-start">
+                            <Flex align="center" justify="space-between" className="mb-6! gap-2 max-[470px]:flex-col max-[470px]:items-start!">
                                 <Text size="base" fontWeight="semibold" className="text-gray-800" titleText="Màu sản phẩm" />
                                 <BaseButton
                                     radius="md"
@@ -1119,7 +1119,7 @@ const CreateProduct: React.FunctionComponent = () => {
                             </Flex>
 
                             {isUploadingImages && (
-                                <Container margin={[0, 0, 16, 0]} padding={[16, 16, 16, 16]} className="text-center bg-blue-50 !rounded-md">
+                                <Container margin={[0, 0, 16, 0]} padding={[16, 16, 16, 16]} className="text-center bg-blue-50 rounded-md!">
                                     <Text titleText="Đang tải ảnh lên Cloudinary..." className="text-blue-600" />
                                 </Container>
                             )}
@@ -1129,10 +1129,10 @@ const CreateProduct: React.FunctionComponent = () => {
                             ) : (
                                 <Container className="space-y-4">
                                     {productColors.map((color) => (
-                                        <Box key={color.id} padding={[16, 16, 16, 16]} className="bg-gray-50 !rounded-lg">
-                                            <Flex align="center" justify="space-between" gap={16} className="!mb-4 flex-wrap">
+                                        <Box key={color.id} padding={[16, 16, 16, 16]} className="bg-gray-50 rounded-lg!">
+                                            <Flex align="center" justify="space-between" gap={16} className="mb-4! flex-wrap">
                                                 <Flex align="center" gap={12}>
-                                                    <Box className="flex-shrink-0 w-8 h-8 !rounded-full !border-2 !border-gray-300" bgColor={color.hex} />
+                                                    <Box className="flex-shrink-0 w-8 h-8 rounded-full! border-2! border-gray-300!" bgColor={color.hex} />
                                                     <Text as="p" fontWeight="medium" size="base" className="text-gray-900" titleText={color.name} />
                                                 </Flex>
                                                 <Text as="p" textAlign="center" size="sm" className="text-gray-500" titleText={`Số lượng: ${color.quantity}`} />
@@ -1142,7 +1142,7 @@ const CreateProduct: React.FunctionComponent = () => {
                                                         icon={<EditOutlined />}
                                                         onClick={() => onShowEditColorModal(color.id)}
                                                         disabled={isUploadingImages || isSubmitting}
-                                                        className="!border-blue-300 hover:!border-blue-500 !text-blue-600 text-xs !px-2 !py-1"
+                                                        className="border-blue-300! hover:border-blue-500! text-blue-600! text-xs px-2! py-1!"
                                                     >
                                                         Cập nhật
                                                     </Button>
@@ -1151,7 +1151,7 @@ const CreateProduct: React.FunctionComponent = () => {
                                                         icon={<DeleteOutlined />}
                                                         onClick={() => handleDeleteColor(color.id)}
                                                         disabled={isUploadingImages || isSubmitting}
-                                                        className="!border-red-300 hover:!border-red-500 text-xs !px-2 !py-1"
+                                                        className="border-red-300! hover:border-red-500! text-xs px-2! py-1!"
                                                     >
                                                         Xóa
                                                     </Button>
@@ -1172,7 +1172,7 @@ const CreateProduct: React.FunctionComponent = () => {
                                     open={isOpenAddColorDialog}
                                     onCancel={resetModalState}
                                     footer={null}
-                                    className="!rounded-lg"
+                                    className="rounded-lg!"
                                 >
                                     <Container margin={[16, 0, 0, 0]}>
                                         <Box margin={[0, 0, 16, 0]}>
@@ -1184,7 +1184,7 @@ const CreateProduct: React.FunctionComponent = () => {
                                                     setState({ modalSelectedColor: value });
                                                     setColorModalErrors({ colorError: "" });
                                                 }}
-                                                className="!w-full"
+                                                className="w-full!"
                                                 disabled={!!editingColorId}
                                                 status={colorModalErrors.colorError ? "error" : undefined}
                                             >
@@ -1194,8 +1194,8 @@ const CreateProduct: React.FunctionComponent = () => {
                                                         value={color.value}
                                                         disabled={productColors.some((existingColor) => existingColor.value === color.value && existingColor.id !== editingColorId)}
                                                     >
-                                                        <Flex align="center" className="!space-x-2">
-                                                            <Box className="w-4 h-4 !rounded-full !border" bgColor={color.hex} />
+                                                        <Flex align="center" className="space-x-2!">
+                                                            <Box className="w-4 h-4 rounded-full! border!" bgColor={color.hex} />
                                                             <Text as="span" titleText={color.name} />
                                                         </Flex>
                                                     </Option>
@@ -1205,7 +1205,7 @@ const CreateProduct: React.FunctionComponent = () => {
                                         </Box>
 
                                         <Box margin={[0, 0, 16, 0]}>
-                                            <Text as="label" size="base" fontWeight="semibold" className="!text-gray-800 block" titleText="Số lượng" margin={[0, 0, 4, 0]} />
+                                            <Text as="label" size="base" fontWeight="semibold" className="text-gray-800! block" titleText="Số lượng" margin={[0, 0, 4, 0]} />
                                             <Input
                                                 placeholder="Nhập số lượng"
                                                 value={modalColorQuantity ?? ""}
@@ -1222,7 +1222,7 @@ const CreateProduct: React.FunctionComponent = () => {
                                         </Box>
 
                                         <Box margin={[0, 0, 24, 0]}>
-                                            <Text as="label" size="base" fontWeight="semibold" className="!text-gray-800 block" titleText="Hình ảnh/Video sản phẩm" margin={[0, 0, 4, 0]} />
+                                            <Text as="label" size="base" fontWeight="semibold" className="text-gray-800! block" titleText="Hình ảnh/Video sản phẩm" margin={[0, 0, 4, 0]} />
                                             <Upload {...uploadProps}>
                                                 {memoizedModalImageList.length < 3 && (
                                                     <Box>
@@ -1231,17 +1231,17 @@ const CreateProduct: React.FunctionComponent = () => {
                                                     </Box>
                                                 )}
                                             </Upload>
-                                            {colorModalErrors.imageUploadError && <p className="!text-red-500 !text-xs !mt-1">{colorModalErrors.imageUploadError}</p>}
+                                            {colorModalErrors.imageUploadError && <p className="text-red-500! text-xs! mt-1!">{colorModalErrors.imageUploadError}</p>}
                                         </Box>
 
-                                        <Flex justify="flex-end" className="!space-x-2">
-                                            <Button onClick={resetModalState} className="!px-4 !py-2" disabled={isUploadingImages}>
+                                        <Flex justify="flex-end" className="space-x-2!">
+                                            <Button onClick={resetModalState} className="px-4! py-2!" disabled={isUploadingImages}>
                                                 Hủy
                                             </Button>
                                             <Button
                                                 type="primary"
                                                 onClick={handleAddOrUpdateColor}
-                                                className="!bg-blue-600 !border-blue-600 hover:!bg-blue-700 !px-4 !py-2"
+                                                className="bg-blue-600! border-blue-600! hover:bg-blue-700! px-4! py-2!"
                                                 disabled={isUploadingImages}
                                             >
                                                 {editingColorId ? "Cập nhật" : "Thêm"}
@@ -1252,8 +1252,8 @@ const CreateProduct: React.FunctionComponent = () => {
                             )}
                         </Container>
 
-                        <Container margin={[32, 0, 0, 0]} padding={[24, 0, 24, 0]} className="!border-t !border-gray-200">
-                            <Text size="base" fontWeight="semibold" titleText="Mô tả chi tiết sản phẩm" margin={[0, 0, 16, 0]} className="!text-gray-800" />
+                        <Container margin={[32, 0, 0, 0]} padding={[24, 0, 24, 0]} className="border-t! border-gray-200!">
+                            <Text size="base" fontWeight="semibold" titleText="Mô tả chi tiết sản phẩm" margin={[0, 0, 16, 0]} className="text-gray-800!" />
                             <Radio.Group
                                 onChange={(e) => {
                                     setState({
@@ -1262,7 +1262,7 @@ const CreateProduct: React.FunctionComponent = () => {
                                     });
                                 }}
                                 value={detailDescriptionOption}
-                                className="!mb-4"
+                                className="mb-4!"
                                 disabled={isSubmitting}
                             >
                                 {templateOptionList.map((template) => (
@@ -1369,15 +1369,15 @@ const CreateProduct: React.FunctionComponent = () => {
                         </Container>
 
                         {isConfirmDeleteDialog && (
-                            <Modal title={"Xóa sản phẩm"} open={isConfirmDeleteDialog} onCancel={() => setState({ isConfirmDeleteDialog: false })} footer={null} className="!rounded-lg">
+                            <Modal title={"Xóa sản phẩm"} open={isConfirmDeleteDialog} onCancel={() => setState({ isConfirmDeleteDialog: false })} footer={null} className="rounded-lg!">
                                 <Container margin={[16, 0, 0, 0]}>
                                     <Text className="text-gray-800 block" titleText="Bạn có chắc chắn muốn xóa sản phẩm này?" margin={[0, 0, 4, 0]} />
 
-                                    <Flex justify="flex-end" className="!space-x-2">
-                                        <Button onClick={() => setState({ isConfirmDeleteDialog: false })} className="!px-4 !py-2">
+                                    <Flex justify="flex-end" className="space-x-2!">
+                                        <Button onClick={() => setState({ isConfirmDeleteDialog: false })} className="px-4! py-2!">
                                             Hủy
                                         </Button>
-                                        <Button type="primary" onClick={handleDeleteProduct} className="!bg-red-600 !border-red-600 hover:!bg-red-700 !px-4 !py-2">
+                                        <Button type="primary" onClick={handleDeleteProduct} className="bg-red-600! border-red-600! hover:bg-red-700! px-4! py-2!">
                                             Xóa
                                         </Button>
                                     </Flex>
@@ -1385,7 +1385,7 @@ const CreateProduct: React.FunctionComponent = () => {
                             </Modal>
                         )}
 
-                        <Flex justify="center" className="!pt-6">
+                        <Flex justify="center" className="pt-6!">
                             <Space size="middle">
                                 <BaseButton
                                     radius="md"
@@ -1425,7 +1425,7 @@ const CreateProduct: React.FunctionComponent = () => {
                                         },
                                     }}
                                     radius="md"
-                                    className="!border !border-gray-300"
+                                    className="border! border-gray-300!"
                                     padding={[8, 32, 8, 32]}
                                     displayText="Hủy"
                                     disabled={isUploadingImages || isSubmitting}

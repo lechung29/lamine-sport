@@ -96,7 +96,7 @@ const Product: React.FunctionComponent = () => {
     return (
         <Container>
             <Breadcrumbs />
-            <Container padding={[0, 16, 0, 16]} className="h-auto sm:!px-8 lg:!px-[45px]">
+            <Container padding={[0, 16, 0, 16]} className="h-auto sm:px-8! lg:px-[45px]!">
                 <Box
                     className="h-auto"
                     margin={[0, 0, 20, 0]}
@@ -113,15 +113,15 @@ const Product: React.FunctionComponent = () => {
                         <ProductFilter currentFilter={activeFilters} onApplyFilter={handleApplyFilters} />
                     </Box>
 
-                    <Flex vertical className="flex-1 lg:!ml-4">
-                        <Flex align="center" justify="space-between" className="!mb-4 lg:!justify-end">
-                            <ProductFilterButton className="lg:!hidden" availableFilters={productCustomerFilterList} currentFilters={activeFilters} onApplyFilters={handleApplyFilters} />
+                    <Flex vertical className="flex-1 lg:ml-4!">
+                        <Flex align="center" justify="space-between" className="mb-4! lg:justify-end!">
+                            <ProductFilterButton className="lg:hidden!" availableFilters={productCustomerFilterList} currentFilters={activeFilters} onApplyFilters={handleApplyFilters} />
                             <ProductSort activeSort={activeSort} onSortChange={(sortValue) => handleApplySort(sortValue)} />
                         </Flex>
 
                         {isLoading ? (
                             <Box
-                                className="!mb-8"
+                                className="mb-8!"
                                 style={{
                                     display: "grid",
                                     gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))",
@@ -130,7 +130,7 @@ const Product: React.FunctionComponent = () => {
                                 }}
                             >
                                 {Array.from({ length: 8 }).map((_, index) => (
-                                    <Flex key={index} vertical className="!p-2 border border-gray-200 shadow-sm">
+                                    <Flex key={index} vertical className="p-2! border border-gray-200 shadow-xs">
                                         <Skeleton.Node active style={{ width: "100%", height: 160, marginBottom: 16 }} />
                                         <Skeleton active paragraph={{ rows: 3 }} />
                                     </Flex>
@@ -139,7 +139,7 @@ const Product: React.FunctionComponent = () => {
                         ) : productCounts > 0 ? (
                             <Container className="flex-1">
                                 <Box
-                                    className="!mb-8"
+                                    className="mb-8!"
                                     style={{
                                         display: "grid",
                                         gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))",

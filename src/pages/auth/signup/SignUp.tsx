@@ -165,13 +165,13 @@ const SignUp: React.FunctionComponent = () => {
                     titleText={
                         <React.Fragment>
                             <Text as="span" titleText="Đã có tài khoản, đăng nhập " />
-                            <Link to="/login" className="hover:!text-[#77e322]">
+                            <Link to="/login" className="hover:text-[#77e322]!">
                                 tại đây
                             </Link>
                         </React.Fragment>
                     }
                 />
-                <Flex vertical align="flex-start" justify="center" className="!mb-2" gap={4}>
+                <Flex vertical align="flex-start" justify="center" className="mb-2!" gap={4}>
                     <BaseInput
                         id="firstName"
                         name="firstName"
@@ -185,7 +185,7 @@ const SignUp: React.FunctionComponent = () => {
                     />
                     {firstNameError && <Text as="p" color="#fb2c36" titleText={firstNameError} />}
                 </Flex>
-                <Flex vertical align="flex-start" justify="center" className="!mb-2" gap={4}>
+                <Flex vertical align="flex-start" justify="center" className="mb-2!" gap={4}>
                     <BaseInput
                         id="lastName"
                         name="lastName"
@@ -199,7 +199,7 @@ const SignUp: React.FunctionComponent = () => {
                     />
                     {lastNameError && <Text as="p" color="#fb2c36" titleText={lastNameError} />}
                 </Flex>
-                <Flex vertical align="flex-start" justify="center" className="!mb-2" gap={4}>
+                <Flex vertical align="flex-start" justify="center" className="mb-2!" gap={4}>
                     <BaseInput
                         id="email"
                         name="email"
@@ -213,7 +213,7 @@ const SignUp: React.FunctionComponent = () => {
                     />
                     {emailError && <Text as="p" color="#fb2c36" titleText={emailError} />}
                 </Flex>
-                <Flex vertical align="flex-start" justify="center" className="!mb-2" gap={4}>
+                <Flex vertical align="flex-start" justify="center" className="mb-2!" gap={4}>
                     <BaseInput
                         id="phoneNumber"
                         name="phoneNumber"
@@ -227,7 +227,7 @@ const SignUp: React.FunctionComponent = () => {
                     />
                     {phoneNumberError && <Text as="p" color="#fb2c36" titleText={phoneNumberError} />}
                 </Flex>
-                <Flex vertical align="flex-start" justify="center" className="!mb-2" gap={4}>
+                <Flex vertical align="flex-start" justify="center" className="mb-2!" gap={4}>
                     <BaseInput
                         id="password"
                         name="password"

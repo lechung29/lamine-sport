@@ -138,7 +138,7 @@ const Dashboard: React.FunctionComponent = () => {
         if (active && payload && payload.length) {
             const data = payload[0].payload;
             return (
-                <Box className="bg-white !p-3 border !border-gray-200 !rounded !shadow-lg">
+                <Box className="bg-white p-3! border border-gray-200! rounded-sm! shadow-lg!">
                     <p className="font-semibold mb-1">{data.name}</p>
                     <p className="text-sm text-gray-600">Số lượng: {data.value}</p>
                     <p className="text-sm text-gray-600">Doanh thu: {formatCurrency(data.revenue)}</p>
@@ -152,7 +152,7 @@ const Dashboard: React.FunctionComponent = () => {
     return (
         <Flex vertical className="bg-transparent flex-grow min-h-full">
             <Box margin={[0, 0, 24, 0]}>
-                <TextBase className="!text-gray-900" size="2xl" fontWeight="bold" titleText="Dashboard" margin={[0, 0, 16, 0]} />
+                <TextBase className="text-gray-900!" size="2xl" fontWeight="bold" titleText="Dashboard" margin={[0, 0, 16, 0]} />
             </Box>
             {loading ? (
                 <Flex align="center" justify="center" className="min-h-[300px]">
@@ -160,33 +160,33 @@ const Dashboard: React.FunctionComponent = () => {
                 </Flex>
             ) : info ? (
                 <>
-                    <Row gutter={[24, 24]} className="!mb-6" align="stretch">
+                    <Row gutter={[24, 24]} className="mb-6!" align="stretch">
                         {statCards.map((card, index) => (
                             <Col key={index} xs={24} sm={12} lg={6}>
-                                <Card className="!rounded-lg !shadow-sm h-full" style={{ borderLeft: `5px solid ${card.color}` }}>
-                                    <Flex justify="space-between" align="flex-start" className="!h-full">
-                                        <Flex vertical className="flex-grow !pr-2">
+                                <Card className="rounded-lg! shadow-xs! h-full" style={{ borderLeft: `5px solid ${card.color}` }}>
+                                    <Flex justify="space-between" align="flex-start" className="h-full!">
+                                        <Flex vertical className="flex-grow pr-2!">
                                             <Tooltip title={card.title} placement="topLeft">
                                                 <Paragraph
-                                                    className="text-sm text-gray-500 font-normal !mb-1 h-[44px] overflow-hidden"
+                                                    className="text-sm text-gray-500 font-normal mb-1! h-[44px] overflow-hidden"
                                                     ellipsis={{ rows: 2, expandable: false, symbol: "..." }}
                                                     style={{ lineHeight: "22px" }}
                                                 >
                                                     {card.title}
                                                 </Paragraph>
                                             </Tooltip>
-                                            <Statistic value={card.value} className="!mb-1" />
+                                            <Statistic value={card.value} className="mb-1!" />
                                             {card.change && (
                                                 <Tag
                                                     color={card.changeType === "increase" ? "green" : "red"}
                                                     icon={card.changeType === "increase" ? <RiseOutlined /> : <FallOutlined />}
-                                                    className="!min-w-[60px] text-center"
+                                                    className="min-w-[60px]! text-center"
                                                 >
                                                     {card.change}
                                                 </Tag>
                                             )}
                                         </Flex>
-                                        <Box padding={[12, 12, 12, 12]} className="!rounded-full text-white !flex-shrink-0 self-center" style={{ backgroundColor: card.color, fontSize: "24px" }}>
+                                        <Box padding={[12, 12, 12, 12]} className="rounded-full! text-white flex-shrink-0! self-center" style={{ backgroundColor: card.color, fontSize: "24px" }}>
                                             {card.icon}
                                         </Box>
                                     </Flex>
@@ -199,11 +199,11 @@ const Dashboard: React.FunctionComponent = () => {
                         <Col xs={24} lg={16}>
                             <Card
                                 title={
-                                    <Title level={4} className="!mb-0">
+                                    <Title level={4} className="mb-0!">
                                         Doanh số theo loại sản phẩm qua các năm
                                     </Title>
                                 }
-                                className="!rounded-lg !shadow-sm h-full"
+                                className="rounded-lg! shadow-xs! h-full"
                             >
                                 {lineChartData.length > 0 ? (
                                     <ResponsiveContainer width="100%" height={300}>
@@ -237,11 +237,11 @@ const Dashboard: React.FunctionComponent = () => {
                         <Col xs={24} lg={8}>
                             <Card
                                 title={
-                                    <Title level={4} className="!mb-0">
+                                    <Title level={4} className="mb-0!">
                                         Top 5 sản phẩm bán nhiều nhất
                                     </Title>
                                 }
-                                className="!rounded-lg !shadow-sm h-full"
+                                className="rounded-lg! shadow-xs! h-full"
                             >
                                 {pieChartData.length > 0 ? (
                                     <ResponsiveContainer width="100%" height={300}>

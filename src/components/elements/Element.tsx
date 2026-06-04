@@ -18,7 +18,7 @@ interface IContainerProps extends IBaseElementProps {
 
 export const Container = React.forwardRef<HTMLDivElement, IContainerProps>((props, ref) => {
     const { className = "", maxWidth = "full", padding = [0, 0, 0, 0], margin = [0, 0, 0, 0], bgColor = "white", style, ...rest } = props;
-    const containerClassName = classNames(`!mx-auto w-full max-w-${maxWidth}`, className).trim();
+    const containerClassName = classNames(`mx-auto! w-full max-w-${maxWidth}`, className).trim();
     const containerStyles: React.CSSProperties = {
         ...style,
         padding: `${padding[0]}px ${padding[1]}px ${padding[2]}px ${padding[3]}px`,
@@ -98,7 +98,7 @@ export const Title = React.forwardRef<HTMLHeadingElement, ITitleProps>((props, r
     const { children, level, size, fontWeight, color, style, titleText, textTransform, className = "", textAlign = "left", padding = [0, 0, 0, 0], margin = [0, 0, 0, 0], ...rest } = props;
     const Tag = `h${level}` as "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
 
-    const dynamicClasses = twMerge(size && `!text-${size}`, fontWeight && `!font-${fontWeight}`, `text-${textAlign}`, textTransform && `${textTransform}`, className);
+    const dynamicClasses = twMerge(size && `text-${size}!`, fontWeight && `font-${fontWeight}!`, `text-${textAlign}`, textTransform && `${textTransform}`, className);
     const titleStyles: React.CSSProperties = {
         ...style,
         padding: `${padding[0]}px ${padding[1]}px ${padding[2]}px ${padding[3]}px`,
@@ -164,14 +164,14 @@ export const BaseInput = React.forwardRef<HTMLInputElement, IBaseInputProps>((pr
         },
     });
     const defaultStyles = `
-        block w-full h-10 !px-5 !bg-white !text-sm !text-[#333] placeholder:!text-[#333] placeholder:!text-sm
-        !outline-none focus:!outline-none disabled:!bg-gray-100 disabled:cursor-not-allowed 
+        block w-full h-10 px-5! bg-white! text-sm! text-[#333]! placeholder:text-[#333]! placeholder:text-sm!
+        outline-none! focus:outline-none! disabled:bg-gray-100! disabled:cursor-not-allowed 
         ${
             isError
-                ? "!border-2 !border-red-500 focus:!border-red-500 "
+                ? "border-2! border-red-500! focus:border-red-500! "
                 : withoutBorder
-                ? "!border !border-gray-300"
-                : "!border !border-gray-300 focus:!border-[#002d3a] focus:!ring-1 focus:!ring-[#002d3a]"
+                ? "border! border-gray-300!"
+                : "border! border-gray-300! focus:border-[#002d3a]! focus:ring-1! focus:ring-[#002d3a]!"
         }
     `;
     const combinedClassName = twMerge(defaultStyles, className);
@@ -216,14 +216,14 @@ export const BaseTextArea = React.forwardRef<HTMLTextAreaElement, IBaseTextAreaP
         },
     });
     const defaultStyles = `
-        block w-full !px-5 !py-2 !bg-white !text-sm !text-[#333] placeholder:!text-[#333] placeholder:!text-sm
-        !outline-none focus:!outline-none disabled:!bg-gray-100 disabled:cursor-not-allowed 
+        block w-full px-5! py-2! bg-white! text-sm! text-[#333]! placeholder:text-[#333]! placeholder:text-sm!
+        outline-none! focus:outline-none! disabled:bg-gray-100! disabled:cursor-not-allowed 
         ${
             isError
-                ? "!border-2 !border-red-500 focus:!border-red-500 "
+                ? "border-2! border-red-500! focus:border-red-500! "
                 : withoutBorder
-                ? "!border !border-gray-300"
-                : "!border !border-gray-300 focus:!border-[#002d3a] focus:!ring-1 focus:!ring-[#002d3a]"
+                ? "border! border-gray-300!"
+                : "border! border-gray-300! focus:border-[#002d3a]! focus:ring-1! focus:ring-[#002d3a]!"
         }
     `;
     const combinedClassName = twMerge(defaultStyles, className);
@@ -258,7 +258,7 @@ export const Image = React.forwardRef<HTMLImageElement, IImageProps>((props, ref
     const { className = "", clickable, height, width, objectFit = "cover", rounded = "none", style, ...rest } = props;
     const defaultStyles = `
             block
-            ${rounded !== "none" && `!rounded-${rounded}`}
+            ${rounded !== "none" && `rounded-${rounded}!`}
         `;
 
     const objectFitStyle = `object-${objectFit}`;
@@ -375,9 +375,9 @@ export const BaseButton = React.forwardRef<HTMLButtonElement, IButtonProps>((pro
 
     const commonButtonClass = React.useMemo(() => {
         const baseStyles =
-            "!inline-flex items-center justify-center gap-2 overflow-hidden transition-colors duration-300 !outline-none focus:!outline-none focus-visible:!ring-2 focus-visible:!ring-offset-2";
+            "inline-flex! items-center justify-center gap-2 overflow-hidden transition-colors duration-300 outline-none! focus:outline-none! focus-visible:ring-2! focus-visible:ring-offset-2!";
 
-        const loadingStyles = internalLoading ? "cursor-not-allowed !opacity-50" : "cursor-pointer";
+        const loadingStyles = internalLoading ? "cursor-not-allowed opacity-50!" : "cursor-pointer";
 
         const widthStyles =
             typeof width === "string"
@@ -393,11 +393,11 @@ export const BaseButton = React.forwardRef<HTMLButtonElement, IButtonProps>((pro
                   })()
                 : "";
 
-        const radiusStyles = radius !== "none" ? `!rounded-${radius}` : "";
+        const radiusStyles = radius !== "none" ? `rounded-${radius}!` : "";
 
         const textTransformClass = `${buttonTextProps.textTransform}`;
 
-        const textSizeClass = typeof buttonTextProps.size === "string" ? `!text-${buttonTextProps.size}` : "";
+        const textSizeClass = typeof buttonTextProps.size === "string" ? `text-${buttonTextProps.size}!` : "";
 
         return twMerge(baseStyles, loadingStyles, widthStyles, radiusStyles, textTransformClass, textSizeClass);
     }, [internalLoading, shape, width, radius]);

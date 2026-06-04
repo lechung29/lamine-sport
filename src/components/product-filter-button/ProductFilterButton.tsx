@@ -145,7 +145,7 @@ const ProductFilterButton: React.FC<FilterButtonProps> = (props) => {
                 const dayjsDateRange: [dayjs.Dayjs | null, dayjs.Dayjs | null] | null =
                     dateRangeValue && dayjs.isDayjs(dateRangeValue[0]) && dayjs.isDayjs(dateRangeValue[1]) ? [dateRangeValue[0], dateRangeValue[1]] : null;
 
-                return <RangePicker value={dayjsDateRange} onChange={(dates) => handleDateRangeChange(filter.id, dates)} className="!w-full" format="DD-MM-YYYY" />;
+                return <RangePicker value={dayjsDateRange} onChange={(dates) => handleDateRangeChange(filter.id, dates)} className="w-full!" format="DD-MM-YYYY" />;
             default:
                 return <Text type="secondary">Unsupported filter type.</Text>;
         }
@@ -179,10 +179,10 @@ const ProductFilterButton: React.FC<FilterButtonProps> = (props) => {
         return count;
     }, [currentFilters, availableFilters]);
 
-    const buttonClasses = `relative !bg-[#f1f1f1] h-8 !px-4 !border-1 !border-[#ccc] ${activeFilterCount ? "filter-button-active" : ""} ${className || ""}`;
+    const buttonClasses = `relative bg-[#f1f1f1]! h-8 px-4! border-1! border-[#ccc]! ${activeFilterCount ? "filter-button-active" : ""} ${className || ""}`;
 
     const content = (
-        <Container className="!w-64 popover-content-container">
+        <Container className="w-64! popover-content-container">
             <Box className="filter-scrollable-content" style={{ maxHeight: "300px", overflowY: "scroll" }}>
                 <Collapse
                     bordered={false}
@@ -200,12 +200,12 @@ const ProductFilterButton: React.FC<FilterButtonProps> = (props) => {
                 </Collapse>
             </Box>
 
-            <Divider className="!my-0" />
-            <Space className="!w-full !py-2 !px-2 !justify-end items-center">
-                <Button className="!rounded-none" onClick={handleReset} size="middle">
+            <Divider className="my-0!" />
+            <Space className="w-full! py-2! px-2! justify-end! items-center">
+                <Button className="rounded-none!" onClick={handleReset} size="middle">
                     Hoàn tác
                 </Button>
-                <Button className="!bg-[#002d3a] !outline-none !rounded-none !shadow-none" type="primary" onClick={handleApply} size="middle">
+                <Button className="bg-[#002d3a]! outline-none! rounded-none! shadow-none!" type="primary" onClick={handleApply} size="middle">
                     Áp dụng
                 </Button>
             </Space>

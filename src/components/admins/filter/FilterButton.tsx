@@ -178,7 +178,7 @@ const FilterButton: React.FC<FilterButtonProps> = (props) => {
         return count;
     }, [currentFilters, availableFilters]);
 
-    const buttonClasses = `flex items-center gap-1 !px-4 filter-button ${activeFilterCount && "filter-button-active"} ${className || ""}`;
+    const buttonClasses = `flex items-center gap-1 px-4! filter-button ${activeFilterCount && "filter-button-active"} ${className || ""}`;
 
     const content = (
         <Container className="w-64! popover-content-container">

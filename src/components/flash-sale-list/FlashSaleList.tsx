@@ -180,7 +180,7 @@ const FlashSaleList: React.FunctionComponent<IListProps> = (props) => {
                         <React.Fragment>
                             {Array.from({ length: 6 }).map((_, id) => (
                                 <SwiperSlide key={id}>
-                                    <Flex vertical className="p-2! h-100! bg-white shadow-sm!">
+                                    <Flex vertical className="p-2! h-100! bg-white shadow-xs!">
                                         <Skeleton.Node active style={{ width: "100%", height: 160, marginBottom: 16 }} />
                                         <Skeleton key={id} active paragraph={{ rows: 3 }} />
                                     </Flex>

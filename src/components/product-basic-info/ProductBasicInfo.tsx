@@ -117,7 +117,7 @@ const ProductBasicInfo: React.FunctionComponent<IProductBasicInfoProps> = (props
     return (
         <React.Fragment>
             <Container className="w-full text-primary text-sm">
-                <Box padding={[0, 0, 16, 0]} margin={[0, 0, 16, 0]} className="w-full !border-b !border-[#DDE1EF]">
+                <Box padding={[0, 0, 16, 0]} margin={[0, 0, 16, 0]} className="w-full border-b! border-[#DDE1EF]!">
                     <Text margin={[0, 0, 4, 0]} fontWeight="bold" size="3xl" titleText={productItem.productName} />
                     <Flex align="center" justify="space-between">
                         <Text as="span" titleText={`Mã: ${productItem._id}`} />
@@ -138,14 +138,14 @@ const ProductBasicInfo: React.FunctionComponent<IProductBasicInfoProps> = (props
                 </Box>
                 <Box padding={[0, 0, 16, 0]} className="w-full">
                     <Box margin={[0, 0, 20, 0]}>
-                        <Text className="!tracking-normal !leading-6" titleText={productItem.description} />
+                        <Text className="tracking-normal! leading-6!" titleText={productItem.description} />
                     </Box>
-                    <Flex align="center" className="relative !mb-6 bg-[#f5f5f5] !px-2.5 !py-2 !pr-15 ">
+                    <Flex align="center" className="relative mb-6! bg-[#f5f5f5] px-2.5! py-2! pr-15! ">
                         {productItem.salePrice ? (
                             <React.Fragment>
                                 <Text color="#c30000" fontWeight="bold" size="3xl" margin={[0, 8, 0, 0]} titleText={formatCurrency(productItem.salePrice)} />
                                 <Text size="lg" className="line-through" titleText={formatCurrency(productItem.originalPrice)} />
-                                <Box className="absolute top-0 bottom-0 right-0 w-14 inline-flex items-center justify-center !bg-[#c30000] text-white font-semibold [clip-path:polygon(20%_0%,100%_0%,100%_100%,0%_100%)]">
+                                <Box className="absolute top-0 bottom-0 right-0 w-14 inline-flex items-center justify-center bg-[#c30000]! text-white font-semibold [clip-path:polygon(20%_0%,100%_0%,100%_100%,0%_100%)]">
                                     {getSalePercent(productItem.originalPrice, productItem.salePrice)}%
                                 </Box>
                             </React.Fragment>
@@ -162,8 +162,8 @@ const ProductBasicInfo: React.FunctionComponent<IProductBasicInfoProps> = (props
                         {productItem.productColors.map((item) => (
                             <Box
                                 key={item.id}
-                                className={classNames("w-8.5 h-8.5 !rounded-full !border !border-[#9d9d9d] inline-flex items-center justify-center cursor-pointer", {
-                                    "shadow-primary !border-2 !border-white": item.id === selectedColor?.id,
+                                className={classNames("w-8.5 h-8.5 rounded-full! border! border-[#9d9d9d]! inline-flex items-center justify-center cursor-pointer", {
+                                    "shadow-primary border-2! border-white!": item.id === selectedColor?.id,
                                 })}
                                 style={{
                                     backgroundColor: item.hex,
@@ -184,8 +184,8 @@ const ProductBasicInfo: React.FunctionComponent<IProductBasicInfoProps> = (props
                         {productItem.productSizes.map((item) => (
                             <Box
                                 key={item}
-                                className={classNames("w-8.5 h-8.5 !border !border-[#9d9d9d] inline-flex items-center justify-center cursor-pointer", {
-                                    "text-white !bg-[#002d3a]": item === selectedSize,
+                                className={classNames("w-8.5 h-8.5 border! border-[#9d9d9d]! inline-flex items-center justify-center cursor-pointer", {
+                                    "text-white bg-[#002d3a]!": item === selectedSize,
                                 })}
                                 role="button"
                                 onClick={() => setState({ selectedSize: item })}
@@ -194,17 +194,17 @@ const ProductBasicInfo: React.FunctionComponent<IProductBasicInfoProps> = (props
                             </Box>
                         ))}
                     </Box>
-                    <Flex align="center" gap={8} className="!mb-4" onClick={() => setState({ isOpenInstructionSize: true })} onMouseDown={(e) => e.preventDefault()}>
+                    <Flex align="center" gap={8} className="mb-4!" onClick={() => setState({ isOpenInstructionSize: true })} onMouseDown={(e) => e.preventDefault()}>
                         <TfiRulerAlt className="text-[#fd7e14] text-lg" />
                         <TooltipLabel alwaysShow width="auto" tooltipDescription="Gợi ý tìm size">
                             <Text size="base" className="cursor-pointer hover:text-[#a2ff00]" titleText="Hướng dẫn chọn kích cỡ" />
                         </TooltipLabel>
                     </Flex>
-                    <Flex align="center" justify="flex-start" gap={8} className="!mb-4">
+                    <Flex align="center" justify="flex-start" gap={8} className="mb-4!">
                         <Text as="span" size="base" fontWeight="bold" titleText="Số lượng:" />
                         <Flex align="center">
                             <BaseButton
-                                className="w-9 h-10 !border !border-[#ddd]"
+                                className="w-9 h-10 border! border-[#ddd]!"
                                 colors={{
                                     normal: {
                                         textColor: "#333",
@@ -232,10 +232,10 @@ const ProductBasicInfo: React.FunctionComponent<IProductBasicInfoProps> = (props
                                         setState({ addProductCount: parseInt(value) });
                                     }
                                 }}
-                                className="h-10 w-12.5 !p-1 text-base text-center !border-y !border-gray-200"
+                                className="h-10 w-12.5 p-1! text-base text-center border-y! border-gray-200!"
                             />
                             <BaseButton
-                                className="w-9 h-10 !border !border-[#ddd]"
+                                className="w-9 h-10 border! border-[#ddd]!"
                                 colors={{
                                     normal: {
                                         textColor: "#333",
@@ -256,7 +256,7 @@ const ProductBasicInfo: React.FunctionComponent<IProductBasicInfoProps> = (props
                             />
                         </Flex>
                     </Flex>
-                    <Flex align="center" gap={4} className="!mb-4">
+                    <Flex align="center" gap={4} className="mb-4!">
                         <BaseButton
                             textProps={{
                                 size: "base",

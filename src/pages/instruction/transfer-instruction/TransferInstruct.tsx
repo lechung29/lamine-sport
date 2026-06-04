@@ -8,7 +8,7 @@ const TransferInstruct: React.FunctionComponent = () => {
         <Container className="w-full min-h-screen">
             <Breadcrumbs />
 
-            <Container className="!px-8 lg:!px-[45px] !py-6">
+            <Container className="px-8! lg:px-[45px]! py-6!">
                 <Text margin={[0, 0, 15, 0]} size="lg" fontWeight="bold" textTransform="uppercase" className="text-gray-900" titleText="Hướng dẫn chuyển khoản" />
                 <Box margin={[0, 0, 16, 0]}>
                     <Text margin={[0, 0, 15, 0]} size="base" fontWeight="semibold" className="text-gray-900" titleText="Khách hàng thanh toán trực tiếp tại cửa hàng" />

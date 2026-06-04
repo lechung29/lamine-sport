@@ -68,20 +68,20 @@ const ProductPhotoView: React.FunctionComponent<IProductItemPhotoProps> = (props
             {props.photoList.length > 1 && (
                 <Box margin={[8, 0, 0, 0]} className="w-full relative">
                     <BaseButton
-                        className={classNames("absolute top-1/2 -translate-y-1/2 z-10 left-0 !p-0.5 custom-prev", {
+                        className={classNames("absolute top-1/2 -translate-y-1/2 z-10 left-0 p-0.5! custom-prev", {
                             hidden: isStart || props.photoList.length <= slidesToShow,
                         })}
                         onClick={onPreviousItemClick}
                     >
-                        <IoIosArrowBack className="max-sm:!text-sm !text-lg !text-white drop-shadow-md" />
+                        <IoIosArrowBack className="max-sm:text-sm! text-lg! text-white! drop-shadow-md" />
                     </BaseButton>
                     <BaseButton
-                        className={classNames("absolute top-1/2 -translate-y-1/2 z-10 right-0 !p-0.5 custom-next", {
+                        className={classNames("absolute top-1/2 -translate-y-1/2 z-10 right-0 p-0.5! custom-next", {
                             hidden: isEnd || props.photoList.length <= slidesToShow,
                         })}
                         onClick={onNextItemClick}
                     >
-                        <IoIosArrowForward className="max-sm:!text-sm !text-lg !text-white drop-shadow-md" />
+                        <IoIosArrowForward className="max-sm:text-sm! text-lg! text-white! drop-shadow-md" />
                     </BaseButton>
                     <Swiper
                         modules={[Navigation, Pagination, Autoplay, EffectFade]}
@@ -101,13 +101,13 @@ const ProductPhotoView: React.FunctionComponent<IProductItemPhotoProps> = (props
                         }}
                     >
                         {props.photoList.map((photo, idx) => (
-                            <SwiperSlide className="!mr-[15.8px]" key={idx}>
+                            <SwiperSlide className="mr-[15.8px]!" key={idx}>
                                 <Image
                                     src={photo}
                                     alt={`thumbnail-${idx}`}
                                     onClick={() => setCurrentPhoto(photo)}
-                                    className={`cursor-pointer !border transition-all duration-200 
-                                ${photo === currentPhoto ? "!border-[#77e322]" : "!border-[#f1f1f1]"}`}
+                                    className={`cursor-pointer border! transition-all duration-200 
+                                ${photo === currentPhoto ? "border-[#77e322]!" : "border-[#f1f1f1]!"}`}
                                 />
                             </SwiperSlide>
                         ))}

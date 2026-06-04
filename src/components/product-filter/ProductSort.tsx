@@ -31,7 +31,7 @@ const ProductSort: React.FunctionComponent<IProductSortProps> = (props) => {
             zIndex={10}
             getPopupContainer={() => document.body}
         >
-            <Box className="inline-flex items-center gap-1 text-[#333] bg-[#f1f1f1] h-8 !px-2 !border-1 !border-[#ccc] cursor-pointer" role="button">
+            <Box className="inline-flex items-center gap-1 text-[#333] bg-[#f1f1f1] h-8 px-2! border-1! border-[#ccc]! cursor-pointer" role="button">
                 <LiaSortAlphaDownSolid className="text-2xl" />
                 <Text as="span" fontWeight="semibold" titleText="Sắp xếp theo" />
                 <BsCaretDownFill

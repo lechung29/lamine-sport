@@ -247,7 +247,7 @@ const TemplateManagement: React.FunctionComponent = () => {
             key: "action",
             width: 100,
             render: (_, record: ITemplateData) => (
-                <Flex className="!space-x-2">
+                <Flex className="space-x-2!">
                     <Tooltip title="Chỉnh sửa">
                         <Button type="text" icon={<EditOutlined />} size="small" onClick={() => handleOpenEditDialog(record)} disabled={isLoading} />
                     </Tooltip>
@@ -262,11 +262,11 @@ const TemplateManagement: React.FunctionComponent = () => {
     return (
         <Flex vertical className="bg-transparent flex-grow min-h-full">
             <Box margin={[0, 0, 24, 0]}>
-                <TextBase className="!text-gray-900" size="2xl" fontWeight="bold" titleText="Quản lý template" margin={[0, 0, 16, 0]} />
+                <TextBase className="text-gray-900!" size="2xl" fontWeight="bold" titleText="Quản lý template" margin={[0, 0, 16, 0]} />
             </Box>
 
-            <Container bgColor="white" className="flex-grow !rounded-lg !shadow-sm" padding={[24, 24, 24, 24]}>
-                <Flex align="center" justify="space-between" wrap="wrap" gap="middle" className="!mb-6">
+            <Container bgColor="white" className="flex-grow rounded-lg! shadow-xs!" padding={[24, 24, 24, 24]}>
+                <Flex align="center" justify="space-between" wrap="wrap" gap="middle" className="mb-6!">
                     <Input.Search
                         placeholder="Tìm kiếm theo tên template"
                         allowClear
@@ -282,7 +282,7 @@ const TemplateManagement: React.FunctionComponent = () => {
                         padding={[6, 16, 6, 16]}
                         radius="md"
                         onClick={handleAddClick}
-                        className="disabled:!bg-gray-400"
+                        className="disabled:bg-gray-400!"
                         disabled={isLoading}
                         displayText={
                             <React.Fragment>
@@ -304,7 +304,7 @@ const TemplateManagement: React.FunctionComponent = () => {
                             dataSource={templates.map((t) => ({ ...t, key: t._id }))}
                             rowKey="id"
                             pagination={false}
-                            className="w-full !mb-8"
+                            className="w-full mb-8!"
                             scroll={{ x: templates.length > 0 ? "max-content" : undefined }}
                             locale={{ emptyText: <Empty description="Không có mẫu template nào." /> }}
                         />
@@ -329,7 +329,7 @@ const TemplateManagement: React.FunctionComponent = () => {
                 <Modal
                     title={
                         <React.Fragment>
-                            <FileTextOutlined className="!mr-2" />
+                            <FileTextOutlined className="mr-2!" />
                             {editingTemplate ? "Chỉnh sửa template" : "Thêm template mới"}
                         </React.Fragment>
                     }
@@ -341,12 +341,12 @@ const TemplateManagement: React.FunctionComponent = () => {
                     centered
                     destroyOnClose={true}
                 >
-                    <Box margin={[16, 0, 0, 0]} className="!space-y-4">
+                    <Box margin={[16, 0, 0, 0]} className="space-y-4!">
                         <Box>
                             <TextBase requireIcon fontWeight="medium" titleText="Tên template" />
                             <Input
-                                className={classNames("!mt-1", {
-                                    "!border !border-red-500": isNameError,
+                                className={classNames("mt-1!", {
+                                    "border! border-red-500!": isNameError,
                                 })}
                                 value={templateName}
                                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
@@ -428,11 +428,11 @@ const TemplateManagement: React.FunctionComponent = () => {
                             </Box>
                         </Box>
 
-                        <Flex justify="flex-end" className="!space-x-2 !pt-4">
+                        <Flex justify="flex-end" className="space-x-2! pt-4!">
                             <Button onClick={handleCancelAddEditDialog} disabled={isAddingTemplate}>
                                 Hủy
                             </Button>
-                            <Button type="primary" loading={isAddingTemplate} onClick={handleAddUpdateTemplate} className="!bg-[#002d3a] hover:!bg-[#a2ff00] hover:!text-[#333]">
+                            <Button type="primary" loading={isAddingTemplate} onClick={handleAddUpdateTemplate} className="bg-[#002d3a]! hover:bg-[#a2ff00]! hover:text-[#333]!">
                                 {editingTemplate ? "Cập nhật" : "Thêm"}
                             </Button>
                         </Flex>
@@ -451,11 +451,11 @@ const TemplateManagement: React.FunctionComponent = () => {
                             <TextBase size="sm" className="text-gray-500" titleText="Hành động này không thể hoàn tác." />
                         </Box>
 
-                        <Flex justify="flex-end" className="!space-x-2">
-                            <Button onClick={handleCancelDeleteDialog} disabled={isDeletingTemplate} className="!px-4 !py-2">
+                        <Flex justify="flex-end" className="space-x-2!">
+                            <Button onClick={handleCancelDeleteDialog} disabled={isDeletingTemplate} className="px-4! py-2!">
                                 Hủy
                             </Button>
-                            <Button type="primary" loading={isDeletingTemplate} onClick={handleDeleteTemplate} className="!bg-red-600 !border-red-600 hover:!bg-red-700 !px-4 !py-2">
+                            <Button type="primary" loading={isDeletingTemplate} onClick={handleDeleteTemplate} className="bg-red-600! border-red-600! hover:bg-red-700! px-4! py-2!">
                                 Xóa
                             </Button>
                         </Flex>

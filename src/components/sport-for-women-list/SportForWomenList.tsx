@@ -92,36 +92,36 @@ const SportForWomenList: React.FunctionComponent<IListProps> = (props) => {
     }, []);
 
     return (
-        <Container padding={[30, 0, 30, 0]} className="!bg-no-repeat !bg-center !bg-cover w-full">
-            <Flex justify="space-between" className="w-full !px-4 sm:!px-8 lg:!px-[45px] flex-col lg:flex-row items-start lg:items-center gap-6 lg:gap-3">
+        <Container padding={[30, 0, 30, 0]} className="bg-no-repeat! bg-center! bg-cover! w-full">
+            <Flex justify="space-between" className="w-full px-4! sm:px-8! lg:px-[45px]! flex-col lg:flex-row items-start lg:items-center gap-6 lg:gap-3">
                 <Flex vertical wrap justify="center" className="w-full lg:w-auto lg:max-w-[280px] lg:shrink-0">
                     <Text
                         textTransform="uppercase"
                         size="4xl"
                         padding={[0, 0, 8, 0]}
                         fontWeight="semibold"
-                        className="!text-[#333] hover:!text-[#a2ff00] oswald-font cursor-pointer"
+                        className="text-[#333]! hover:text-[#a2ff00]! oswald-font cursor-pointer"
                         titleText={"Thể thao cho nữ"}
                     />
                     <Box margin={[0, 0, 16, 0]} bgColor="#a2ff00" className="h-1 w-22 [clip-path:polygon(0%_0%,100%_0%,95%_100%,0%_100%)]" />
 
-                    <Flex className="w-full flex-col items-start !mb-5 sm:flex-row sm:items-center sm:justify-between lg:flex-col lg:items-start">
-                        <Flex align="center" gap={8} className="!mt-4 sm:!mt-0 lg:!mt-5">
+                    <Flex className="w-full flex-col items-start mb-5! sm:flex-row sm:items-center sm:justify-between lg:flex-col lg:items-start">
+                        <Flex align="center" gap={8} className="mt-4! sm:mt-0! lg:mt-5!">
                             <BaseButton
-                                className={classNames("!bg-white !py-1.5 !px-1 !text-center hover:!bg-[#77e322] !border-[1.5px] !border-[#333] cursor-pointer transition-all duration-200", {
-                                    "!opacity-30 hover:!bg-transparent !cursor-not-allowed": isStart,
+                                className={classNames("bg-white! py-1.5! px-1! text-center! hover:bg-[#77e322]! border-[1.5px]! border-[#333]! cursor-pointer transition-all duration-200", {
+                                    "opacity-30! hover:bg-transparent! cursor-not-allowed!": isStart,
                                 })}
                                 onClick={onPreviousItemClick}
                                 disabled={isStart}
-                                displayText={<IoIosArrowBack className="max-sm:text-lg text-2xl text-[#333] !drop-shadow-md" />}
+                                displayText={<IoIosArrowBack className="max-sm:text-lg text-2xl text-[#333] drop-shadow-md!" />}
                             />
                             <BaseButton
-                                className={classNames("!bg-white !p-1.5 !px-1 !text-center hover:!bg-[#77e322] !border-[1.5px] !border-[#333] cursor-pointer transition-all duration-200", {
-                                    "!opacity-30 hover:!bg-transparent !cursor-not-allowed": isEnd,
+                                className={classNames("bg-white! p-1.5! px-1! text-center! hover:bg-[#77e322]! border-[1.5px]! border-[#333]! cursor-pointer transition-all duration-200", {
+                                    "opacity-30! hover:bg-transparent! cursor-not-allowed!": isEnd,
                                 })}
                                 onClick={onNextItemClick}
                                 disabled={isEnd}
-                                displayText={<IoIosArrowForward className="max-sm:text-lg text-2xl text-[#333] !drop-shadow-md" />}
+                                displayText={<IoIosArrowForward className="max-sm:text-lg text-2xl text-[#333] drop-shadow-md!" />}
                             />
                         </Flex>
                     </Flex>
@@ -129,7 +129,7 @@ const SportForWomenList: React.FunctionComponent<IListProps> = (props) => {
                         margin={[16, 0, 0, 0]}
                         padding={[8, 8, 8, 8]}
                         onClick={navigateToProduct}
-                        className="lg:flex hidden w-[150px] items-center justify-center gap-1 !text-white !bg-[#002932] transition-colors duration-300 hover:!bg-[#77e322] hover:!text-[black] [clip-path:polygon(3%_0%,100%_0%,97%_100%,0%_100%)] cursor-pointer"
+                        className="lg:flex hidden w-[150px] items-center justify-center gap-1 text-white! bg-[#002932]! transition-colors duration-300 hover:bg-[#77e322]! hover:text-[black]! [clip-path:polygon(3%_0%,100%_0%,97%_100%,0%_100%)] cursor-pointer"
                     >
                         <Text as="span" fontWeight="semibold" size="base" titleText="Xem tất cả" />
                         <GoArrowRight />
@@ -150,7 +150,7 @@ const SportForWomenList: React.FunctionComponent<IListProps> = (props) => {
                     >
                         {Array.from({ length: 6 }).map((_, id) => (
                             <SwiperSlide key={id}>
-                                <Flex vertical className="!p-2 !h-100 bg-white !shadow-sm">
+                                <Flex vertical className="p-2! h-100! bg-white shadow-xs!">
                                     <Skeleton.Node active style={{ width: "100%", height: 160, marginBottom: 16 }} />
                                     <Skeleton key={id} active paragraph={{ rows: 3 }} />
                                 </Flex>
@@ -184,13 +184,13 @@ const SportForWomenList: React.FunctionComponent<IListProps> = (props) => {
                         </Box>
                     ))}
 
-                <Flex align="center" justify="center" className="w-full lg:!hidden">
+                <Flex align="center" justify="center" className="w-full lg:hidden!">
                     <Flex
                         align="center"
                         justify="center"
                         gap={4}
                         onClick={navigateToProduct}
-                        className="w-[150px] !mt-4 !text-white !bg-[#002932] !px-2 !py-2 transition-colors duration-300 hover:!bg-[#77e322] hover:!text-[black] [clip-path:polygon(3%_0%,100%_0%,97%_100%,0%_100%)] cursor-pointer"
+                        className="w-[150px] mt-4! text-white! bg-[#002932]! px-2! py-2! transition-colors duration-300 hover:bg-[#77e322]! hover:text-[black]! [clip-path:polygon(3%_0%,100%_0%,97%_100%,0%_100%)] cursor-pointer"
                     >
                         <Text as="span" fontWeight="semibold" size="base" titleText="Xem tất cả" />
                         <GoArrowRight />

@@ -67,10 +67,10 @@ const RecoveryPasswordForm: React.FunctionComponent<IRecoveryPasswordForm> = (pr
         <Flex align="center" justify="center">
             <Container className="shadow-primary" maxWidth="sm" padding={[16, 20, 16, 20]} margin={[40, 0, 40, 0]}>
                 <Title size="xl" textAlign="center" textTransform="uppercase" className="text-primary" fontWeight="medium" titleText="Khôi phục mật khẩu" level={1} margin={[0, 0, 16, 0]} />
-                <Flex vertical align="flex-start" justify="center" className="!mb-2" gap={4}>
+                <Flex vertical align="flex-start" justify="center" className="mb-2!" gap={4}>
                     <BaseInput id="email" name="email" placeholder="Email" type="text" value={customerEmail} disabled={true} />
                 </Flex>
-                <Flex vertical align="flex-start" justify="center" className="!mb-2" gap={4}>
+                <Flex vertical align="flex-start" justify="center" className="mb-2!" gap={4}>
                     <BaseInput
                         id="password"
                         name="password"

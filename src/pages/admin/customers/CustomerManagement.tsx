@@ -215,8 +215,8 @@ const CustomerManagement: React.FunctionComponent = () => {
             width: 160,
             render: (info: IUserInformation) => {
                 return (
-                    <Flex align="center" className="!space-x-3">
-                        <Image src={info.avatar} alt={info.displayName} objectFit="cover" height={32} width={32} className="!rounded-full" />
+                    <Flex align="center" className="space-x-3!">
+                        <Image src={info.avatar} alt={info.displayName} objectFit="cover" height={32} width={32} className="rounded-full!" />
                         <Tooltip title={info.displayName} placement="topLeft">
                             <Text ellipsis={true} className="font-semibold text-gray-900" style={{ maxWidth: 120 }}>
                                 {info.displayName}
@@ -284,19 +284,19 @@ const CustomerManagement: React.FunctionComponent = () => {
     return (
         <Flex vertical className="bg-transparent flex-grow min-h-full">
             <Box margin={[0, 0, 24, 0]}>
-                <TextBase className="!text-gray-900" size="2xl" fontWeight="bold" titleText="Quản lý khách hàng" margin={[0, 0, 16, 0]} />
+                <TextBase className="text-gray-900!" size="2xl" fontWeight="bold" titleText="Quản lý khách hàng" margin={[0, 0, 16, 0]} />
             </Box>
 
-            <Container bgColor="white" className="flex-grow !rounded-lg !shadow-sm" padding={[24, 24, 24, 24]}>
-                <Flex align="center" justify="space-between" wrap="wrap" gap="middle" className="!mb-6">
-                    <Flex align="center" justify="space-between" className="flex-grow !w-full sm:!w-auto" gap={16}>
+            <Container bgColor="white" className="flex-grow rounded-lg! shadow-xs!" padding={[24, 24, 24, 24]}>
+                <Flex align="center" justify="space-between" wrap="wrap" gap="middle" className="mb-6!">
+                    <Flex align="center" justify="space-between" className="flex-grow w-full! sm:w-auto!" gap={16}>
                         <Input.Search
                             placeholder="Tìm kiếm theo tên, ID, hoặc email"
                             allowClear
                             onSearch={handleSearch}
                             value={searchText}
                             onChange={(e) => setState({ searchText: e.target.value })}
-                            className="!w-full max-w-[300px]"
+                            className="w-full! max-w-[300px]"
                             size="middle"
                             disabled={isLoading}
                         />
@@ -314,7 +314,7 @@ const CustomerManagement: React.FunctionComponent = () => {
                             dataSource={customers.map((c) => ({ ...c, key: c._id }))}
                             rowKey="id"
                             pagination={false}
-                            className="w-full !mb-8"
+                            className="w-full mb-8!"
                             scroll={{ x: customers.length > 0 ? "max-content" : undefined }}
                             locale={{ emptyText: <Empty description="Không có người dùng nào." /> }}
                         />
@@ -343,7 +343,7 @@ const CustomerManagement: React.FunctionComponent = () => {
                     onCancel={() => setState({ isOpenLockedCustomerDialog: false, selectedCustomer: undefined })}
                     footer={null}
                     centered
-                    className="!rounded-lg"
+                    className="rounded-lg!"
                 >
                     <Container margin={[16, 0, 0, 0]}>
                         <TextBase
@@ -352,11 +352,11 @@ const CustomerManagement: React.FunctionComponent = () => {
                             margin={[0, 0, 4, 0]}
                         />
 
-                        <Flex justify="flex-end" className="!space-x-2">
-                            <Button onClick={() => setState({ isOpenLockedCustomerDialog: false, selectedCustomer: undefined })} disabled={isUpdatingStatus} className="!px-4 !py-2">
+                        <Flex justify="flex-end" className="space-x-2!">
+                            <Button onClick={() => setState({ isOpenLockedCustomerDialog: false, selectedCustomer: undefined })} disabled={isUpdatingStatus} className="px-4! py-2!">
                                 Hủy
                             </Button>
-                            <Button type="primary" loading={isUpdatingStatus} onClick={handleChangeCustomerStatus} className="!bg-red-600 !border-red-600 hover:!bg-red-700 !px-4 !py-2">
+                            <Button type="primary" loading={isUpdatingStatus} onClick={handleChangeCustomerStatus} className="bg-red-600! border-red-600! hover:bg-red-700! px-4! py-2!">
                                 {selectedCustomer?.status === ICustomerStatus.Active ? "khóa" : "Mở khóa"}
                             </Button>
                         </Flex>
@@ -371,16 +371,16 @@ const CustomerManagement: React.FunctionComponent = () => {
                     onCancel={() => setState({ isOpenDeleteCustomerDialog: false, selectedCustomer: undefined })}
                     footer={null}
                     centered
-                    className="!rounded-lg"
+                    className="rounded-lg!"
                 >
                     <Container margin={[16, 0, 0, 0]}>
                         <TextBase className="text-gray-800 block" titleText="Bạn có chắc chắn muốn xóa tài khoản này?" margin={[0, 0, 4, 0]} />
 
-                        <Flex justify="flex-end" className="!space-x-2">
-                            <Button onClick={() => setState({ isOpenDeleteCustomerDialog: false, selectedCustomer: undefined })} disabled={isDeletingCustomer} className="!px-4 !py-2">
+                        <Flex justify="flex-end" className="space-x-2!">
+                            <Button onClick={() => setState({ isOpenDeleteCustomerDialog: false, selectedCustomer: undefined })} disabled={isDeletingCustomer} className="px-4! py-2!">
                                 Hủy
                             </Button>
-                            <Button type="primary" loading={isDeletingCustomer} onClick={handleDeleteCustomer} className="!bg-red-600 !border-red-600 hover:!bg-red-700 !px-4 !py-2">
+                            <Button type="primary" loading={isDeletingCustomer} onClick={handleDeleteCustomer} className="bg-red-600! border-red-600! hover:bg-red-700! px-4! py-2!">
                                 Xóa
                             </Button>
                         </Flex>
@@ -392,7 +392,7 @@ const CustomerManagement: React.FunctionComponent = () => {
                 <Modal
                     title={
                         <React.Fragment>
-                            <UserOutlined className="!mr-2" />
+                            <UserOutlined className="mr-2!" />
                             <TextBase as="span" titleText={`Chi tiết khách hàng: ${selectedCustomer?.displayName}`} />
                         </React.Fragment>
                     }
@@ -400,10 +400,10 @@ const CustomerManagement: React.FunctionComponent = () => {
                     onCancel={handleCloseViewCustomerInfoDialog}
                     footer={null}
                     width={700}
-                    className="!max-w-[95vw]"
+                    className="max-w-[95vw]!"
                 >
                     {selectedCustomer && (
-                        <Descriptions bordered column={{ xs: 1, sm: 2, md: 2, lg: 2, xl: 2, xxl: 2 }} className="!mt-4">
+                        <Descriptions bordered column={{ xs: 1, sm: 2, md: 2, lg: 2, xl: 2, xxl: 2 }} className="mt-4!">
                             <Descriptions.Item label="ID Khách hàng" span={2}>
                                 <Text strong>{selectedCustomer._id}</Text>
                             </Descriptions.Item>

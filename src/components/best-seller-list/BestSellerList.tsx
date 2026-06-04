@@ -131,7 +131,7 @@ const BestSellerList: React.FC = () => {
                 <Box className="hidden min-[800px]:grid gap-4 grid-cols-[repeat(auto-fill,minmax(200px,1fr))]">
                     <React.Fragment>
                         {Array.from({ length: 10 }).map((_, id) => (
-                            <Flex key={id} vertical className="p-2! w-55 h-100! bg-white shadow-sm!">
+                            <Flex key={id} vertical className="p-2! w-55 h-100! bg-white shadow-xs!">
                                 <Skeleton.Node active style={{ width: "100%", height: 160, marginBottom: 16 }} />
                                 <Skeleton key={id} active paragraph={{ rows: 3 }} />
                             </Flex>
@@ -157,7 +157,7 @@ const BestSellerList: React.FC = () => {
                 <Box className="min-[800px]:hidden flex flex-row overflow-x-auto gap-4 pr-4! pb-3! custom-scrollbar">
                     <React.Fragment>
                         {Array.from({ length: 10 }).map((_, id) => (
-                            <Flex key={id} vertical className="p-2! w-55 h-100! bg-white shadow-sm!">
+                            <Flex key={id} vertical className="p-2! w-55 h-100! bg-white shadow-xs!">
                                 <Skeleton.Node active style={{ width: "100%", height: 160, marginBottom: 16 }} />
                                 <Skeleton key={id} active paragraph={{ rows: 3 }} />
                             </Flex>

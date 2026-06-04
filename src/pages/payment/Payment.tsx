@@ -52,7 +52,7 @@ const OrderItem: React.FunctionComponent<CartItemProps> = (props) => {
             </Badge>
             <Flex vertical className="flex-1 px-4!">
                 <TooltipLabel text={props.item.productName} className="text-sm" width="auto" lineDisplayed={2} />
-                <Text color="#7f7f7f" size="xs" titleText={`${!!props.item.selectedProductSize ? `${props.item.selectedProductSize} / ` : ""}${getColorName()}`} />
+                <Text color="#7f7f7f" size="xs" titleText={`${!props!.item.selectedProductSize ? `${props.item.selectedProductSize} / ` : ""}${getColorName()}`} />
             </Flex>
             <Text as="span" color="#717171" size="base" titleText={formatCurrency(itemTotalPrice())} />
         </Flex>
@@ -160,7 +160,7 @@ const QrPaymentModal: React.FunctionComponent<QrPaymentModalProps> = ({ open, qr
                 </Flex>
             ) : (
                 <Flex vertical align="center" gap={16} className="py-4!">
-                    <Box className="border! border-[#e0e0e0]! rounded-xl! p-3! bg-white! shadow-sm">
+                    <Box className="border! border-[#e0e0e0]! rounded-xl! p-3! bg-white! shadow-xs">
                         <img
                             src={qrUrl}
                             alt="QR Code thanh toán"
@@ -292,7 +292,7 @@ const Payment: React.FunctionComponent = () => {
         if (!!email) {
             const emailRegex =
                 /^(?:[a-zA-Z0-9!#$%&"*+/=?^_`{|}~-]+(?:\.[a-zA-Z0-9!#$%&"*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\.)+[a-zA-Z]{2,}|(?:\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)$/;
-            if (!email.match(emailRegex)) {
+            if (email!.match(emailRegex)) {
                 return {
                     isValid: false,
                     errorMessage: "Địa chỉ email đã nhập không hợp lệ. Vui lòng đảm bảo rằng nó đúng theo định dạng email (ví dụ: name@example.com)",
@@ -300,9 +300,9 @@ const Payment: React.FunctionComponent = () => {
             }
         }
 
-        if (!!displayName) {
+        if (!displayName!) {
             const nameRegex = /^(?:\p{Lu}\p{Ll}*)(?:\s\p{Lu}\p{Ll}*)*$/u;
-            if (!displayName.match(nameRegex)) {
+            if (displayName!.match(nameRegex)) {
                 return {
                     isValid: false,
                     errorMessage: "Tên người nhận hàng chỉ chứa chữ cái, bắt đầu bằng chữ in hoa và không được bao gồm số hoặc ký tự đặc biệt",
@@ -310,7 +310,7 @@ const Payment: React.FunctionComponent = () => {
             }
         }
 
-        if (!!phoneNumber && phoneNumber[0] !== "0") {
+        if (!phoneNumber! && phoneNumber[0] !== "0") {
             return { isValid: false, errorMessage: "Số điện thoại phải bắt đầu bằng 0" };
         }
 
@@ -320,7 +320,7 @@ const Payment: React.FunctionComponent = () => {
     const validateCoupon = async () => {
         try {
             setIsValidatingCoupon(true);
-            if (!couponCode) {
+            if (couponCode!) {
                 setCouponErrorMessage("Vui lòng nhập mã giảm giá để kiểm tra");
                 setIsValidatingCoupon(false);
                 return Promise.resolve();
@@ -343,13 +343,13 @@ const Payment: React.FunctionComponent = () => {
             setIsSubmitting(true);
             const { isValid, errorMessage } = validateInput(displayName.trim(), email.trim(), phoneNumber.trim(), address.trim());
 
-            if (!user) {
+            if (user!) {
                 notify.error("Bạn chưa đăng nhập, vui lòng đăng nhập để đặt hàng");
                 setIsSubmitting(false);
                 return;
             }
 
-            if (!isValid) {
+            if (isValid!) {
                 notify.error(errorMessage);
                 setIsSubmitting(false);
                 return;
@@ -467,7 +467,7 @@ const Payment: React.FunctionComponent = () => {
                         <Box padding={[0, 14, 0, 14]} className="w-full lg:w-1/2">
                             <Flex align="center" justify="space-between">
                                 <Text fontWeight="bold" color="#333" size="lg" titleText="Thông tin nhận hàng" />
-                                {!user && (
+                                {user! && (
                                     <Flex align="center" justify="center" gap={4} className="w-auto cursor-pointer text-[#2a9dcc] hover:text-[#2a6395]" onClick={() => navigate("/login")}>
                                         <FaCircleUser className="text-xl" />
                                         <Text as="span" titleText="Đăng nhập" />
@@ -496,7 +496,7 @@ const Payment: React.FunctionComponent = () => {
                                 <Text fontWeight="bold" color="#333" size="lg" titleText="Vận chuyển" />
                                 <Flex align="center" justify="space-between" className="mt-3! border! border-[#cecdcd]! p-3.5! rounded-md!">
                                     <Radio.Group name="radiogroup" defaultValue={1} className="gap-2" options={[{ value: 1, label: "Giao hàng tận nơi" }]} />
-                                    {!isFreeShipping && <Text color="#333" titleText={formatCurrency(40000)} />}
+                                    {isFreeShipping! && <Text color="#333" titleText={formatCurrency(40000)} />}
                                 </Flex>
                             </Box>
                             <Box margin={[20, 0, 0, 0]}>
@@ -654,7 +654,7 @@ const Payment: React.FunctionComponent = () => {
                     <Box padding={[0, 10, 0, 10]}>
                         <Flex align="center" justify="space-between">
                             <Text fontWeight="bold" color="#333" size="lg" titleText="Thông tin nhận hàng" />
-                            {!user && (
+                            {user! && (
                                 <Flex align="center" justify="center" gap={4} className="w-auto cursor-pointer text-[#2a9dcc] hover:text-[#2a6395]">
                                     <FaCircleUser className="text-xl" />
                                     <Text as="span" titleText="Đăng nhập" />
@@ -683,7 +683,7 @@ const Payment: React.FunctionComponent = () => {
                             <Text fontWeight="bold" color="#333" size="lg" titleText="Vận chuyển" />
                             <Flex align="center" justify="space-between" className="mt-3! border! border-[#cecdcd]! p-3.5! rounded-md!">
                                 <Radio.Group name="radiogroup" defaultValue={1} className="gap-2" options={[{ value: 1, label: "Giao hàng tận nơi" }]} />
-                                {!isFreeShipping && <Text color="#333" titleText={formatCurrency(40000)} />}
+                                {isFreeShipping! && <Text color="#333" titleText={formatCurrency(40000)} />}
                             </Flex>
                         </Box>
                         <Box margin={[20, 0, 0, 0]}>

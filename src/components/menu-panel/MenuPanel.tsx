@@ -122,7 +122,7 @@ const MenuPanel: React.FC<MenuPanelProps> = ({ isOpen, onClose }) => {
             children: (
                 <ul>
                     {item.children?.map((child) => (
-                        <li key={child.value} onClick={() => navigateWithSportType(child.value)} className="text-base !py-1 !pl-4 hover:cursor-pointer hover:text-[#77e322]">
+                        <li key={child.value} onClick={() => navigateWithSportType(child.value)} className="text-base py-1! pl-4! hover:cursor-pointer hover:text-[#77e322]">
                             {child.label}
                         </li>
                     ))}
@@ -178,7 +178,7 @@ const MenuPanel: React.FC<MenuPanelProps> = ({ isOpen, onClose }) => {
             children: (
                 <ul>
                     {item.children?.map((child) => (
-                        <li key={child.key} onClick={() => navigate(child.to)} className="text-base !py-1 !pl-4 hover:cursor-pointer hover:text-[#77e322]">
+                        <li key={child.key} onClick={() => navigate(child.to)} className="text-base py-1! pl-4! hover:cursor-pointer hover:text-[#77e322]">
                             {child.label}
                         </li>
                     ))}
@@ -197,8 +197,8 @@ const MenuPanel: React.FC<MenuPanelProps> = ({ isOpen, onClose }) => {
     const renderContactLink = (linkItem: IPanelBottomLinkProps, key?: string) => (
         <Link
             key={key}
-            className={classNames("flex items-center justify-center gap-1.5 text-[#333] hover:!text-[#333]", {
-                "flex-col !py-[10px]": isMobile,
+            className={classNames("flex items-center justify-center gap-1.5 text-[#333] hover:text-[#333]!", {
+                "flex-col py-[10px]!": isMobile,
             })}
             to={linkItem.to}
         >
@@ -220,17 +220,17 @@ const MenuPanel: React.FC<MenuPanelProps> = ({ isOpen, onClose }) => {
                         ))}
                     </Box>
                     <Box className="w-full h-auto">
-                        <Link className="text-lg leading-10 !py-1 !pl-2 hover:cursor-pointer hover:!text-[#77e322]" to="/about">
+                        <Link className="text-lg leading-10 py-1! pl-2! hover:cursor-pointer hover:text-[#77e322]!" to="/about">
                             Về Lamine Sports
                         </Link>
                         {onRenderInstructionsAndPolicyItemList()}
-                        <Link className="text-lg leading-10 !py-1 !pl-2 hover:cursor-pointer hover:!text-[#77e322]" to="/contact">
+                        <Link className="text-lg leading-10 py-1! pl-2! hover:cursor-pointer hover:text-[#77e322]!" to="/contact">
                             Liên hệ với chúng tôi
                         </Link>
                     </Box>
                 </Box>
 
-                <Flex align="center" justify="space-between" className="w-full min-h-16 absolute bottom-0 left-0 right-0 bg-[#e1e1e1] !px-[10px]">
+                <Flex align="center" justify="space-between" className="w-full min-h-16 absolute bottom-0 left-0 right-0 bg-[#e1e1e1] px-[10px]!">
                     {panelBottomLink.map((link, index) => renderContactLink(link, index.toString()))}
                 </Flex>
             </Flex>

@@ -89,8 +89,8 @@ const ProductItem: React.FunctionComponent<IProductItemProps> = (props) => {
 
     return (
         <>
-            <Container bgColor="white" className="relative min-h-[440px] !border !border-[#00000020] overflow-hidden group hover:!shadow-lg">
-                <Flex vertical justify="flex-start" className="!h-full !pb-2">
+            <Container bgColor="white" className="relative min-h-[440px] border! border-[#00000020]! overflow-hidden group hover:shadow-lg!">
+                <Flex vertical justify="flex-start" className="h-full! pb-2!">
                     {salePercent > 0 && (
                         <Text
                             size="sm"
@@ -103,9 +103,9 @@ const ProductItem: React.FunctionComponent<IProductItemProps> = (props) => {
 
                     <Box
                         className={classNames(
-                            "absolute !top-3 transition-all duration-300 cursor-pointer !z-10",
-                            "!w-9 !h-9 !rounded-full flex items-center justify-center !border !border-gray-300 !bg-gray-200/50 !backdrop-blur-sm hover:!bg-red-100 hover:!border-red-300",
-                            isFavoriteProduct ? "!right-3" : "group-hover:!right-3 -right-10"
+                            "absolute top-3! transition-all duration-300 cursor-pointer z-10!",
+                            "w-9! h-9! rounded-full! flex items-center justify-center border! border-gray-300! bg-gray-200/50! backdrop-blur-sm! hover:bg-red-100! hover:border-red-300!",
+                            isFavoriteProduct ? "right-3!" : "group-hover:right-3! -right-10"
                         )}
                         onClick={!isFavoriteProduct ? onAddFavoriteProduct : onRemoveFavoriteProduct}
                     >
@@ -122,7 +122,7 @@ const ProductItem: React.FunctionComponent<IProductItemProps> = (props) => {
                     <Box className="h-auto overflow-hidden cursor-pointer">
                         <Image
                             objectFit="contain"
-                            className="w-full group-hover:!scale-105 transition-all duration-200"
+                            className="w-full group-hover:scale-105! transition-all duration-200"
                             src={selectedColor?.images[0].url || productItem.primaryImage.url}
                             alt={productItem.productName}
                         />
@@ -131,8 +131,8 @@ const ProductItem: React.FunctionComponent<IProductItemProps> = (props) => {
                         {productItem.productColors.map((color) => (
                             <Tooltip title={color.name} color={"#002d3a"} key={color.id}>
                                 <Box
-                                    className={classNames("w-5 h-5 !rounded-full !outline outline-[#d0d0d0] cursor-pointer", {
-                                        "!outline-2 !outline-[#a2ff00]": selectedColor?.value === color.value,
+                                    className={classNames("w-5 h-5 rounded-full! outline! outline-[#d0d0d0] cursor-pointer", {
+                                        "outline-2! outline-[#a2ff00]!": selectedColor?.value === color.value,
                                     })}
                                     style={{ backgroundColor: `${color.hex}` }}
                                     onClick={() => setState({ selectedColor: color })}
@@ -143,14 +143,14 @@ const ProductItem: React.FunctionComponent<IProductItemProps> = (props) => {
                     <Box className="h-12">
                         <TooltipLabel
                             width="full"
-                            className="flex-1 !px-[10px] text-base cursor-pointer hover:!text-[#77e322]"
+                            className="flex-1 px-[10px]! text-base cursor-pointer hover:text-[#77e322]!"
                             text={productItem.productName}
                             lineDisplayed={2}
                             onClick={() => navigate(`/product/${productItem._id}`)}
                         />
                     </Box>
                     <Box padding={[0, 10, 0, 10]}>
-                        <Flex className="!my-2" align="center" justify="flex-start" gap={4}>
+                        <Flex className="my-2!" align="center" justify="flex-start" gap={4}>
                             {productItem?.salePrice ? (
                                 <>
                                     <Text fontWeight="bold" size="base" color="#c30000" titleText={formatCurrency(productItem.salePrice)}  />

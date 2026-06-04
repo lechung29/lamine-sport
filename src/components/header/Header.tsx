@@ -24,14 +24,14 @@ const Header: React.FC = () => {
     const navigate = useNavigate();
 
     return (
-        <Container bgColor="transparent" padding={[0, 16, 0, 16]} className="w-full h-full sm:!px-8 lg:!px-[45px] flex flex-col justify-center">
+        <Container bgColor="transparent" padding={[0, 16, 0, 16]} className="w-full h-full sm:px-8! lg:px-[45px]! flex flex-col justify-center">
             <Flex align="center" justify="space-between" gap={16} className="w-full md:gap-6">
                 <Flex vertical={false} align="center" gap={16} className="h-full md:gap-6">
                     <Box>
                         <MenuIcon onClick={() => setIsOpenMenu(true)} />
                     </Box>
                     <Link to="/">
-                        <Image clickable objectFit="cover" src={LOGO_URL} alt="app-logo" className="!h-12 sm:!h-14 lg:!h-16" />
+                        <Image clickable objectFit="cover" src={LOGO_URL} alt="app-logo" className="h-12! sm:h-14! lg:h-16!" />
                     </Link>
                 </Flex>
 

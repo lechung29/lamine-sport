@@ -22,7 +22,7 @@ const Favorite: React.FunctionComponent = () => {
     return (
         <Container className="w-full min-h-screen">
             <Breadcrumbs />
-            <Container className="!px-8 lg:!px-[45px] !py-6">
+            <Container className="px-8! lg:px-[45px]! py-6!">
                 <Text margin={[0, 0, 15, 0]} size="lg" fontWeight="bold" textTransform="uppercase" className="text-gray-900" titleText="Danh sách yêu thích" />
                 <Box margin={[0, 0, 16, 0]}>
                     {favoriteProducts.length > 0 ? (

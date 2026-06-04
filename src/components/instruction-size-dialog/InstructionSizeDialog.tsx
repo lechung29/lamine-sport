@@ -54,7 +54,7 @@ export const InstructionProductOption: React.FunctionComponent<IInstructionProdu
             {options.map((productType) => (
                 <Box
                     key={productType.key}
-                    className={classNames("w-full !my-0.5 !p-2 !py-1.5 cursor-pointer text-[#333] hover:bg-[#1c2635] hover:text-white transition-all duration-300", {
+                    className={classNames("w-full my-0.5! p-2! py-1.5! cursor-pointer text-[#333] hover:bg-[#1c2635] hover:text-white transition-all duration-300", {
                         "bg-[#1c2635] text-white": selectedOption?.key === productType.key,
                     })}
                     onClick={() => onChange(productType)}
@@ -125,12 +125,12 @@ const InstructionSizeDialog: React.FunctionComponent<IInstructionSizeDialogProps
                     onOpenChange={(isOpen) => setIsOpenMenu(isOpen)}
                     trigger="click"
                 >
-                    <Box className="inline-flex items-center justify-between max-w-90 w-full h-auto !px-2 !py-1.5 !mb-4 !border !border-[#ebebeb] cursor-pointer" ref={triggerRef}>
+                    <Box className="inline-flex items-center justify-between max-w-90 w-full h-auto px-2! py-1.5! mb-4! border! border-[#ebebeb]! cursor-pointer" ref={triggerRef}>
                         <Text as="span" titleText={productType?.text ?? "Chọn loại sản phẩm"} />
                         <IoIosArrowDown />
                     </Box>
                 </Popover>
-                {instructionSizeImg && <Image src={instructionSizeImg} alt="Bảng hướng dẫn size" objectFit="contain" className="w-full h-auto !mb-2" />}
+                {instructionSizeImg && <Image src={instructionSizeImg} alt="Bảng hướng dẫn size" objectFit="contain" className="w-full h-auto mb-2!" />}
             </Box>
         </Dialog>
     );

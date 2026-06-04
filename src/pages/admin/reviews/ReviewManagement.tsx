@@ -24,11 +24,11 @@ const reviewAdminFilterOptions: IFilterOptionType[] = [
         name: "Đánh giá",
         type: "checkbox" as const,
         options: [
-            { label: <span className="!text-yellow-500 text-xl">★★★★★</span>, value: 5 },
-            { label: <span className="!text-yellow-500 text-xl">★★★★</span>, value: 4 },
-            { label: <span className="!text-yellow-500 text-xl">★★★</span>, value: 3 },
-            { label: <span className="!text-yellow-500 text-xl">★★</span>, value: 2 },
-            { label: <span className="!text-yellow-500 text-xl">★</span>, value: 1 },
+            { label: <span className="text-yellow-500! text-xl">★★★★★</span>, value: 5 },
+            { label: <span className="text-yellow-500! text-xl">★★★★</span>, value: 4 },
+            { label: <span className="text-yellow-500! text-xl">★★★</span>, value: 3 },
+            { label: <span className="text-yellow-500! text-xl">★★</span>, value: 2 },
+            { label: <span className="text-yellow-500! text-xl">★</span>, value: 1 },
         ],
     },
 ];
@@ -239,14 +239,14 @@ const ReviewManagement: React.FunctionComponent = () => {
             key: "customerName",
             render: (info: IReview) => {
                 return (
-                    <Flex align="center" className="!space-x-3">
+                    <Flex align="center" className="space-x-3!">
                         <Image
                             src={info.userId ? info.userInfo?.avatar : DEFAULT_AVATAR}
                             alt={info.userId ? info.userInfo?.displayName : info.guestInfo?.displayName}
                             objectFit="cover"
                             height={32}
                             width={32}
-                            className="!rounded-full"
+                            className="rounded-full!"
                         />
                         <Tooltip title={info.userId ? info.userInfo?.displayName : info.guestInfo?.displayName} placement="topLeft">
                             <Text ellipsis={true} className="font-semibold text-gray-900" style={{ maxWidth: 120 }}>
@@ -295,7 +295,7 @@ const ReviewManagement: React.FunctionComponent = () => {
             title: "Hành động",
             key: "action",
             render: (info: IReview) => (
-                <Flex className="flex !space-x-2">
+                <Flex className="flex space-x-2!">
                     <Tooltip title={info.isPin ? "Bỏ ghim đánh giá" : "Ghim đánh giá"}>
                         <Button
                             type="primary"
@@ -303,7 +303,7 @@ const ReviewManagement: React.FunctionComponent = () => {
                             icon={info.isPin ? <RiUnpinFill /> : <TiPin />}
                             size="small"
                             className={
-                                info.isPin ? "!bg-gray-500 !border-gray-500 hover:!bg-gray-600 hover:!border-gray-600" : "!bg-blue-500 !border-blue-500 hover:!bg-blue-600 hover:!border-blue-600"
+                                info.isPin ? "bg-gray-500! border-gray-500! hover:bg-gray-600! hover:border-gray-600!" : "bg-blue-500! border-blue-500! hover:bg-blue-600! hover:border-blue-600!"
                             }
                             disabled={isLoading}
                         />
@@ -313,7 +313,7 @@ const ReviewManagement: React.FunctionComponent = () => {
                             type="primary"
                             icon={<EditOutlined />}
                             size="small"
-                            className="!bg-green-500 !border-green-500 hover:!bg-green-600 hover:!border-green-600"
+                            className="bg-green-500! border-green-500! hover:bg-green-600! hover:border-green-600!"
                             onClick={() => handleOpenSendEmailDialog(info)}
                             disabled={isLoading}
                         />
@@ -329,17 +329,17 @@ const ReviewManagement: React.FunctionComponent = () => {
     return (
         <Flex vertical className="bg-transparent flex-grow min-h-full">
             <Box margin={[0, 0, 24, 0]}>
-                <TextBase className="!text-gray-900" size="2xl" fontWeight="bold" titleText="Quản lý đánh giá" margin={[0, 0, 16, 0]} />
+                <TextBase className="text-gray-900!" size="2xl" fontWeight="bold" titleText="Quản lý đánh giá" margin={[0, 0, 16, 0]} />
             </Box>
-            <Container bgColor="white" className="flex-grow !rounded-lg !shadow-sm" padding={[24, 24, 24, 24]}>
-                <Flex align="center" justify="space-between" wrap="wrap" gap="middle" className="!mb-6">
+            <Container bgColor="white" className="flex-grow rounded-lg! shadow-xs!" padding={[24, 24, 24, 24]}>
+                <Flex align="center" justify="space-between" wrap="wrap" gap="middle" className="mb-6!">
                     <Input.Search
                         placeholder="Tìm kiếm theo tên hoặc đánh giá"
                         allowClear
                         onSearch={handleSearch}
                         value={searchText}
                         onChange={(e) => setState({ searchText: e.target.value })}
-                        className="!w-full max-w-[300px]"
+                        className="w-full! max-w-[300px]"
                         size="middle"
                         disabled={isLoading}
                     />
@@ -357,7 +357,7 @@ const ReviewManagement: React.FunctionComponent = () => {
                             dataSource={reviews.map((c) => ({ ...c, key: c._id }))}
                             rowKey="_id"
                             pagination={false}
-                            className="w-full !mb-8"
+                            className="w-full mb-8!"
                             scroll={{ x: reviews.length > 0 ? "max-content" : undefined }}
                             locale={{ emptyText: <Empty description="Không có đánh giá nào." /> }}
                         />
@@ -393,11 +393,11 @@ const ReviewManagement: React.FunctionComponent = () => {
                             <TextBase size="sm" className="text-gray-500" titleText="Hành động này không thể hoàn tác." />
                         </Box>
 
-                        <Flex justify="flex-end" className="!space-x-2">
-                            <Button onClick={handleCancelDeleteDialog} disabled={isDeleting} className="!px-4 !py-2">
+                        <Flex justify="flex-end" className="space-x-2!">
+                            <Button onClick={handleCancelDeleteDialog} disabled={isDeleting} className="px-4! py-2!">
                                 Hủy
                             </Button>
-                            <Button type="primary" loading={isDeleting} onClick={handleConfirmDelete} className="!bg-red-600 !border-red-600 hover:!bg-red-700 !px-4 !py-2">
+                            <Button type="primary" loading={isDeleting} onClick={handleConfirmDelete} className="bg-red-600! border-red-600! hover:bg-red-700! px-4! py-2!">
                                 Xóa
                             </Button>
                         </Flex>
@@ -415,11 +415,11 @@ const ReviewManagement: React.FunctionComponent = () => {
                             ?
                         </Box>
 
-                        <Flex justify="flex-end" className="!space-x-2">
-                            <Button onClick={handleCancelPinUnpinDialog} disabled={isPinningUnpinning} className="!px-4 !py-2">
+                        <Flex justify="flex-end" className="space-x-2!">
+                            <Button onClick={handleCancelPinUnpinDialog} disabled={isPinningUnpinning} className="px-4! py-2!">
                                 Hủy
                             </Button>
-                            <Button type="primary" loading={isPinningUnpinning} onClick={handlePinUnpinReview} className="!bg-blue-600 !border-blue-600 hover:!bg-blue-700 !px-4 !py-2">
+                            <Button type="primary" loading={isPinningUnpinning} onClick={handlePinUnpinReview} className="bg-blue-600! border-blue-600! hover:bg-blue-700! px-4! py-2!">
                                 {reviewToPinUnpin?.isPin ? "Bỏ ghim" : "Ghim"}
                             </Button>
                         </Flex>
@@ -432,12 +432,12 @@ const ReviewManagement: React.FunctionComponent = () => {
                         <Box padding={[16, 0, 16, 0]}>
                             <Box margin={[0, 0, 12, 0]}>
                                 <TextBase titleText="Email người nhận" requireIcon />
-                                <Input size="middle" className="!mt-1" value={reviewToSendEmail!.userId ? reviewToSendEmail!.userInfo?.email : reviewToSendEmail!.guestInfo?.email} disabled />
+                                <Input size="middle" className="mt-1!" value={reviewToSendEmail!.userId ? reviewToSendEmail!.userInfo?.email : reviewToSendEmail!.guestInfo?.email} disabled />
                             </Box>
                             <Box margin={[0, 0, 12, 0]}>
                                 <TextBase titleText="Email người nhận" requireIcon />
                                 <TextArea
-                                    className="!mt-1"
+                                    className="mt-1!"
                                     value={emailMessage}
                                     onChange={(e) => setState({ emailMessage: e.target.value, emailMessageError: "" })}
                                     rows={6}
@@ -449,11 +449,11 @@ const ReviewManagement: React.FunctionComponent = () => {
                             </Box>
                         </Box>
 
-                        <Flex justify="flex-end" className="!space-x-2">
-                            <Button onClick={handleCancelPinUnpinDialog} disabled={isSendingEmail} className="!px-4 !py-2">
+                        <Flex justify="flex-end" className="space-x-2!">
+                            <Button onClick={handleCancelPinUnpinDialog} disabled={isSendingEmail} className="px-4! py-2!">
                                 Hủy
                             </Button>
-                            <Button type="primary" loading={isSendingEmail} onClick={handleSendEmail} className="!bg-green-600 !border-green-600 hover:!bg-green-700 !px-4 !py-2">
+                            <Button type="primary" loading={isSendingEmail} onClick={handleSendEmail} className="bg-green-600! border-green-600! hover:bg-green-700! px-4! py-2!">
                                 Gửi phản hồi
                             </Button>
                         </Flex>
