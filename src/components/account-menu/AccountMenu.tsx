@@ -107,7 +107,7 @@ const AccountMenu: React.FunctionComponent<IAccountMenuProps> = (props) => {
                         item.onClick();
                         onOpenChange(false);
                     }}
-                    className="w-full !p-2 !py-1.5 cursor-pointer text-[#333] hover:bg-[#1c2635] hover:text-white transition-all duration-300"
+                    className="w-full p-2! py-1.5! cursor-pointer text-[#333] hover:bg-[#1c2635] hover:text-white transition-all duration-300"
                 >
                     <item.Icon className="text-xl" />
                     <Text size="sm" titleText={item.label} />

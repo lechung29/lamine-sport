@@ -22,7 +22,7 @@ const Breadcrumbs: React.FunctionComponent = () => {
         return customizedBreadcrumbList;
     } 
     return (
-        <Box className="!px-4 sm:!px-8 lg:!px-[45px] !mb-5 h-11 bg-[#f8f8f8]">
+        <Box className="px-4! sm:px-8! lg:px-11.25! mb-5! h-11 bg-[#f8f8f8]">
             <Breadcrumb 
                 className="h-full flex items-center" 
                 separator=">" 

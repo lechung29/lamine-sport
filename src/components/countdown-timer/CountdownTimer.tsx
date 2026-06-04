@@ -44,7 +44,7 @@ const CountdownTimer: React.FC<CountdownTimerProps> = ({ targetDate }) => {
     }, [targetDate]);
 
     const timeBox = (value: number, label: string) => (
-        <Flex vertical align="center" className="min-w-12.5 max-w-14 flex-1 !mr-2 bg-[#002c3e] !shadow">
+        <Flex vertical align="center" className="min-w-12.5 max-w-14 flex-1 mr-2! bg-[#002c3e] shadow!">
             <Text color="white" size="2xl" fontWeight="bold" padding={[8, 0, 8, 0]} titleText={value.toString()} />
             <Text color="#002d3a" size="sm" fontWeight="semibold" padding={[4, 0, 4, 0]} textAlign="center" titleText={label} className="w-full bg-lime-400"/>
         </Flex>

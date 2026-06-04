@@ -76,8 +76,8 @@ const AddProductDialog: React.FC<IAddProductDialogProps> = (props) => {
                     <Image objectFit="contain" src={selectedColor?.images[0].url || productItem?.primaryImage.url} alt="Product" className="w-full" />
                 </Box>
                 <Box className="flex-1">
-                    <TooltipLabel className="!mb-2 font-semibold text-xl cursor-pointer hover:!text-[#77e322]" text={productItem?.productName} lineDisplayed={2} onClick={() => navigate(`/product/${productItem._id}`)}/>
-                    <Flex align="center" justify="flex-start" gap={8} className="!mb-3">
+                    <TooltipLabel className="mb-2! font-semibold text-xl cursor-pointer hover:text-[#77e322]!" text={productItem?.productName} lineDisplayed={2} onClick={() => navigate(`/product/${productItem._id}`)}/>
+                    <Flex align="center" justify="flex-start" gap={8} className="mb-3!">
                         {productItem?.salePrice ? (
                             <>
                                 <Text fontWeight="extrabold" size="xl" color="#c30000" titleText={formatCurrency(productItem.salePrice)} />
@@ -89,12 +89,12 @@ const AddProductDialog: React.FC<IAddProductDialogProps> = (props) => {
                     </Flex>
                     <Box margin={[0, 0, 16, 0]}>
                         <Text as="p" size="sm" color="#333" titleText="Màu sắc:" />
-                        <Flex align="center" justify="flex-start" gap={10} className="!my-2">
+                        <Flex align="center" justify="flex-start" gap={10} className="my-2!">
                             {productItem?.productColors.map((product) => (
                                 <Tooltip title={product.name} color={"#002d3a"} key={product.id}>
                                     <Box
-                                        className={classNames(`w-7 h-7 !rounded-full !outline outline-[#d0d0d0] cursor-pointer`, {
-                                            "!outline-2 !outline-[#a2ff00]": selectedColor?.value === product.value,
+                                        className={classNames(`w-7 h-7 rounded-full! outline! outline-[#d0d0d0] cursor-pointer`, {
+                                            "outline-2! outline-[#a2ff00]!": selectedColor?.value === product.value,
                                         })}
                                         style={{ backgroundColor: product.hex }}
                                         onClick={() => setState({ selectedColor: product })}
@@ -105,11 +105,11 @@ const AddProductDialog: React.FC<IAddProductDialogProps> = (props) => {
                     </Box>
                     <Box margin={[0, 0, 16, 0]} className={productItem.productSizes && productItem.productSizes.length > 0 ? "visible" : "invisible"}>
                         <Text as="p" size="sm" color="#333" titleText="Kích thước:" />
-                        <Flex align="center" justify="flex-start" gap={10} className="!my-2">
+                        <Flex align="center" justify="flex-start" gap={10} className="my-2!">
                             {productItem.productSizes.map((item) => (
                                 <Box
-                                    className={classNames("w-7 h-7 !outline text-sm bg-white text-[#333] !outline-gray-200 flex items-center justify-center cursor-pointer", {
-                                        "!bg-[#002d3a] text-white": item === selectedSize,
+                                    className={classNames("w-7 h-7 outline! text-sm bg-white text-[#333] outline-gray-200! flex items-center justify-center cursor-pointer", {
+                                        "bg-[#002d3a]! text-white": item === selectedSize,
                                     })}
                                     onClick={() => setState({ selectedSize: item })}
                                 >

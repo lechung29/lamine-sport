@@ -20,6 +20,7 @@ export enum PaymentStatus {
     Paid,
     Failed,
     Cancelled,
+    PendingPayment,
 }
 
 export interface IOrderItem {
@@ -54,6 +55,12 @@ export interface IOrder {
     discountValue?: number;
     couponCode?: string;
     createdAt: string;
+}
+
+export interface IOrderDetail extends IOrder {
+    qrUrl?: string;
+    transferContent?: string;
+    bankInfo?: IBankInfo;
 }
 
 export interface ICreateOrderPayload {

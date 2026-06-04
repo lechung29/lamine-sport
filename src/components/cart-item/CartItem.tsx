@@ -51,19 +51,19 @@ const CartItem: React.FunctionComponent<CartItemProps> = (props) => {
 
     if (isMobile) {
         return (
-            <Flex align="flex-start" gap={12} className="!py-2.5 !border-b !border-[#eee]">
+            <Flex align="flex-start" gap={12} className="py-2.5! border-b! border-[#eee]!">
                 <Image
                     clickable
                     src={cartItem.productColors.find((color) => color.value === cartItem.selectedProductColorValue)?.images[0].url!}
                     objectFit="cover"
-                    className="w-20 h-20 flex-shrink-0"
+                    className="w-20 h-20 shrink-0"
                     alt={cartItem.productName}
                 />
                 <Flex vertical gap={8} className="flex-1">
                     <Flex vertical gap={4}>
-                        <TooltipLabel className="text-sm font-semibold hover:!text-[#77e322] cursor-pointer" onClick={() => navigate(`/product/${cartItem._id}`)} lineDisplayed={2} text={cartItem.productName} />
+                        <TooltipLabel className="text-sm font-semibold hover:text-[#77e322]! cursor-pointer" onClick={() => navigate(`/product/${cartItem._id}`)} lineDisplayed={2} text={cartItem.productName} />
                         <Text color="#7f7f7f" size="xs" titleText={`${!!cartItem.selectedProductSize ? `${cartItem.selectedProductSize} / ` : ""}${getColorName()}`} />
-                        <Flex align="center" gap={8} className="!mt-2">
+                        <Flex align="center" gap={8} className="mt-2!">
                             {cartItem?.salePrice ? (
                                 <>
                                     <Text fontWeight="bold" size="lg" color="#c30000" titleText={formatCurrency(cartItem.salePrice)} />
@@ -79,7 +79,7 @@ const CartItem: React.FunctionComponent<CartItemProps> = (props) => {
                             <Flex
                                 align="center"
                                 justify="center"
-                                className="w-8 h-8 !border !border-gray-200 cursor-pointer hover:!bg-gray-100"
+                                className="w-8 h-8 border! border-gray-200! cursor-pointer hover:bg-gray-100!"
                                 onClick={() => cartItem.selectedProductCount > 1 && onReduceCount(1)}
                             >
                                 <LuMinus className="text-sm" />
@@ -98,12 +98,12 @@ const CartItem: React.FunctionComponent<CartItemProps> = (props) => {
                                         );
                                     }
                                 }}
-                                className="h-8 w-10 text-base text-center !border-y !border-gray-200 !p-1"
+                                className="h-8 w-10 text-base text-center border-y! border-gray-200! p-1!"
                             />
                             <Flex
                                 align="center"
                                 justify="center"
-                                className="w-8 h-8 !border !border-gray-200 cursor-pointer hover:!bg-gray-100"
+                                className="w-8 h-8 border! border-gray-200! cursor-pointer hover:bg-gray-100!"
                                 onClick={() => cartItem.selectedProductCount < 99 && onIncreaseCount(1)}
                             >
                                 <LuPlus className="text-sm" />
@@ -117,17 +117,17 @@ const CartItem: React.FunctionComponent<CartItemProps> = (props) => {
     }
 
     return (
-        <Flex align="center" justify="center" className="!px-2 !py-2.5">
+        <Flex align="center" justify="center" className="px-2! py-2.5!">
             <Flex align="flex-start" justify="flex-start" gap={12} className="flex-1">
                 <Image
                     clickable
                     src={cartItem.productColors.find((color) => color.value === cartItem.selectedProductColorValue)?.images[0].url!}
                     objectFit="cover"
-                    className="w-25 h-25 flex-shrink-0"
+                    className="w-25 h-25 shrink-0"
                     alt={cartItem.productName}
                 />
-                <Flex vertical justify="center" gap={4} className="h-full flex-1 !pr-4 overflow-hidden">
-                    <TooltipLabel className="cursor-pointer hover:!text-[#77e322]" lineDisplayed={2} onClick={() => navigate(`/product/${cartItem._id}`)} text={cartItem.productName} />
+                <Flex vertical justify="center" gap={4} className="h-full flex-1 pr-4! overflow-hidden">
+                    <TooltipLabel className="cursor-pointer hover:text-[#77e322]!" lineDisplayed={2} onClick={() => navigate(`/product/${cartItem._id}`)} text={cartItem.productName} />
                     <Text color="#7f7f7f" size="xs" titleText={`${!!cartItem.selectedProductSize ? `${cartItem.selectedProductSize} / ` : ""}${getColorName()}`} />
                     <IoTrashOutline className="w-5 h-5 cursor-pointer hover:text-[#c10000]" onClick={() => dispatch(removeFromCart(cartItem))} />
                 </Flex>
@@ -139,7 +139,7 @@ const CartItem: React.FunctionComponent<CartItemProps> = (props) => {
                 <Flex
                     align="center"
                     justify="center"
-                    className="w-7 h-7 !border !border-gray-200 cursor-pointer hover:!bg-gray-100"
+                    className="w-7 h-7 border! border-gray-200! cursor-pointer hover:bg-gray-100!"
                     onClick={() => cartItem.selectedProductCount > 1 && onReduceCount(1)}
                 >
                     <LuMinus className="text-sm" />
@@ -158,12 +158,12 @@ const CartItem: React.FunctionComponent<CartItemProps> = (props) => {
                             );
                         }
                     }}
-                    className="h-7 w-9 text-base text-center !border-y !border-gray-200 !p-1"
+                    className="h-7 w-9 text-base text-center border-y! border-gray-200! p-1!"
                 />
                 <Flex
                     align="center"
                     justify="center"
-                    className="w-7 h-7 !border !border-gray-200 cursor-pointer hover:!bg-gray-100"
+                    className="w-7 h-7 border! border-gray-200! cursor-pointer hover:bg-gray-100!"
                     onClick={() => cartItem.selectedProductCount < 99 && onIncreaseCount(1)}
                 >
                     <LuPlus className="text-sm" />

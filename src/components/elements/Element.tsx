@@ -138,7 +138,7 @@ export const Text: React.FC<ITextBaseProps & { as?: React.ElementType }> = React
             <Tag ref={ref} className={dynamicClasses} style={textStyles} {...rest}>
                 {titleText || children}
             </Tag>
-            {isLabel && <span className="text-red-500 !ml-1">*</span>}
+            {isLabel && <span className="text-red-500 ml-1!">*</span>}
         </React.Fragment>
     );
 });

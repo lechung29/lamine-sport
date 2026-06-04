@@ -68,8 +68,8 @@ const CustomerFeedbackList: React.FunctionComponent = () => {
     return (
         !isLoading && feedbackList.length > 0 && (
             <Container bgColor="#002d3a" padding={[30, 0, 30, 0]} className="bg-no-repeat bg-center bg-cover w-full" style={{ backgroundImage: `url(${FEEDBACK_BG})` }}>
-                <Box padding={[0, 45, 0, 45]} className="w-full h-full !px-[45px]">
-                    <Flex align="center" justify="space-between" className="w-full !mb-5 relative">
+                <Box padding={[0, 45, 0, 45]} className="w-full h-full px-11.25!">
+                    <Flex align="center" justify="space-between" className="w-full mb-5! relative">
                         <Text
                             className="inline-block oswald-font leading-12"
                             fontWeight="bold"
@@ -81,30 +81,30 @@ const CustomerFeedbackList: React.FunctionComponent = () => {
                         />
                         <Box className="h-1 w-22 absolute bottom-0 left-0 bg-[#a2ff00] [clip-path:polygon(0%_0%,100%_0%,95%_100%,0%_100%)]" />
                     </Flex>
-                    <Flex align="center" justify="space-between" className="w-full !mb-6">
+                    <Flex align="center" justify="space-between" className="w-full mb-6!">
                         <Text color="white" className="lg:text-xl text-base" titleText="Hơn +1,000 khách hàng đang sử dụng cảm nhận như thế nào về Lamine Sport - Thời trang, phụ kiện thể thao." />
                         <Box className="min-[860px]:inline-flex hidden gap-2">
                             <Box
                                 className={classNames(
-                                    "bg-white cursor-pointer !px-1 !py-1.5 group hover:bg-[#a2ff00] transition-all duration-300 [clip-path:polygon(0%_0%,85%_0%,100%_100%,0%_100%)]",
+                                    "bg-white cursor-pointer px-1! py-1.5! group hover:bg-[#a2ff00] transition-all duration-300 [clip-path:polygon(0%_0%,85%_0%,100%_100%,0%_100%)]",
                                     {
-                                        "!cursor-not-allowed !bg-[#656460] hover:!bg-[#656460]": isStart,
+                                        "cursor-not-allowed! bg-[#656460]! hover:bg-[#656460]!": isStart,
                                     }
                                 )}
                                 onClick={onPreviousItemClick}
                             >
-                                <IoIosArrowBack className={classNames("text-2xl !text-[#333] group-hover:text-[#a2ff00]", { "group-hover:!text-[#333]": isStart })} />
+                                <IoIosArrowBack className={classNames("text-2xl text-[#333]! group-hover:text-[#a2ff00]", { "group-hover:text-[#333]!": isStart })} />
                             </Box>
                             <Box
                                 className={classNames(
-                                    "bg-white cursor-pointer !px-1 !py-1.5 group hover:bg-[#a2ff00] transition-all duration-300 [clip-path:polygon(0%_0%,100%_0%,100%_100%,15%_100%)]",
+                                    "bg-white cursor-pointer px-1! py-1.5! group hover:bg-[#a2ff00] transition-all duration-300 [clip-path:polygon(0%_0%,100%_0%,100%_100%,15%_100%)]",
                                     {
-                                        "!cursor-not-allowed !bg-[#656460] hover:!bg-[#656460]": isEnd,
+                                        "cursor-not-allowed! bg-[#656460]! hover:bg-[#656460]!": isEnd,
                                     }
                                 )}
                                 onClick={onNextItemClick}
                             >
-                                <IoIosArrowForward className={classNames("text-2xl !text-[#333] group-hover:text-[#a2ff00]", { "group-hover:!text-[#333]": isEnd })} />
+                                <IoIosArrowForward className={classNames("text-2xl text-[#333]! group-hover:text-[#a2ff00]", { "group-hover:text-[#333]!": isEnd })} />
                             </Box>
                         </Box>
                     </Flex>
@@ -132,22 +132,22 @@ const CustomerFeedbackList: React.FunctionComponent = () => {
                             </SwiperSlide>
                         ))}
                     </Swiper>
-                    <Box className="min-[860px]:hidden flex items-center justify-end gap-2 !mt-6">
+                    <Box className="min-[860px]:hidden flex items-center justify-end gap-2 mt-6!">
                         <Box
-                            className={classNames("bg-white cursor-pointer !px-1 !py-1.5 group hover:bg-[#a2ff00] transition-all duration-300 [clip-path:polygon(0%_0%,85%_0%,100%_100%,0%_100%)]", {
-                                "!cursor-not-allowed !bg-[#656460] hover:!bg-[#656460]": isStart,
+                            className={classNames("bg-white cursor-pointer px-1! py-1.5! group hover:bg-[#a2ff00] transition-all duration-300 [clip-path:polygon(0%_0%,85%_0%,100%_100%,0%_100%)]", {
+                                "cursor-not-allowed! bg-[#656460]! hover:bg-[#656460]!": isStart,
                             })}
                             onClick={onPreviousItemClick}
                         >
-                            <IoIosArrowBack className={classNames("text-2xl !text-[#333] group-hover:text-[#a2ff00]", { "group-hover:!text-[#333]": isStart })} />
+                            <IoIosArrowBack className={classNames("text-2xl text-[#333]! group-hover:text-[#a2ff00]", { "group-hover:text-[#333]!": isStart })} />
                         </Box>
                         <Box
-                            className={classNames("bg-white cursor-pointer !px-1 !py-1.5 group hover:bg-[#a2ff00] transition-all duration-300 [clip-path:polygon(0%_0%,100%_0%,100%_100%,15%_100%)]", {
-                                "!cursor-not-allowed !bg-[#656460] hover:!bg-[#656460]": isEnd,
+                            className={classNames("bg-white cursor-pointer px-1! py-1.5! group hover:bg-[#a2ff00] transition-all duration-300 [clip-path:polygon(0%_0%,100%_0%,100%_100%,15%_100%)]", {
+                                "cursor-not-allowed! bg-[#656460]! hover:bg-[#656460]!": isEnd,
                             })}
                             onClick={onNextItemClick}
                         >
-                            <IoIosArrowForward className={classNames("text-2xl !text-[#333] group-hover:text-[#a2ff00]", { "group-hover:!text-[#333]": isEnd })} />
+                            <IoIosArrowForward className={classNames("text-2xl text-[#333]! group-hover:text-[#a2ff00]", { "group-hover:text-[#333]!": isEnd })} />
                         </Box>
                     </Box>
                 </Box>

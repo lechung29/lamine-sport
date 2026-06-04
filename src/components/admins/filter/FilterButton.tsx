@@ -1,6 +1,5 @@
 /** @format */
 
-// src/components/FilterButton.tsx
 import React, { useState, useEffect, useMemo } from "react";
 import { Button, Popover, Collapse, Checkbox, Input, Space, Divider, Typography, DatePicker } from "antd";
 import { FilterOutlined, UpOutlined, DownOutlined } from "@ant-design/icons";
@@ -145,7 +144,7 @@ const FilterButton: React.FC<FilterButtonProps> = (props) => {
                 const dayjsDateRange: [dayjs.Dayjs | null, dayjs.Dayjs | null] | null =
                     dateRangeValue && dayjs.isDayjs(dateRangeValue[0]) && dayjs.isDayjs(dateRangeValue[1]) ? [dateRangeValue[0], dateRangeValue[1]] : null;
 
-                return <RangePicker value={dayjsDateRange} onChange={(dates) => handleDateRangeChange(filter.id, dates)} className="!w-full" format="DD-MM-YYYY" />;
+                return <RangePicker value={dayjsDateRange} onChange={(dates) => handleDateRangeChange(filter.id, dates)} className="w-full!" format="DD-MM-YYYY" />;
             default:
                 return <Text type="secondary">Unsupported filter type.</Text>;
         }
@@ -182,7 +181,7 @@ const FilterButton: React.FC<FilterButtonProps> = (props) => {
     const buttonClasses = `flex items-center gap-1 !px-4 filter-button ${activeFilterCount && "filter-button-active"} ${className || ""}`;
 
     const content = (
-        <Container className="!w-64 popover-content-container">
+        <Container className="w-64! popover-content-container">
             <Box className="filter-scrollable-content" style={{ maxHeight: "300px", overflowY: "scroll" }}>
                 <Collapse
                     bordered={false}
@@ -200,8 +199,8 @@ const FilterButton: React.FC<FilterButtonProps> = (props) => {
                 </Collapse>
             </Box>
 
-            <Divider className="!my-0" />
-            <Space className="w-full !py-2 !px-2 justify-end items-center">
+            <Divider className="my-0!" />
+            <Space className="w-full py-2! px-2! justify-end items-center">
                 <Button onClick={handleReset} size="middle">
                     Hoàn tác
                 </Button>

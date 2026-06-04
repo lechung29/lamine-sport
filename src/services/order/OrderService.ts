@@ -10,6 +10,7 @@ import {
     IDashboardStats,
     IOrder,
     OrderStatus,
+    IOrderDetail,
 } from "@/types/orders";
 import { createQueryString } from "@/utils";
 
@@ -18,7 +19,7 @@ class OrderService {
         return instance.post(API_ROUTE.CREATE_ORDER, payload);
     }
 
-    public static getUserOrder(): Promise<IResponseAdvance<IOrder[]>> {
+    public static getUserOrder(): Promise<IResponseAdvance<IOrderDetail[]>> {
         return instance.get(API_ROUTE.GET_USER_ORDERS);
     }
 

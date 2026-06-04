@@ -5,20 +5,24 @@ import { Table, Tag, Button, Empty, Tooltip, Flex } from "antd";
 import { FaEye } from "react-icons/fa";
 import { FaXmark } from "react-icons/fa6";
 import type { ColumnsType } from "antd/es/table";
-import { Box, Container, Image, TableShimmer, Text } from "@/components";
+import { BaseButton, Box, Container, Image, TableShimmer, Text } from "@/components";
 import { Dialog } from "@/components";
-import { IOrder, OrderStatus } from "@/types/orders";
+import { IOrder, IOrderDetail, IOrderPayment, OrderStatus, PaymentStatus } from "@/types/orders";
 import { OrderService } from "@/services/order/OrderService";
 import { IResponseStatus } from "@/types";
 import { formatDate } from "@/config";
-import { formatCurrency } from "@/utils";
+import { delayTime, formatCurrency } from "@/utils";
 import { useImmerState } from "@/hooks";
 import { useNotification } from "@/context";
+import { QrPaymentModal } from "../payment";
 
-const getStatusTag = (status: OrderStatus) => {
+const getStatusTag = (status: OrderStatus, paymentStatus?: PaymentStatus) => {
     switch (status) {
         case OrderStatus.WaitingConfirm:
-            return <Tag color="orange">{"Đang chờ"}</Tag>;
+            if (paymentStatus === PaymentStatus.PendingPayment) {
+                return <Tag color="orange">{"Chờ thanh toán"}</Tag>;
+            }
+            return <Tag color="orange">{"Đang chờ xác nhận"}</Tag>;
         case OrderStatus.Processing:
             return <Tag color="blue">{"Đang xử lý"}</Tag>;
         case OrderStatus.Delivered:
@@ -30,14 +34,26 @@ const getStatusTag = (status: OrderStatus) => {
     }
 };
 
+const getPaymentMethod = (paymentMethod: IOrderPayment) => {
+    switch (paymentMethod) {
+        case IOrderPayment.COD:
+            return <Tag color="blue">{"Thanh toán khi nhận hàng"}</Tag>;
+        case IOrderPayment.Transfer:
+            return <Tag color="green">{"Chuyển khoản"}</Tag>;
+        default:
+            return <Tag color="green">{"Chuyển khoản"}</Tag>;
+    }
+};
+
 interface IUserOrdersState {
     isLoading: boolean;
-    orders: IOrder[];
+    orders: IOrderDetail[];
     isConfirmCancelOrderOpen: boolean;
     orderToCancel: string | null;
     isOrderDetailsOpen: boolean;
-    selectedOrder: IOrder | null;
+    selectedOrder: IOrderDetail | null;
     isCollapsed: boolean;
+    isOpenPaymentModal: boolean;
 }
 
 const initialState: IUserOrdersState = {
@@ -48,11 +64,13 @@ const initialState: IUserOrdersState = {
     isOrderDetailsOpen: false,
     selectedOrder: null,
     isCollapsed: true,
+    isOpenPaymentModal: false,
 };
 
 const UserOrders: React.FunctionComponent = () => {
     const [state, setState] = useImmerState<IUserOrdersState>(initialState);
-    const { isLoading, orders, isConfirmCancelOrderOpen, orderToCancel, isOrderDetailsOpen, selectedOrder, isCollapsed } = state;
+    const [dependencyReload, setDependencyReload] = React.useState(false);
+    const { isLoading, orders, isConfirmCancelOrderOpen, orderToCancel, isOrderDetailsOpen, selectedOrder, isCollapsed, isOpenPaymentModal } = state;
     const notify = useNotification();
     const showOrderDetails = (orderCode: string) => {
         const order = orders.find((o) => o.orderCode === orderCode);
@@ -76,7 +94,7 @@ const UserOrders: React.FunctionComponent = () => {
 
     React.useEffect(() => {
         getMyOrders();
-    }, []);
+    }, [dependencyReload]);
 
     const cancelOrder = async () => {
         try {
@@ -118,7 +136,7 @@ const UserOrders: React.FunctionComponent = () => {
             title: "Trạng Thái",
             dataIndex: "orderStatus",
             key: "orderStatus",
-            render: (status: OrderStatus) => getStatusTag(status),
+            render: (status: OrderStatus, record: IOrder) => getStatusTag(status, record.paymentStatus),
         },
         {
             title: "Tổng Tiền",
@@ -147,6 +165,23 @@ const UserOrders: React.FunctionComponent = () => {
 
     const productsToDisplay = isCollapsed && selectedOrder && selectedOrder.orderItems.length > 3 ? selectedOrder.orderItems.slice(0, 3) : selectedOrder?.orderItems;
 
+    const handleQrPaymentSuccess = async () => {
+        notify.success("Thanh toán thành công! Đơn hàng đã được ghi nhận.");
+        await delayTime(500);
+        setState({ isOpenPaymentModal: false });
+        handleCloseDetailsModal();
+        setDependencyReload((prev) => !prev);
+    };
+
+    const handleQrTimeout = () => {
+        notify.error("QR đã hết hạn. Đơn hàng chưa được hoàn tất, vui lòng thanh toán đơn hàng trong trang đơn hàng của bạn để tiếp tục hoặc hủy đơn hàng.");
+        setState({ isOpenPaymentModal: false });
+    };
+
+    const handleQrClose = async () => {
+        setState({ isOpenPaymentModal: false });
+        notify.warning("Bạn đã đóng cửa sổ thanh toán QR. Đơn hàng chưa được hoàn tất, vui lòng thanh toán đơn hàng trong trang đơn hàng của bạn để tiếp tục hoặc hủy đơn hàng");
+    };
     return (
         <Container className="h-full relative text-[#333]">
             <Text padding={[16, 0, 16, 0]} fontWeight="semibold" size="3xl" textAlign="center" titleText="Đơn hàng của bạn" />
@@ -176,6 +211,18 @@ const UserOrders: React.FunctionComponent = () => {
                 </Dialog>
             )}
 
+            <QrPaymentModal
+                open={isOpenPaymentModal}
+                qrUrl={selectedOrder?.qrUrl!}
+                orderCode={selectedOrder?.orderCode!}
+                transferContent={selectedOrder?.transferContent!}
+                totalPrice={selectedOrder?.totalPrice!}
+                bankInfo={selectedOrder?.bankInfo}
+                onSuccess={handleQrPaymentSuccess}
+                onTimeout={handleQrTimeout}
+                onClose={handleQrClose}
+            />
+
             <Dialog title={`Chi tiết đơn hàng: ${selectedOrder?.orderCode}`} isOpen={isOrderDetailsOpen} onClose={handleCloseDetailsModal} withoutFooter>
                 {selectedOrder && (
                     <Box className="!space-y-4">
@@ -192,9 +239,16 @@ const UserOrders: React.FunctionComponent = () => {
                                 />
                             </Box>
                             <Box>
-                                <Text margin={[0, 0, 8, 0]} fontWeight="semibold" color="#6a7282" titleText="Trạng thái" />
-                                {getStatusTag(selectedOrder.orderStatus)}
+                                <Text margin={[0, 0, 8, 0]} fontWeight="semibold" color="#6a7282" titleText="Phương thức thanh toán" />
+                                {getPaymentMethod(selectedOrder.paymentMethod)}
                             </Box>
+                        </Flex>
+                        <Flex align="center" justify="space-between">
+                            <Box>
+                                <Text margin={[0, 0, 8, 0]} fontWeight="semibold" color="#6a7282" titleText="Trạng thái" />
+                                {getStatusTag(selectedOrder.orderStatus, selectedOrder.paymentStatus)}
+                            </Box>
+                            {selectedOrder.qrUrl && <BaseButton className="w-32.5" displayText="Thanh toán" onClick={() => setState({ isOpenPaymentModal: true })} />}
                         </Flex>
                         <Box className="!space-y-3 max-h-[300px] overflow-y-auto custom-scrollbar">
                             <Text margin={[0, 0, 8, 0]} fontWeight="semibold" color="#6a7282" titleText="Các sản phẩm" />
