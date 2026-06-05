@@ -23,7 +23,7 @@ const UserInformationShimmer = () => {
                 <Box className="h-4 w-32 bg-gray-200 rounded-xs animate-pulse" />
             </Box>
             <Flex gap={16} className="flex-col lg:flex-row items-start lg:items-center justify-start">
-                <Box className="w-full sm:w-[400px] h-10 bg-gray-200 rounded-lg! animate-pulse" />
+                <Box className="w-full sm:w-100 h-10 bg-gray-200 rounded-lg! animate-pulse" />
             </Flex>
         </Box>
     );
@@ -283,7 +283,7 @@ const UserInformation: React.FunctionComponent = () => {
         if (avatarFile!?.originFileObj) return null;
         setState({ isUploadingAvatar: true });
         try {
-            const cloudinaryResponse = await uploadToCloudinary(avatarFile.originFileObj, "avatars");
+            const cloudinaryResponse = await uploadToCloudinary(avatarFile?.originFileObj!, "avatars");
             const cloudinaryUrl = cloudinaryResponse.url;
             setState({ isUploadingAvatar: false, avatarUrl: cloudinaryUrl });
             return cloudinaryUrl;
