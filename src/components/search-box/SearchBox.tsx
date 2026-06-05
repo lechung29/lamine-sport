@@ -152,12 +152,12 @@ const SearchBox: React.FC<ISearchBoxProps> = (props) => {
 
             <Box
                 ref={contentRef}
-                className={classNames("absolute top-full left-0 w-full min-h-[50px] px-3! pb-3! bg-white shadow-primary z-50 hidden group-focus-within:block!", {
+                className={classNames("absolute top-full left-0 w-full min-h-12.5 px-3! pb-3! bg-white shadow-primary z-50 hidden group-focus-within:block!", {
                     "block!": isFocusedInput || isFocusedContent,
                 })}
             >
                 {isLoading ? (
-                    <Flex align="center" justify="center" className="w-full h-[100px]">
+                    <Flex align="center" justify="center" className="w-full h-25">
                         <Spin size="default" />
                     </Flex>
                 ) : recentSearchList.length > 0 || topSearchList.length > 0 ? (

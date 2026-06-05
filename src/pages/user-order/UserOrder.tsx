@@ -101,6 +101,7 @@ const UserOrders: React.FunctionComponent = () => {
             const data = await OrderService.cancelOrder(orderToCancel!);
             if (data.status === IResponseStatus.Success) {
                 notify.success(data.message);
+                setDependencyReload((prev) => !prev);
             } else {
                 notify.error(data.message);
             }
@@ -250,7 +251,7 @@ const UserOrders: React.FunctionComponent = () => {
                             </Box>
                             {selectedOrder.qrUrl && <BaseButton className="w-32.5" displayText="Thanh toán" onClick={() => setState({ isOpenPaymentModal: true })} />}
                         </Flex>
-                        <Box className="space-y-3! max-h-[300px] overflow-y-auto custom-scrollbar">
+                        <Box className="space-y-3! max-h-75 overflow-y-auto custom-scrollbar">
                             <Text margin={[0, 0, 8, 0]} fontWeight="semibold" color="#6a7282" titleText="Các sản phẩm" />
                             {productsToDisplay?.map((item) => (
                                 <Box

@@ -198,11 +198,11 @@ const Setting: React.FunctionComponent = () => {
     };
 
     return (
-        <Flex vertical className="bg-transparent flex-grow min-h-full">
+        <Flex vertical className="bg-transparent grow min-h-full">
             <Box margin={[0, 0, 24, 0]}>
                 <Text className="text-gray-900!" size="2xl" fontWeight="bold" titleText="Quản trị viên" margin={[0, 0, 16, 0]} />
             </Box>
-            <Container bgColor="white" className="flex-grow rounded-lg! shadow-xs!" padding={[24, 24, 24, 24]}>
+            <Container bgColor="white" className="grow rounded-lg! shadow-xs!" padding={[24, 24, 24, 24]}>
                 <Flex align="center" justify="space-between" wrap="wrap" gap="middle" className="mb-6! sm:flex-col! sm:items-start! md:flex-row! md:items-center!">
                     <Title level={4} className="mb-0! sm:mb-4! md:mb-0!">
                         Cài đặt hệ thống
@@ -210,7 +210,7 @@ const Setting: React.FunctionComponent = () => {
                 </Flex>
 
                 {isLoading ? (
-                    <Flex align="center" justify="center" className="min-h-[300px]">
+                    <Flex align="center" justify="center" className="min-h-75">
                         <Spin indicator={<LoadingOutlined style={{ fontSize: 48 }} spin />} />
                     </Flex>
                 ) : (

@@ -194,7 +194,7 @@ const Login: React.FunctionComponent = () => {
                         name="email"
                         placeholder="Email"
                         type="text"
-                        isError={!emailError!}
+                        isError={!!emailError}
                         value={email}
                         disabled={isSubmitting}
                         onChange={onChangeInput}
@@ -208,7 +208,7 @@ const Login: React.FunctionComponent = () => {
                         name="password"
                         placeholder="Mật khẩu"
                         type={isShowPassword ? "text" : "password"}
-                        isError={!passwordError!}
+                        isError={!!passwordError}
                         value={password}
                         disabled={isSubmitting}
                         rightIcon={showPasswordIcon}

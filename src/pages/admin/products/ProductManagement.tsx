@@ -122,7 +122,7 @@ const ProductManagement: React.FunctionComponent = () => {
                         onSearch={handleSearch}
                         value={searchText}
                         onChange={(e) => setState({ searchText: e.target.value })}
-                        className="w-full max-w-[300px]"
+                        className="w-full max-w-75"
                         size="middle"
                         disabled={isLoading}
                     />
@@ -146,13 +146,13 @@ const ProductManagement: React.FunctionComponent = () => {
             </Container>
 
             {isLoading ? (
-                <Flex align="center" justify="center" className="min-h-[300px]">
+                <Flex align="center" justify="center" className="min-h-75">
                     <Spin indicator={<LoadingOutlined style={{ fontSize: 48 }} spin />} />
                 </Flex>
             ) : (
                 <>
                     <Container
-                        className="min-h-[300px] grid grid-cols-1 min-[500px]:grid-cols-2 min-[700px]:grid-cols-3 md:grid-cols-2 lg:grid-cols-3 gap-6! rounded-lg!"
+                        className="min-h-75 grid grid-cols-1 min-[500px]:grid-cols-2 min-[700px]:grid-cols-3 md:grid-cols-2 lg:grid-cols-3 gap-6! rounded-lg!"
                         margin={[0, 0, 32, 0]}
                         padding={[16, 16, 16, 16]}
                     >

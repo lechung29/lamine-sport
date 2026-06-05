@@ -12,7 +12,7 @@ const Home: React.FunctionComponent = () => {
             <Box margin={[0, 0, 30, 0]}>
                 <Carousel />
             </Box>
-            <Box className="w-full px-8! md:px-[45px]! py-7.5!">
+            <Box className="w-full px-8! md:px-11.25! py-7.5!">
                 <SportTypeCarousel />
             </Box>
             {!isHiddenFlashSale && (
@@ -20,7 +20,7 @@ const Home: React.FunctionComponent = () => {
                     <FlashSaleList setHidden={setIsHiddenFlashSale} />
                 </Box>
             )}
-            <Box className="w-full px-8! md:px-[45px]! py-7.5!">
+            <Box className="w-full px-8! md:px-11.25! py-7.5!">
                 <BestSellerList />
             </Box>
             {!isHiddenMenList && (

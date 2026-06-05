@@ -198,7 +198,7 @@ const MenuPanel: React.FC<MenuPanelProps> = ({ isOpen, onClose }) => {
         <Link
             key={key}
             className={classNames("flex items-center justify-center gap-1.5 text-[#333] hover:text-[#333]!", {
-                "flex-col py-[10px]!": isMobile,
+                "flex-col py-2.5!": isMobile,
             })}
             to={linkItem.to}
         >
@@ -230,7 +230,7 @@ const MenuPanel: React.FC<MenuPanelProps> = ({ isOpen, onClose }) => {
                     </Box>
                 </Box>
 
-                <Flex align="center" justify="space-between" className="w-full min-h-16 absolute bottom-0 left-0 right-0 bg-[#e1e1e1] px-[10px]!">
+                <Flex align="center" justify="space-between" className="w-full min-h-16 absolute bottom-0 left-0 right-0 bg-[#e1e1e1] px-2.5!">
                     {panelBottomLink.map((link, index) => renderContactLink(link, index.toString()))}
                 </Flex>
             </Flex>

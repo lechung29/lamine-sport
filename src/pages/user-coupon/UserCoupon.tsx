@@ -124,7 +124,7 @@ const UserCoupon: React.FunctionComponent = () => {
                     />
                     <BaseButton
                         padding={[10, 24, 10, 24]}
-                        className="w-full! sm:w-auto! rounded-lg! flex-shrink-0 disabled:bg-gray-500! disabled:text-gray-200!"
+                        className="w-full! sm:w-auto! rounded-lg! shrink-0 disabled:bg-gray-500! disabled:text-gray-200!"
                         disabled={isLoading}
                         onClick={async () => {
                             setState({ searchValue: searchText });
@@ -161,7 +161,7 @@ const UserCoupon: React.FunctionComponent = () => {
             {isLoading ? (
                 <Box margin={[0, 12, 0, 12]} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                     {Array.from({ length: pageSize }).map((_, index) => (
-                        <Skeleton key={index} active paragraph={{ rows: 3 }} className="p-4! bg-[#fff]! rounded-xl! border border-gray-200 shadow-xs" />
+                        <Skeleton key={index} active paragraph={{ rows: 3 }} className="p-4! bg-white! rounded-xl! border border-gray-200 shadow-xs" />
                     ))}
                 </Box>
             ) : (

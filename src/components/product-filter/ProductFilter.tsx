@@ -54,7 +54,7 @@ const ProductFilter: React.FunctionComponent<IProductFilterProps> = (props) => {
     };
 
     return (
-        <Container margin={[0, 0, 30, 0]} className="h-auto border-1! border-[#eee]!">
+        <Container margin={[0, 0, 30, 0]} className="h-auto border! border-[#eee]!">
             <Box bgColor="#eee" padding={[10, 10, 10, 10]} margin={[0, 0, 10, 0]}>
                 <Flex align="center" gap={8}>
                     <Image width="24px" height="24px" src="https://img.icons8.com/badges/48/sorting-options.png" alt="filter-icons" />

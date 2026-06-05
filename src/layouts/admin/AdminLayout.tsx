@@ -55,7 +55,7 @@ const Navbar: React.FunctionComponent<{ toggleSidebar: () => void }> = ({ toggle
                         onClick={toggleSidebar}
                     />
                 </Box>
-                <Box className="flex-shrink-0!">
+                <Box className="shrink-0!">
                     <Image clickable height="48px" src={SUB_LOGO_URL} alt="app-logo" className="object-cover" onClick={() => navigate("/")} />
                 </Box>
             </Flex>
@@ -139,7 +139,7 @@ const AdminLayout: React.FunctionComponent = () => {
 
     return (
         <Flex vertical className="h-screen bg-[#e7e7e3]">
-            <Flex align="center" justify="space-between" className="w-full h-16 flex-shrink-0 px-4! md:px-6! bg-white shadow-md z-10">
+            <Flex align="center" justify="space-between" className="w-full h-16 shrink-0 px-4! md:px-6! bg-white shadow-md z-10">
                 <Navbar toggleSidebar={toggleSidebar} />
             </Flex>
 
@@ -147,7 +147,7 @@ const AdminLayout: React.FunctionComponent = () => {
                 <Container
                     bgColor="white"
                     className={classNames(
-                        "h-screen w-64! fixed top-0 left-0 overflow-y-auto transition-transform duration-300 z-50 md:h-auto md:w-64! md:flex-shrink-0 md:block md:static md:translate-x-0 md:z-auto ",
+                        "h-screen w-64! fixed top-0 left-0 overflow-y-auto transition-transform duration-300 z-50 md:h-auto md:w-64! md:shrink-0 md:block md:static md:translate-x-0 md:z-auto ",
                         {
                             "translate-x-0": sidebarVisible,
                         },

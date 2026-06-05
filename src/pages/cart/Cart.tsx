@@ -59,7 +59,7 @@ const Cart: React.FunctionComponent = () => {
     return (
         <Container>
             <Breadcrumbs />
-            <Container className="h-auto px-4! sm:px-8! lg:px-[45px]!">
+            <Container className="h-auto px-4! sm:px-8! lg:px-11.25!">
                 <Text size="lg" textTransform="uppercase" fontWeight="semibold" padding={[10, 0, 10, 0]} titleText="Giỏ hàng của bạn" />
                 {cartList.length > 0 ? (
                     <Flex wrap className="mb-10!">
@@ -80,7 +80,7 @@ const Cart: React.FunctionComponent = () => {
                                 </Collapse>
                             ) : (
                                 <Container className="scroll-horizontal">
-                                    <Box className="min-w-[700px] border! border-[#eee]!">
+                                    <Box className="min-w-175 border! border-[#eee]!">
                                         <Flex align="center" justify="center" className="px-2! py-2.5! bg-[#eee]">
                                             <Text textTransform="uppercase" fontWeight="semibold" className="flex-1" titleText="Thông tin sản phẩm" />
                                             <Text textTransform="uppercase" fontWeight="semibold" className="w-30" titleText="Đơn giá" />

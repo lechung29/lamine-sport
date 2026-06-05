@@ -17,7 +17,7 @@ interface ISportTypeItemProps {
 const SportTypeItem: React.FunctionComponent<ISportTypeItemProps> = (props) => {
     const { label, imgSrc, value, productCount } = props;
     return (
-        <Container bgColor="transparent" className="lex-shrink-0 max-w-[140px] group overflow-hidden cursor-pointer">
+        <Container bgColor="transparent" className="lex-shrink-0 max-w-35 group overflow-hidden cursor-pointer">
             <Box bgColor="#ebeced" className="sm:p-5! clip-custom-shape" margin={[0, 0, 4, 0]} padding={[16, 16, 16, 16]}>
                 <Box className="relative">
                     <Image clickable objectFit="cover" width="100%" height="100%" src={imgSrc} alt="product" className="group-hover:scale-110 transition-all duration-200" />

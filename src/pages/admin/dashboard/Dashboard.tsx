@@ -150,12 +150,12 @@ const Dashboard: React.FunctionComponent = () => {
     };
 
     return (
-        <Flex vertical className="bg-transparent flex-grow min-h-full">
+        <Flex vertical className="bg-transparent grow min-h-full">
             <Box margin={[0, 0, 24, 0]}>
                 <TextBase className="text-gray-900!" size="2xl" fontWeight="bold" titleText="Dashboard" margin={[0, 0, 16, 0]} />
             </Box>
             {loading ? (
-                <Flex align="center" justify="center" className="min-h-[300px]">
+                <Flex align="center" justify="center" className="min-h-75">
                     <Spin indicator={<LoadingOutlined style={{ fontSize: 48 }} spin />} />
                 </Flex>
             ) : info ? (
@@ -165,10 +165,10 @@ const Dashboard: React.FunctionComponent = () => {
                             <Col key={index} xs={24} sm={12} lg={6}>
                                 <Card className="rounded-lg! shadow-xs! h-full" style={{ borderLeft: `5px solid ${card.color}` }}>
                                     <Flex justify="space-between" align="flex-start" className="h-full!">
-                                        <Flex vertical className="flex-grow pr-2!">
+                                        <Flex vertical className="grow pr-2!">
                                             <Tooltip title={card.title} placement="topLeft">
                                                 <Paragraph
-                                                    className="text-sm text-gray-500 font-normal mb-1! h-[44px] overflow-hidden"
+                                                    className="text-sm text-gray-500 font-normal mb-1! h-11 overflow-hidden"
                                                     ellipsis={{ rows: 2, expandable: false, symbol: "..." }}
                                                     style={{ lineHeight: "22px" }}
                                                 >
@@ -180,13 +180,13 @@ const Dashboard: React.FunctionComponent = () => {
                                                 <Tag
                                                     color={card.changeType === "increase" ? "green" : "red"}
                                                     icon={card.changeType === "increase" ? <RiseOutlined /> : <FallOutlined />}
-                                                    className="min-w-[60px]! text-center"
+                                                    className="min-w-15! text-center"
                                                 >
                                                     {card.change}
                                                 </Tag>
                                             )}
                                         </Flex>
-                                        <Box padding={[12, 12, 12, 12]} className="rounded-full! text-white flex-shrink-0! self-center" style={{ backgroundColor: card.color, fontSize: "24px" }}>
+                                        <Box padding={[12, 12, 12, 12]} className="rounded-full! text-white shrink-0! self-center" style={{ backgroundColor: card.color, fontSize: "24px" }}>
                                             {card.icon}
                                         </Box>
                                     </Flex>
@@ -227,7 +227,7 @@ const Dashboard: React.FunctionComponent = () => {
                                         </LineChart>
                                     </ResponsiveContainer>
                                 ) : (
-                                    <Flex align="center" justify="center" className="h-[300px] text-gray-400">
+                                    <Flex align="center" justify="center" className="h-75 text-gray-400">
                                         <Text>Chưa có dữ liệu doanh số</Text>
                                     </Flex>
                                 )}
@@ -267,7 +267,7 @@ const Dashboard: React.FunctionComponent = () => {
                                         </PieChart>
                                     </ResponsiveContainer>
                                 ) : (
-                                    <Flex align="center" justify="center" className="h-[300px] text-gray-400">
+                                    <Flex align="center" justify="center" className="h-75 text-gray-400">
                                         <Text>Chưa có dữ liệu sản phẩm</Text>
                                     </Flex>
                                 )}
@@ -277,7 +277,7 @@ const Dashboard: React.FunctionComponent = () => {
                 </>
             ) : (
                 !loading && (
-                    <Flex align="center" justify="center" className="min-h-[300px] text-gray-500">
+                    <Flex align="center" justify="center" className="min-h-75 text-gray-500">
                         <Text>Không có dữ liệu để hiển thị.</Text>
                     </Flex>
                 )

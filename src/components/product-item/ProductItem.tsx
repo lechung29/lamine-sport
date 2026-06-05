@@ -89,7 +89,7 @@ const ProductItem: React.FunctionComponent<IProductItemProps> = (props) => {
 
     return (
         <>
-            <Container bgColor="white" className="relative min-h-[440px] border! border-[#00000020]! overflow-hidden group hover:shadow-lg!">
+            <Container bgColor="white" className="relative min-h-110 border! border-[#00000020]! overflow-hidden group hover:shadow-lg!">
                 <Flex vertical justify="flex-start" className="h-full! pb-2!">
                     {salePercent > 0 && (
                         <Text
@@ -143,7 +143,7 @@ const ProductItem: React.FunctionComponent<IProductItemProps> = (props) => {
                     <Box className="h-12">
                         <TooltipLabel
                             width="full"
-                            className="flex-1 px-[10px]! text-base cursor-pointer hover:text-[#77e322]!"
+                            className="flex-1 px-2.5! text-base cursor-pointer hover:text-[#77e322]!"
                             text={productItem.productName}
                             lineDisplayed={2}
                             onClick={() => navigate(`/product/${productItem._id}`)}

@@ -66,7 +66,7 @@ const Footer: React.FunctionComponent = () => {
     );
     return (
         <Flex gap={16} className="flex-wrap">
-            <Flex vertical align="flex-start" justify="flex-start" className="flex-1 min-w-[230px] p-2! order-1">
+            <Flex vertical align="flex-start" justify="flex-start" className="flex-1 min-w-57.5 p-2! order-1">
                 <Image src={SUB_LOGO_URL} alt="app-logo" objectFit="cover" clickable height={64} onClick={() => navigate("/")} />
                 <Text margin={[0, 0, 16, 0]} size="base" color="#333" titleText={FOOTER_SHOP_DES} />
                 <Flex align="center" justify="flex-start" gap={8}>
@@ -75,7 +75,7 @@ const Footer: React.FunctionComponent = () => {
                     ))}
                 </Flex>
             </Flex>
-            <Flex vertical align="flex-start" justify="flex-start" className="flex-1 min-w-[150px] p-2! order-2">
+            <Flex vertical align="flex-start" justify="flex-start" className="flex-1 min-w-37.5 p-2! order-2">
                 <Text padding={[16, 0, 16, 0]} fontWeight="semibold" textTransform="uppercase" size="xl" color="#333" titleText="Chính sách" />
                 <Link to={"/policy/purchasing"} className="text-[#333] text-base hover:text-[#77e322]! mb-2.5!">
                     Chính sách mua hàng
@@ -96,7 +96,7 @@ const Footer: React.FunctionComponent = () => {
                     Cam kết cửa hàng
                 </Link>
             </Flex>
-            <Flex vertical align="flex-start" justify="flex-start" className="flex-1 min-w-[150px] p-2! order-3">
+            <Flex vertical align="flex-start" justify="flex-start" className="flex-1 min-w-37.5 p-2! order-3">
                 <Text padding={[16, 0, 16, 0]} fontWeight="semibold" textTransform="uppercase" size="xl" color="#333" titleText="Hướng dẫn" />
                 <Link to={"/instruction/purchasing"} className="text-[#333] text-base hover:text-[#77e322]! mb-2.5!">
                     Hướng dẫn mua hàng
@@ -115,7 +115,7 @@ const Footer: React.FunctionComponent = () => {
                 </Link>
             </Flex>
 
-            <Flex vertical align="flex-start" justify="flex-start" className="flex-1 min-w-[200px] p-2! order-4 sm:order-5!">
+            <Flex vertical align="flex-start" justify="flex-start" className="flex-1 min-w-50 p-2! order-4 sm:order-5!">
                 <Text padding={[16, 0, 16, 0]} fontWeight="semibold" textTransform="uppercase" size="xl" color="#333" titleText="Hỗ trợ thanh toán" />
                 <Flex align="center" justify="flex-start" wrap gap={8} className="w-full">
                     {payMethodButtonItem.map((item) => (
@@ -123,7 +123,7 @@ const Footer: React.FunctionComponent = () => {
                     ))}
                 </Flex>
             </Flex>
-            <Flex vertical align="flex-start" justify="flex-start" className="flex-1 min-w-[300px] p-2! order-last sm:order-4">
+            <Flex vertical align="flex-start" justify="flex-start" className="flex-1 min-w-75 p-2! order-last sm:order-4">
                 <Text padding={[16, 0, 16, 0]} fontWeight="semibold" textTransform="uppercase" size="xl" color="#333" titleText="Liên hệ" />
                 <Box className="text-[#333] mb-1!">
                     <Text size="base" as="span" fontWeight="semibold" titleText="Địa chỉ: " />

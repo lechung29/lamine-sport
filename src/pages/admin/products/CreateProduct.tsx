@@ -684,7 +684,7 @@ const CreateProduct: React.FunctionComponent = () => {
                         <Box
                             key={file.uid}
                             className={classNames(
-                                "relative flex-shrink-0 w-40 h-32 rounded-lg! overflow-hidden cursor-pointer border-2! hover:border-blue-400! transition-all!",
+                                "relative shrink-0 w-40 h-32 rounded-lg! overflow-hidden cursor-pointer border-2! hover:border-blue-400! transition-all!",
                                 {
                                     "border-blue-500! shadow-lg!": file.uid === primaryImageUid,
                                 },
@@ -1047,7 +1047,7 @@ const CreateProduct: React.FunctionComponent = () => {
                                                     <Box
                                                         key={file.uid}
                                                         className={classNames(
-                                                            "relative flex-shrink-0 w-32 h-32 rounded-lg! overflow-hidden cursor-pointer border-2! hover:border-blue-400! transition-all",
+                                                            "relative shrink-0 w-32 h-32 rounded-lg! overflow-hidden cursor-pointer border-2! hover:border-blue-400! transition-all",
                                                             {
                                                                 "border-blue-500! shadow-lg!": file.uid === primaryImageUid,
                                                             },
@@ -1132,7 +1132,7 @@ const CreateProduct: React.FunctionComponent = () => {
                                         <Box key={color.id} padding={[16, 16, 16, 16]} className="bg-gray-50 rounded-lg!">
                                             <Flex align="center" justify="space-between" gap={16} className="mb-4! flex-wrap">
                                                 <Flex align="center" gap={12}>
-                                                    <Box className="flex-shrink-0 w-8 h-8 rounded-full! border-2! border-gray-300!" bgColor={color.hex} />
+                                                    <Box className="shrink-0 w-8 h-8 rounded-full! border-2! border-gray-300!" bgColor={color.hex} />
                                                     <Text as="p" fontWeight="medium" size="base" className="text-gray-900" titleText={color.name} />
                                                 </Flex>
                                                 <Text as="p" textAlign="center" size="sm" className="text-gray-500" titleText={`Số lượng: ${color.quantity}`} />

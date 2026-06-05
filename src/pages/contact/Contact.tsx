@@ -121,7 +121,7 @@ const Contact: React.FunctionComponent = () => {
         <Container className="w-full min-h-screen">
             <Breadcrumbs />
 
-            <Container className="px-8! lg:px-[45px]! py-6!">
+            <Container className="px-8! lg:px-11.25! py-6!">
                 <Text margin={[0, 0, 15, 0]} size="xl" fontWeight="bold" textTransform="uppercase" className="text-gray-900" titleText="Liện hệ với chúng tôi" />
                 <Flex gap={32} className="flex-col lg:flex-row">
                     <Box className="w-full lg:w-2/5">
@@ -222,7 +222,7 @@ const Contact: React.FunctionComponent = () => {
                         </Flex>
                         <Flex align="center" justify="flex-end">
                             <BaseButton
-                                className="max-w-[200px]"
+                                className="max-w-50"
                                 children="Gửi đánh giá"
                                 width="full"
                                 skewPercent={5}

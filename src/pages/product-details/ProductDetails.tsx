@@ -56,7 +56,7 @@ const ProductDetails: React.FunctionComponent = () => {
     ) : product ? (
         <Container>
             <Breadcrumbs />
-            <Box className="h-auto px-4! sm:px-8! lg:px-[45px]!">
+            <Box className="h-auto px-4! sm:px-8! lg:px-11.25!">
                 <Flex wrap className="mb-10! max-md:gap-8">
                     <Box className="w-full md:pr-4! md:w-1/2! lg:w-3/8!">
                         <ProductPhotoView photoList={getImageList()} />

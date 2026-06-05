@@ -18,10 +18,10 @@ const AllStore = () => {
         <div className="w-full! min-h-screen!">
             <Breadcrumbs />
 
-            <div className="px-8! lg:px-[45px]! py-6!">
+            <div className="px-8! lg:px-11.25! py-6!">
                 <h1 className="text-xl! font-bold! text-gray-900! uppercase!">HỆ THỐNG CỬA HÀNG</h1>
             </div>
-            <div className="flex! flex-col! md:flex-row! h-[calc(100vh-200px)]! px-4! sm:px-8! lg:px-[45px]! pb-4! md:py-0! gap-0! md:gap-4!">
+            <div className="flex! flex-col! md:flex-row! h-[calc(100vh-200px)]! px-4! sm:px-8! lg:px-11.25! pb-4! md:py-0! gap-0! md:gap-4!">
                 <div className="w-full! md:w-2/5! bg-[#ededed]! max-h-[calc(100vh-200px) overflow-y-auto! custom-scrollbar pb-0!">
                     <div className="p-0! md:p-4!">
                         <div className="space-y-1! bg-white!">
@@ -36,11 +36,11 @@ const AllStore = () => {
                                     <h3 className="font-semibold! text-gray-900! mb-2!">{store.name}</h3>
                                     <div className="space-y-2!">
                                         <div className="flex! items-start! gap-2!">
-                                            <FaMapPin className="h-4! w-4! text-gray-400! mt-0.5! flex-shrink-0!" />
+                                            <FaMapPin className="h-4! w-4! text-gray-400! mt-0.5! shrink-0!" />
                                             <p className="text-gray-600! text-sm! leading-relaxed!">{store.address}</p>
                                         </div>
                                         <div className="flex! items-center! gap-2!">
-                                            <BsPhone className="h-4! w-4! text-gray-400! flex-shrink-0!" />
+                                            <BsPhone className="h-4! w-4! text-gray-400! shrink-0!" />
                                             <span className="text-gray-600! text-sm!">{store.phone}</span>
                                         </div>
                                     </div>

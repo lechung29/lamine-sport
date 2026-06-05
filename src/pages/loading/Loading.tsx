@@ -58,7 +58,7 @@ const Loading: React.FunctionComponent = () => {
                 </Box>
 
                 <Box className="w-100 mx-auto! bg-gray-200 rounded-full! h-2 overflow-hidden">
-                    <Box className="h-full bg-gradient-to-r from-[#a2ff00] to-[#77e322] rounded-full! animate-pulse-width" />
+                    <Box className="h-full bg-linear-to-r from-[#a2ff00] to-[#77e322] rounded-full! animate-pulse-width" />
                 </Box>
 
                 <Flex align="flex-end" justify="center" className="space-x-2! mt-12!">

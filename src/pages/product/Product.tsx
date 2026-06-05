@@ -96,7 +96,7 @@ const Product: React.FunctionComponent = () => {
     return (
         <Container>
             <Breadcrumbs />
-            <Container padding={[0, 16, 0, 16]} className="h-auto sm:px-8! lg:px-[45px]!">
+            <Container padding={[0, 16, 0, 16]} className="h-auto sm:px-8! lg:px-11.25!">
                 <Box
                     className="h-auto"
                     margin={[0, 0, 20, 0]}

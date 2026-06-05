@@ -35,7 +35,7 @@ const UserManagement: React.FunctionComponent = () => {
     return (
         <Container className="w-full">
             <Breadcrumbs />
-            <Box className="w-full px-4! sm:px-8! lg:px-[45px]! pb-5!">
+            <Box className="w-full px-4! sm:px-8! lg:px-11.25! pb-5!">
                 <Flex className="flex-wrap md:flex-nowrap mb-10! gap-4 md:gap-0">
                     <Box className="w-full md:pr-4! md:w-1/3 xl:w-1/5">
                         <Box className="w-full h-full p-2! py-3! flex flex-row overflow-x-auto whitespace-nowrap md:flex-col md:justify-start gap-2 bg-[#f8f8f8]! rounded-xl!">

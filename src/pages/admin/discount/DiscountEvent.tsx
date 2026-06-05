@@ -237,12 +237,12 @@ const DiscountEvent: React.FunctionComponent = () => {
     };
 
     return (
-        <Flex vertical className="bg-transparent flex-grow min-h-full">
+        <Flex vertical className="bg-transparent grow min-h-full">
             <Box margin={[0, 0, 24, 0]}>
                 <TextBase className="text-gray-900!" size="2xl" fontWeight="bold" titleText="Quản lý ưu đãi hiện hành" margin={[0, 0, 16, 0]} />
             </Box>
 
-            <Container bgColor="white" className="flex-grow rounded-lg! shadow-xs!" padding={[24, 24, 24, 24]}>
+            <Container bgColor="white" className="grow rounded-lg! shadow-xs!" padding={[24, 24, 24, 24]}>
                 <Flex align="center" justify="space-between" wrap="wrap" gap="small" className="mb-6!">
                     <Title level={4} className="mb-0!">
                         {isLoading ? "Đang tải thông tin ưu đãi..." : currentProgram ? "Thông tin chương trình ưu đãi hiện hành" : "Tạo chương trình ưu đãi mới"}
@@ -255,13 +255,13 @@ const DiscountEvent: React.FunctionComponent = () => {
                 </Flex>
 
                 {isLoading ? (
-                    <Flex align="center" justify="center" className="min-h-[300px]">
+                    <Flex align="center" justify="center" className="min-h-75">
                         <Spin indicator={<LoadingOutlined style={{ fontSize: 48 }} spin />} />
                     </Flex>
                 ) : (
                     <>
                         {(!currentProgram || getProgramStatus(currentProgram.status) === "Expired") && !isShowForm ? (
-                            <Card className="p-6! text-center border-dashed! border-2! border-gray-300! min-h-[300px] flex flex-col justify-center items-center">
+                            <Card className="p-6! text-center border-dashed! border-2! border-gray-300! min-h-75 flex flex-col justify-center items-center">
                                 <Text className="block! text-lg! text-gray-600! mb-4!">Chưa có chương trình ưu đãi nào đang hoạt động hoặc sắp diễn ra.</Text>
                                 <Button
                                     type="primary"

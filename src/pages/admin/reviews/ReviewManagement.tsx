@@ -266,7 +266,7 @@ const ReviewManagement: React.FunctionComponent = () => {
                     <Box className="w-full">
                         <Tooltip title={info.comment} placement="topLeft">
                             <Box
-                                className="text-gray-600 text-sm leading-5 overflow-hidden break-words"
+                                className="text-gray-600 text-sm leading-5 overflow-hidden wrap-break-word"
                                 style={{
                                     display: "-webkit-box",
                                     WebkitLineClamp: 2,
@@ -327,11 +327,11 @@ const ReviewManagement: React.FunctionComponent = () => {
     ];
 
     return (
-        <Flex vertical className="bg-transparent flex-grow min-h-full">
+        <Flex vertical className="bg-transparent grow min-h-full">
             <Box margin={[0, 0, 24, 0]}>
                 <TextBase className="text-gray-900!" size="2xl" fontWeight="bold" titleText="Quản lý đánh giá" margin={[0, 0, 16, 0]} />
             </Box>
-            <Container bgColor="white" className="flex-grow rounded-lg! shadow-xs!" padding={[24, 24, 24, 24]}>
+            <Container bgColor="white" className="grow rounded-lg! shadow-xs!" padding={[24, 24, 24, 24]}>
                 <Flex align="center" justify="space-between" wrap="wrap" gap="middle" className="mb-6!">
                     <Input.Search
                         placeholder="Tìm kiếm theo tên hoặc đánh giá"
@@ -339,7 +339,7 @@ const ReviewManagement: React.FunctionComponent = () => {
                         onSearch={handleSearch}
                         value={searchText}
                         onChange={(e) => setState({ searchText: e.target.value })}
-                        className="w-full! max-w-[300px]"
+                        className="w-full! max-w-75"
                         size="middle"
                         disabled={isLoading}
                     />
@@ -347,7 +347,7 @@ const ReviewManagement: React.FunctionComponent = () => {
                 </Flex>
 
                 {isLoading ? (
-                    <Flex align="center" justify="center" className="min-h-[300px]">
+                    <Flex align="center" justify="center" className="min-h-75">
                         <Spin indicator={<LoadingOutlined style={{ fontSize: 48 }} spin />} />
                     </Flex>
                 ) : (

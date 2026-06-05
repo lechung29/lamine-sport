@@ -94,8 +94,8 @@ const SportForMenList: React.FunctionComponent<IListProps> = (props) => {
 
     return (
         <Container bgColor="#002d3a" padding={[30, 0, 30, 0]} className="bg-no-repeat! bg-center! bg-cover! w-full" style={{ backgroundImage: `url(${FLASH_SALE_BG})` }}>
-            <Flex justify="space-between" className="w-full px-4! sm:px-8! lg:px-[45px]! flex-col lg:flex-row items-start lg:items-center gap-6 lg:gap-3">
-                <Flex vertical wrap justify="center" className="w-full lg:w-auto lg:max-w-[280px] lg:shrink-0">
+            <Flex justify="space-between" className="w-full px-4! sm:px-8! lg:px-11.25! flex-col lg:flex-row items-start lg:items-center gap-6 lg:gap-3">
+                <Flex vertical wrap justify="center" className="w-full lg:w-auto lg:max-w-70 lg:shrink-0">
                     <Text
                         textTransform="uppercase"
                         size="4xl"
@@ -130,7 +130,7 @@ const SportForMenList: React.FunctionComponent<IListProps> = (props) => {
                         margin={[16, 0, 0, 0]}
                         padding={[8, 8, 8, 8]}
                         onClick={navigateToProduct}
-                        className="lg:flex hidden w-[150px] items-center justify-center gap-1 text-white! bg-[#002932]! transition-colors duration-300 hover:bg-[#77e322]! hover:text-[black]! [clip-path:polygon(3%_0%,100%_0%,97%_100%,0%_100%)] cursor-pointer"
+                        className="lg:flex hidden w-37.5 items-center justify-center gap-1 text-white! bg-[#002932]! transition-colors duration-300 hover:bg-[#77e322]! hover:text-[black]! [clip-path:polygon(3%_0%,100%_0%,97%_100%,0%_100%)] cursor-pointer"
                     >
                         <Text as="span" fontWeight="semibold" size="base" titleText="Xem tất cả" />
                         <GoArrowRight />
@@ -197,7 +197,7 @@ const SportForMenList: React.FunctionComponent<IListProps> = (props) => {
                         justify="center"
                         gap={4}
                         onClick={navigateToProduct}
-                        className="w-[150px] mt-4! text-white! bg-[#002932]! px-2! py-2! transition-colors duration-300 hover:bg-[#77e322]! hover:text-[black]! [clip-path:polygon(3%_0%,100%_0%,97%_100%,0%_100%)] cursor-pointer"
+                        className="w-37.5 mt-4! text-white! bg-[#002932]! px-2! py-2! transition-colors duration-300 hover:bg-[#77e322]! hover:text-[black]! [clip-path:polygon(3%_0%,100%_0%,97%_100%,0%_100%)] cursor-pointer"
                     >
                         <Text as="span" fontWeight="semibold" size="base" titleText="Xem tất cả" />
                         <GoArrowRight />

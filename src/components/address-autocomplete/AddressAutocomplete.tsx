@@ -1,7 +1,7 @@
 /** @format */
 
 import React from "react";
-import { Spin } from "antd";
+import { Input, Spin } from "antd";
 import { MdLocationOn } from "react-icons/md";
 
 
@@ -28,7 +28,7 @@ const GOONG_AUTOCOMPLETE_URL = "https://rsapi.goong.io/Place/AutoComplete";
 const DEBOUNCE_MS = 300;
 const MIN_CHARS = 2;
 
-const AddressAutocomplete: React.FunctionComponent<AddressAutocompleteProps> = ({ value, onChange, placeholder = "Địa chỉ nhận hàng", className = "", size = "large", apiKey }) => {
+const AddressAutocomplete: React.FunctionComponent<AddressAutocompleteProps> = ({ value, onChange, placeholder = "Địa chỉ nhận hàng", className = "", apiKey }) => {
     const resolvedKey = apiKey ?? (import.meta as any).env?.VITE_GOONG_API_KEY ?? "";
 
     const [inputValue, setInputValue] = React.useState<string>(value);
@@ -131,28 +131,14 @@ const AddressAutocomplete: React.FunctionComponent<AddressAutocompleteProps> = (
         }
     };
 
-    const handleClear = () => {
-        setInputValue("");
-        onChange("");
-        setPredictions([]);
-        setIsOpen(false);
-    };
-    const sizeClass = size === "large" ? "h-10 text-sm px-3" : size === "small" ? "h-6 text-xs px-2" : "h-8 text-sm px-3";
-
     return (
         <div ref={containerRef} className={`relative w-full mt-3! ${className}`}>
             <div
                 className={`
                     flex items-center gap-2
-                    w-full ${sizeClass}
-                    border border-[#d9d9d9] rounded-md bg-white
-                    transition-all duration-200
-                    focus-within:border-[#4096ff] focus-within:shadow-[0_0_0_2px_rgba(5,145,255,0.1)]
-                    hover:border-[#4096ff]
                 `}
             >
-                <input
-                    type="text"
+                <Input
                     value={inputValue}
                     onChange={handleInputChange}
                     onKeyDown={handleKeyDown}
@@ -160,30 +146,20 @@ const AddressAutocomplete: React.FunctionComponent<AddressAutocompleteProps> = (
                         if (predictions.length > 0) setIsOpen(true);
                     }}
                     placeholder={placeholder}
-                    autoComplete="off"
-                    className="flex-1 outline-none border-none bg-transparent text-[#333] placeholder-[#bfbfbf] min-w-0"
+                    allowClear
+                    size="large"
                 />
                 {isLoading && <Spin size="small" />}
-                {inputValue && !isLoading && (
-                    <button
-                        type="button"
-                        onClick={handleClear}
-                        className="text-[#bfbfbf] hover:text-[#888] transition-colors text-base leading-none shrink-0 cursor-pointer bg-transparent border-none p-0"
-                        tabIndex={-1}
-                    >
-                        ✕
-                    </button>
-                )}
             </div>
             {isOpen && predictions.length > 0 && (
                 <ul
                     className="
-                        absolute z-9999 w-full mt-1
+                        absolute z-9999 w-full mt-1!
                         bg-white border border-[#e8e8e8] rounded-md
                         shadow-[0_6px_16px_rgba(0,0,0,0.12)]
                         max-h-72 overflow-y-auto
-                        py-1
-                        list-none m-0 p-0
+                        py-1!
+                        list-none m-0! p-0!
                     "
                 >
                     {predictions.map((pred, idx) => (
@@ -192,7 +168,7 @@ const AddressAutocomplete: React.FunctionComponent<AddressAutocompleteProps> = (
                             onMouseDown={() => handleSelect(pred)}
                             onMouseEnter={() => setActiveIndex(idx)}
                             className={`
-                                flex items-start gap-2.5 px-3 py-2.5 cursor-pointer
+                                flex items-start gap-2.5 px-3! py-1.5! cursor-pointer
                                 transition-colors duration-100
                                 ${activeIndex === idx ? "bg-[#e6f4ff]" : "hover:bg-[#f5f5f5]"}
                             `}

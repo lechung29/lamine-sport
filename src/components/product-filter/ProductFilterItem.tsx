@@ -22,7 +22,7 @@ const ProductFilterItem: React.FC<IProductFilterItemProps> = (props) => {
     };
 
     return (
-        <Box padding={[16, 0, 24, 0]} className="border-b-1! border-[#eee]!">
+        <Box padding={[16, 0, 24, 0]} className="border-b! border-[#eee]!">
             {label && <Text fontWeight="bold" textTransform="uppercase" margin={[0, 0, 12, 0]} titleText={label} />}
             <Checkbox.Group className="filter-checkbox-group-wrapper" options={filterOptions} value={filterValue} onChange={onChangeFilter} />
         </Box>

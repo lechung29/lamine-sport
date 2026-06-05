@@ -229,8 +229,8 @@ const OrderDetail: React.FunctionComponent = () => {
     ];
 
     return (
-        <Flex vertical className="flex-grow w-full min-h-full">
-            <Container bgColor="transparent" margin={[0, 0, 12, 0]} className="flex-shrink-0">
+        <Flex vertical className="grow w-full min-h-full">
+            <Container bgColor="transparent" margin={[0, 0, 12, 0]} className="shrink-0">
                 <Flex align="center" justify="space-between">
                     <Box>
                         <Text className="text-gray-900!" size="2xl" fontWeight="bold" titleText="Chi tiết đơn hàng" margin={[0, 0, 12, 0]} />
@@ -239,7 +239,7 @@ const OrderDetail: React.FunctionComponent = () => {
             </Container>
 
             {isLoading ? (
-                <Flex align="center" justify="center" className="min-h-[300px]">
+                <Flex align="center" justify="center" className="min-h-75">
                     <Spin indicator={<LoadingOutlined style={{ fontSize: 48 }} spin />} />
                 </Flex>
             ) : (
@@ -312,7 +312,7 @@ const OrderDetail: React.FunctionComponent = () => {
                             </Box>
                         </Box>
                     </Box>
-                    <Container bgColor="transparent" className="grid grid-cols-1 lg:grid-cols-3 gap-6 flex-grow">
+                    <Container bgColor="transparent" className="grid grid-cols-1 lg:grid-cols-3 gap-6 grow">
                         <Box bgColor="white" padding={[24, 24, 24, 24]} className="rounded-lg! shadow-xs! border! border-gray-200!">
                             <Text size="lg" fontWeight="semibold" margin={[0, 0, 16, 0]} className="text-gray-900!" titleText="Thông tin khách hàng" />
                             <Box className="space-y-4!">
@@ -367,10 +367,10 @@ const OrderDetail: React.FunctionComponent = () => {
                             </Box>
                         </Box>
                     </Container>
-                    <Flex vertical className="mt-8! flex-grow">
-                        <Box className="grid grid-cols-1 lg:grid-cols-3 gap-6 w-full flex-grow">
+                    <Flex vertical className="mt-8! grow">
+                        <Box className="grid grid-cols-1 lg:grid-cols-3 gap-6 w-full grow">
                             <Box className="lg:col-span-2 flex flex-col">
-                                <Box bgColor="white" padding={[24, 24, 24, 24]} className="rounded-lg! shadow-xs! border! border-gray-200! flex-grow overflow-auto">
+                                <Box bgColor="white" padding={[24, 24, 24, 24]} className="rounded-lg! shadow-xs! border! border-gray-200! grow overflow-auto">
                                     <Table columns={productColumns} dataSource={getItemToShow().map((item) => ({...item, key: item.product._id}))} pagination={false} className="custom-table mb-2!" size="middle" scroll={{ x: "max-content" }} />
                                     {orderInfo?.orderItems && orderInfo?.orderItems.length > 0 && (
                                         <Flex justify="end">
@@ -388,7 +388,7 @@ const OrderDetail: React.FunctionComponent = () => {
                                     )}
                                 </Box>
                             </Box>
-                            <Box bgColor="white" padding={[24, 24, 24, 24]} className="rounded-lg! shadow-xs! border! border-gray-200! flex-shrink-0">
+                            <Box bgColor="white" padding={[24, 24, 24, 24]} className="rounded-lg! shadow-xs! border! border-gray-200! shrink-0">
                                 <Text size="lg" fontWeight="semibold" margin={[0, 0, 16, 0]} className="text-gray-900!" titleText="Giá trị đơn hàng" />
                                 <Box className="space-y-3!">
                                     <Flex align="center" justify="space-between">
