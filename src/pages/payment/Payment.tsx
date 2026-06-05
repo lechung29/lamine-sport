@@ -11,7 +11,7 @@ import { FaRegMoneyBillAlt } from "react-icons/fa";
 import { MdChevronLeft } from "react-icons/md";
 import { IoIosCheckmarkCircle } from "react-icons/io";
 import { MdContentCopy } from "react-icons/md";
-import { BaseButton, Box, Container, Image, Text, TooltipLabel } from "@/components";
+import { AddressAutocomplete, BaseButton, Box, Container, Image, Text, TooltipLabel } from "@/components";
 import { useNavigate } from "react-router-dom";
 import { cartState, clearCart, restoreCart, ICartItem, useAppDispatch, useAppSelector, userState } from "@/redux-store";
 import { AccountLockedError, delayTime, formatCurrency, isInputOnlyNumber, UnauthorizedError } from "@/utils";
@@ -148,7 +148,7 @@ const QrPaymentModal: React.FunctionComponent<QrPaymentModalProps> = ({ open, qr
             footer={null}
             centered
             width={420}
-            title={<Text fontWeight="bold" color="#333" size="lg" titleText="Thanh toán QR SePay" />}
+            title={<Text fontWeight="bold" color="#333" size="lg" titleText="Thanh toán QR" />}
             maskClosable={false}
         >
             {isPaid ? (
@@ -488,7 +488,7 @@ const Payment: React.FunctionComponent = () => {
                                 size="large"
                                 placeholder="Số điện thoại nhận hàng"
                             />
-                            <Input value={address} onChange={(e) => setAddress(e.target.value)} className="mt-3!" allowClear size="large" placeholder="Địa chỉ nhận hàng" />
+                            <AddressAutocomplete value={address} onChange={setAddress} placeholder="Địa chỉ nhận hàng" size="large" />
                             <TextArea value={note} onChange={(e) => setNote(e.target.value)} className="mt-3!" rows={4} placeholder="Ghi chú (Tùy chọn)" maxLength={1000} />
                         </Box>
                         <Box padding={[0, 14, 0, 14]} className="w-full lg:w-1/2">
@@ -508,7 +508,7 @@ const Payment: React.FunctionComponent = () => {
                                             name="radiogroup"
                                             value={paymentMethod}
                                             className="gap-2"
-                                            options={[{ value: IOrderPayment.Transfer, label: "Thanh toán QR (SePay)" }]}
+                                            options={[{ value: IOrderPayment.Transfer, label: "Thanh toán QR" }]}
                                         />
                                         <FaRegMoneyBillAlt className="cursor-pointer text-2xl text-[#337ab7]" />
                                     </Flex>
@@ -675,7 +675,7 @@ const Payment: React.FunctionComponent = () => {
                             size="large"
                             placeholder="Số điện thoại"
                         />
-                        <Input value={address} onChange={(e) => setAddress(e.target.value)} className="mt-3!" allowClear size="large" placeholder="Địa chỉ" />
+                        <AddressAutocomplete value={address} onChange={setAddress} placeholder="Địa chỉ" size="large" />
                         <TextArea value={note} onChange={(e) => setNote(e.target.value)} className="mt-3!" rows={4} placeholder="Ghi chú (Tùy chọn)" maxLength={1000} />
                     </Box>
                     <Box padding={[0, 10, 0, 10]}>
@@ -695,7 +695,7 @@ const Payment: React.FunctionComponent = () => {
                                         name="radiogroup"
                                         value={paymentMethod}
                                         className="gap-2"
-                                        options={[{ value: IOrderPayment.Transfer, label: "Thanh toán QR (SePay)" }]}
+                                        options={[{ value: IOrderPayment.Transfer, label: "Thanh toán QR" }]}
                                     />
                                     <FaRegMoneyBillAlt className="cursor-pointer text-2xl text-[#337ab7]" />
                                 </Flex>

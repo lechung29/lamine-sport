@@ -38,3 +38,4 @@ export * from "./product-filter-button";
 export * from "./shimmer";
 export * from "./elements";
 export * from "./expired-dialog";
+export * from "./address-autocomplete";

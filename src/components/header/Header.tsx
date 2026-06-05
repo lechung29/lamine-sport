@@ -24,7 +24,7 @@ const Header: React.FC = () => {
     const navigate = useNavigate();
 
     return (
-        <Container bgColor="transparent" padding={[0, 16, 0, 16]} className="w-full h-full sm:px-8! lg:px-[45px]! flex flex-col justify-center">
+        <Container bgColor="transparent" padding={[0, 16, 0, 16]} className="w-full h-full sm:px-8! lg:px-11.25! flex flex-col justify-center">
             <Flex align="center" justify="space-between" gap={16} className="w-full md:gap-6">
                 <Flex vertical={false} align="center" gap={16} className="h-full md:gap-6">
                     <Box>
@@ -35,7 +35,7 @@ const Header: React.FC = () => {
                     </Link>
                 </Flex>
 
-                <Box className="hidden lg:block flex-grow max-w-xl">
+                <Box className="hidden lg:block grow max-w-xl">
                     <SearchBox device="computer" />
                 </Box>
 
